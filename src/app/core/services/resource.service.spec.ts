@@ -39,11 +39,13 @@ describe('ResourceService', () => {
 
       service.load().subscribe(
         () => {
-          const version = service.getVersion();
+          expect(service.isLoaded()).toBe(true);
+          expect(service.getVersion()).not.toEqual('n.a');
+          expect(service.getLoginUser()).toBeDefined();
           done();
         },
         err => {
-          done.fail();
+          done.fail(err);
         }
       );
     })();
