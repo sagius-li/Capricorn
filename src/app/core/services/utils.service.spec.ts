@@ -23,7 +23,7 @@ describe('UtilsService', () => {
   }));
 
   it('should decrypt message', inject([UtilsService], (service: UtilsService) => {
-    const encryptedText = '2Q6anpt2to0MWinG3nmkXQ==';
+    const encryptedText = 'E5AkXRT0VoCo3JSc0oc81A==';
     const decryptedText = service.Decrypt(encryptedText);
 
     expect(decryptedText).toBeDefined();
