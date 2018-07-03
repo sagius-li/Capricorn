@@ -6,7 +6,6 @@ import * as cryptojs from 'crypto-js';
   providedIn: 'root'
 })
 export class UtilsService {
-
   private iv = '';
 
   constructor() {
@@ -29,17 +28,19 @@ export class UtilsService {
 
   public Encrypt(message: string, key?: string) {
     if (!key) {
-      key = 'Sycqtok2!Rygsec0';
+      key = 'OCGDESecurityAES';
     }
-    return cryptojs.AES.encrypt(message,
-      this.getKey(key), { iv: this.getKey('OCGMobileService') }).toString();
+    return cryptojs.AES.encrypt(message, this.getKey(key), {
+      iv: this.getKey('OCGMobileService')
+    }).toString();
   }
 
   public Decrypt(message: string, key?: string) {
     if (!key) {
-      key = 'Sycqtok2!Rygsec0';
+      key = 'OCGDESecurityAES';
     }
-    return cryptojs.AES.decrypt(message, this.getKey(key),
-      { iv: this.getKey('OCGMobileService') }).toString(cryptojs.enc.Utf8);
+    return cryptojs.AES.decrypt(message, this.getKey(key), {
+      iv: this.getKey('OCGMobileService')
+    }).toString(cryptojs.enc.Utf8);
   }
 }
