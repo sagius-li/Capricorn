@@ -25,10 +25,7 @@ describe('UtilsService', () => {
   it('should decrypt message', inject([UtilsService], (service: UtilsService) => {
     const encryptedText = 'E5AkXRT0VoCo3JSc0oc81A==';
     const decryptedText = service.Decrypt(encryptedText, '');
-
-    expect(decryptedText).toBeDefined();
-    expect(decryptedText).not.toEqual('');
-    expect(decryptedText).not.toEqual(encryptedText);
+    expect(decryptedText).toEqual('PA$$w0rd');
   }));
 
   it('should consistent between encryption and decryption', inject([UtilsService], (service: UtilsService) => {

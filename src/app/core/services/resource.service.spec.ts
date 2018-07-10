@@ -18,12 +18,14 @@ describe('ResourceService', () => {
     configServiceSpy = TestBed.get(ConfigService);
   });
 
-  it('should be created', inject([ResourceService], (service: ResourceService) => {
+  it('should be created', inject(
+    [ResourceService],
+    (service: ResourceService) => {
       expect(service).toBeTruthy();
     }
   ));
 
-  it('should be loaded with windows credential', function (done) {
+  it('should be loaded with windows credential', function(done) {
     inject([ResourceService], (service: ResourceService) => {
       // mock object
       configServiceSpy.getConfig.and.callFake(configKey => {
@@ -41,6 +43,7 @@ describe('ResourceService', () => {
         () => {
           expect(service.isLoaded()).toBe(true);
           expect(service.getVersion()).not.toEqual('n.a');
+          expect(service.getEncryptionKey()).toBeDefined();
           expect(service.getLoginUser()).toBeDefined();
           done();
         },

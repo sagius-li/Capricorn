@@ -15,7 +15,9 @@ export class ResourceService {
 
   private baseUrl = '';
   private version = 'n.a';
+  private encryptionKey = undefined;
   private connection: string = undefined;
+  private adminConnection: string = undefined;
   private authenticationMode = '';
   private loginUserAttributes: string[] = [];
   private loginUser: DSResource = undefined;
@@ -28,8 +30,13 @@ export class ResourceService {
   public load(conn?: string) {
     return new Observable(observer => {
       // get configuration
-      this.baseUrl = this.config.getConfig('dataServiceUrl', '//localhost:6867/api/');
-      this.loginUserAttributes = this.config.getConfig('loginUserAttributes', ['DisplayName']);
+      this.baseUrl = this.config.getConfig(
+        'dataServiceUrl',
+        '//localhost:6867/api/'
+      );
+      this.loginUserAttributes = this.config.getConfig('loginUserAttributes', [
+        'DisplayName'
+      ]);
       // authentication mode
       if (conn) {
         this.connection = conn;
@@ -43,37 +50,58 @@ export class ResourceService {
       this.http.get(urlGetVersion).subscribe(
         versionResponse => {
           this.version = versionResponse as string;
-          // get current login user
-          if (conn) {
-            // using basic authentication
-            const urlGetBasicUser = this.buildUrl('resource/basic', 'get/query');
-            observer.error('not implemented');
-          } else {
-            // using windows authentication
-            const urlGetWindowsUser = this.buildUrl('resource/win', 'get/currentuser');
-            let param: HttpParams = new HttpParams();
-            this.loginUserAttributes.forEach(attribute => {
-              param = param.append('attributesToGet', attribute);
-            });
-            this.http.get(urlGetWindowsUser, { params: param, withCredentials: true }).subscribe(
-              (windowsUser: DSResource) => {
-                this.loginUser = windowsUser;
-                this.loaded = true;
-                observer.next();
-                observer.complete();
-              },
-              getWindowsUserError => {
-                observer.error(getWindowsUserError);
+          // get encryption key
+          const urlGetEncryptionKey = this.buildUrl('generic', 'encryptionkey');
+          this.http.get(urlGetEncryptionKey).subscribe(
+            keyResponse => {
+              this.encryptionKey = keyResponse;
+              // get current login user
+              if (conn) {
+                // using basic authentication
+                const urlGetBasicUser = this.buildUrl(
+                  'resource/basic',
+                  'get/query'
+                );
+                observer.error('not implemented');
+              } else {
+                // using windows authentication
+                const urlGetWindowsUser = this.buildUrl(
+                  'resource/win',
+                  'get/currentuser'
+                );
+                let param: HttpParams = new HttpParams();
+                this.loginUserAttributes.forEach(attribute => {
+                  param = param.append('attributesToGet', attribute);
+                });
+                this.http
+                  .get(urlGetWindowsUser, {
+                    params: param,
+                    withCredentials: true
+                  })
+                  .subscribe(
+                    (windowsUser: DSResource) => {
+                      this.loginUser = windowsUser;
+                      this.loaded = true;
+                      observer.next();
+                      observer.complete();
+                    },
+                    getWindowsUserError => {
+                      observer.error(getWindowsUserError);
+                    }
+                  );
               }
-            );
-          }
+            },
+            keyError => {
+              observer.error(keyError);
+            }
+          );
         },
         versionError => {
           observer.error(versionError);
         }
       );
       // unsubscribe
-      return { unsubscribe() { } };
+      return { unsubscribe() {} };
     });
   }
 
@@ -83,6 +111,10 @@ export class ResourceService {
 
   public getVersion() {
     return this.version;
+  }
+
+  public getEncryptionKey() {
+    return this.encryptionKey;
   }
 
   public getAuthenticationMode() {
