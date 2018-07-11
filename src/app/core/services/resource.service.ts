@@ -158,6 +158,72 @@ export class ResourceService {
     });
   }
 
+  public getResourceByID(
+    id: string,
+    attributesToGet: string[] = null,
+    adminMode = false,
+    includePermission = false,
+    cultureKey: number = 127,
+    resolveID = false,
+    deepResolve = false,
+    attributesToResolve: string[] = null
+  ) {
+    return new Observable(observer => {
+      if (!id) {
+        observer.error('ID is missing');
+      }
+
+      let url = '';
+      let params: HttpParams = new HttpParams({
+        fromObject: {
+          id: id,
+          includePermission: String(includePermission),
+          cultureKey: String(cultureKey),
+          resolveID: String(resolveID),
+          deepResolve: String(deepResolve)
+        }
+      });
+      if (attributesToGet !== null) {
+        attributesToGet.forEach(attribute => {
+          params = params.append('attributesToGet', attribute);
+        });
+        attributesToResolve.forEach(attribute => {
+          params = params.append('attributesToResolve', attribute);
+        });
+      }
+      let request: Observable<DSResource>;
+
+      if (adminMode === true) {
+        url = this.buildUrl('resource/admin', 'get/id');
+        params = params.append('encryptionKey', this.encryptionKey);
+        request = this.http.get<DSResource>(url, { params: params });
+      } else if (this.connection) {
+        url = this.buildUrl('resource/basic', 'get/id');
+        params = params.append('connectionInfo', this.connection);
+        request = this.http.get<DSResource>(url, { params: params });
+      } else {
+        url = this.buildUrl('resource/win', 'get/id');
+        request = this.http.get<DSResource>(url, {
+          params: params,
+          withCredentials: true
+        });
+      }
+
+      request.subscribe(
+        (resource: DSResource) => {
+          observer.next(resource);
+          observer.complete();
+        },
+        resourceError => {
+          observer.error(resourceError);
+        }
+      );
+
+      // unsubscribe
+      return { unsubscribe() {} };
+    });
+  }
+
   public getBaseUrl() {
     return this.baseUrl;
   }
