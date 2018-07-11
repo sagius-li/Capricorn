@@ -5,13 +5,22 @@ import { Observable } from 'rxjs';
 import * as moment from 'moment';
 
 import { ConfigService } from './config.service';
-import { DSAttribute, DSResource } from '../models/resource.model';
+import { UtilsService } from './utils.service';
+import {
+  DSAttribute,
+  DSResource,
+  DSResourceSet
+} from '../models/resource.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ResourceService {
-  constructor(private http: HttpClient, private config: ConfigService) {}
+  constructor(
+    private http: HttpClient,
+    private config: ConfigService,
+    private utils: UtilsService
+  ) {}
 
   private baseUrl = '';
   private version = 'n.a';
@@ -25,6 +34,18 @@ export class ResourceService {
 
   private buildUrl(controllerName: string, methodName: string) {
     return `${this.baseUrl}${controllerName}/${methodName}`;
+  }
+
+  private getUserNameFromConnection() {
+    if (!this.connection) {
+      return undefined;
+    }
+    const pos1 = this.connection.indexOf('username:');
+    const pos2 = this.connection.indexOf(';', pos1);
+    if (pos2 < pos1 + 9) {
+      return undefined;
+    }
+    return this.connection.substring(pos1 + 9, pos2);
   }
 
   public load(conn?: string) {
@@ -54,18 +75,50 @@ export class ResourceService {
           const urlGetEncryptionKey = this.buildUrl('generic', 'encryptionkey');
           this.http.get(urlGetEncryptionKey).subscribe(
             keyResponse => {
-              this.encryptionKey = keyResponse;
+              this.encryptionKey = this.utils.Decrypt(
+                keyResponse.toString(),
+                ''
+              );
               // get current login user
               if (conn) {
                 // using basic authentication
-                const urlGetBasicUser = this.buildUrl(
-                  'resource/basic',
+                const urlGetPortalUser = this.buildUrl(
+                  'resource/admin',
                   'get/query'
                 );
-                observer.error('not implemented');
+                const accountName = this.getUserNameFromConnection();
+                if (!accountName) {
+                  observer.error('Invalid connection');
+                }
+                let param: HttpParams = new HttpParams({
+                  fromObject: {
+                    encryptionKey: this.encryptionKey,
+                    query: `/Person[AccountName='${accountName}']`
+                  }
+                });
+                this.loginUserAttributes.forEach(attribute => {
+                  param = param.append('attributesToGet', attribute);
+                });
+                this.http.get(urlGetPortalUser, { params: param }).subscribe(
+                  (portalUsers: DSResourceSet) => {
+                    if (portalUsers.TotalCount !== 1) {
+                      observer.error(
+                        `Failed to get portal user ${accountName}`
+                      );
+                    } else {
+                      this.loginUser = portalUsers.Resources[0];
+                      this.loaded = true;
+                      observer.next();
+                      observer.complete();
+                    }
+                  },
+                  getPortalUserError => {
+                    observer.error(getPortalUserError);
+                  }
+                );
               } else {
                 // using windows authentication
-                const urlGetWindowsUser = this.buildUrl(
+                const urlGetPortalUser = this.buildUrl(
                   'resource/win',
                   'get/currentuser'
                 );
@@ -74,19 +127,19 @@ export class ResourceService {
                   param = param.append('attributesToGet', attribute);
                 });
                 this.http
-                  .get(urlGetWindowsUser, {
+                  .get(urlGetPortalUser, {
                     params: param,
                     withCredentials: true
                   })
                   .subscribe(
-                    (windowsUser: DSResource) => {
-                      this.loginUser = windowsUser;
+                    (portalUser: DSResource) => {
+                      this.loginUser = portalUser;
                       this.loaded = true;
                       observer.next();
                       observer.complete();
                     },
-                    getWindowsUserError => {
-                      observer.error(getWindowsUserError);
+                    getPortalUserError => {
+                      observer.error(getPortalUserError);
                     }
                   );
               }

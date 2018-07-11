@@ -23,3 +23,9 @@ export class DSResource {
   HasPermissionHints?: boolean;
   Attributes?: { [key: string]: DSAttribute };
 }
+
+export class DSResourceSet {
+  TotalCount: number;
+  HasMoreItems: boolean;
+  Resources: Array<DSResource>;
+}
