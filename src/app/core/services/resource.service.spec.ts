@@ -1,5 +1,9 @@
 import { TestBed, inject } from '@angular/core/testing';
-import { HttpClientModule } from '@angular/common/http';
+import {
+  HttpClientModule,
+  HttpClient,
+  HttpHandler
+} from '@angular/common/http';
 
 import { DSResource } from '../models/resource.model';
 import { ConfigService } from './config.service';
@@ -88,18 +92,22 @@ describe('ResourceService', () => {
     })();
   });
 
-  it('should get resource by id', function(done) {
+  it('should get resource by id with win auth', function(done) {
     inject([ResourceService], (service: ResourceService) => {
       service.load().subscribe(
         () => {
           service
-            .getResourceByID('7fb2b853-24f0-4498-9534-4e10589723c4')
+            .getResourceByID('7fb2b853-24f0-4498-9534-4e10589723c4', [
+              'DisplayName',
+              'AccountName'
+            ])
             .subscribe(
               (resource: DSResource) => {
                 expect(resource).toBeDefined();
                 expect(resource.ObjectID).toEqual(
                   '7fb2b853-24f0-4498-9534-4e10589723c4'
                 );
+                expect(resource.Attributes['AccountName'].Value).toBeDefined();
                 done();
               },
               err => {
@@ -111,6 +119,42 @@ describe('ResourceService', () => {
           done.fail(err);
         }
       );
+    })();
+  });
+
+  it('should get resource by id with basic auth', function(done) {
+    inject([ResourceService], (service: ResourceService) => {
+      service
+        .load(
+          'domain:contoso;username:mimadmin;password:yJJI/p/lc+WDOoNCR/l/3g=='
+        )
+        .subscribe(
+          () => {
+            service
+              .getResourceByID('7fb2b853-24f0-4498-9534-4e10589723c4', [
+                'DisplayName',
+                'AccountName'
+              ])
+              .subscribe(
+                (resource: DSResource) => {
+                  expect(resource).toBeDefined();
+                  expect(resource.ObjectID).toEqual(
+                    '7fb2b853-24f0-4498-9534-4e10589723c4'
+                  );
+                  expect(
+                    resource.Attributes['AccountName'].Value
+                  ).toBeDefined();
+                  done();
+                },
+                err => {
+                  done.fail(err);
+                }
+              );
+          },
+          err => {
+            done.fail(err);
+          }
+        );
     })();
   });
 });

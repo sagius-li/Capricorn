@@ -187,6 +187,8 @@ export class ResourceService {
         attributesToGet.forEach(attribute => {
           params = params.append('attributesToGet', attribute);
         });
+      }
+      if (attributesToResolve !== null) {
         attributesToResolve.forEach(attribute => {
           params = params.append('attributesToResolve', attribute);
         });
@@ -199,8 +201,13 @@ export class ResourceService {
         request = this.http.get<DSResource>(url, { params: params });
       } else if (this.connection) {
         url = this.buildUrl('resource/basic', 'get/id');
-        params = params.append('connectionInfo', this.connection);
-        request = this.http.get<DSResource>(url, { params: params });
+        params = params.append(
+          'connectionInfo',
+          encodeURIComponent(this.connection)
+        );
+        request = this.http.get<DSResource>(
+          `${url}?${params.toString().replace(/%25/g, '%')}`
+        );
       } else {
         url = this.buildUrl('resource/win', 'get/id');
         request = this.http.get<DSResource>(url, {
