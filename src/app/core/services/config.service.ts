@@ -33,11 +33,13 @@ export class ConfigService {
             },
             err => {
               observer.error(err);
+              return;
             }
           );
         },
         errorEnv => {
           observer.error(errorEnv);
+          return;
         }
       );
       return { unsubscribe() {} };

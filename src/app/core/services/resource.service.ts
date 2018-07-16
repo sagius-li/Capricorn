@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import * as moment from 'moment';
 
 import { ConfigService } from './config.service';
@@ -93,6 +93,7 @@ export class ResourceService {
                 const accountName = this.getUserNameFromConnection();
                 if (!accountName) {
                   observer.error('Invalid connection');
+                  return;
                 }
                 let param: HttpParams = new HttpParams({
                   fromObject: {
@@ -109,6 +110,7 @@ export class ResourceService {
                       observer.error(
                         `Failed to get portal user ${accountName}`
                       );
+                      return;
                     } else {
                       this.loginUser = portalUsers.Resources[0];
                       this.loaded = true;
@@ -118,6 +120,7 @@ export class ResourceService {
                   },
                   getPortalUserError => {
                     observer.error(getPortalUserError);
+                    return;
                   }
                 );
               } else {
@@ -144,17 +147,20 @@ export class ResourceService {
                     },
                     getPortalUserError => {
                       observer.error(getPortalUserError);
+                      return;
                     }
                   );
               }
             },
             keyError => {
               observer.error(keyError);
+              return;
             }
           );
         },
         versionError => {
           observer.error(versionError);
+          return;
         }
       );
       // unsubscribe
@@ -199,6 +205,7 @@ export class ResourceService {
     return new Observable(observer => {
       if (!id) {
         observer.error('ID is missing');
+        return;
       }
 
       let url = '';
@@ -249,6 +256,7 @@ export class ResourceService {
         },
         resourceError => {
           observer.error(resourceError);
+          return;
         }
       );
 
@@ -272,6 +280,7 @@ export class ResourceService {
     return new Observable(observer => {
       if (!query) {
         observer.error('query is missing');
+        return;
       }
 
       let url = '';
@@ -328,6 +337,7 @@ export class ResourceService {
         },
         resourceError => {
           observer.error(resourceError);
+          return;
         }
       );
 
@@ -340,6 +350,7 @@ export class ResourceService {
     return new Observable(observer => {
       if (!query) {
         observer.error('query is missing');
+        return;
       }
 
       let url = '';
@@ -376,6 +387,7 @@ export class ResourceService {
         },
         resourceError => {
           observer.error(resourceError);
+          return;
         }
       );
 
@@ -388,6 +400,7 @@ export class ResourceService {
     return new Observable(observer => {
       if (!id) {
         observer.error('id is missing');
+        return;
       }
 
       let url = '';
@@ -424,6 +437,7 @@ export class ResourceService {
         },
         resourceError => {
           observer.error(resourceError);
+          return;
         }
       );
 
@@ -436,6 +450,7 @@ export class ResourceService {
     return new Observable(observer => {
       if (!resource) {
         observer.error('resource is missing');
+        return;
       }
 
       let url = '';
@@ -471,6 +486,7 @@ export class ResourceService {
         },
         resourceError => {
           observer.error(resourceError);
+          return;
         }
       );
 
@@ -487,6 +503,7 @@ export class ResourceService {
     return new Observable(observer => {
       if (!resource) {
         observer.error('resource is missing');
+        return;
       }
 
       let url = '';
@@ -526,6 +543,7 @@ export class ResourceService {
         },
         resourceError => {
           observer.error(resourceError);
+          return;
         }
       );
 
@@ -543,12 +561,15 @@ export class ResourceService {
     return new Observable(observer => {
       if (!id) {
         observer.error('resource is missing');
+        return;
       }
       if (!attributeName) {
         observer.error('attribute name is missing');
+        return;
       }
       if (valuesToAdd === null) {
         observer.error('no values to add');
+        return;
       }
 
       let url = '';
@@ -589,6 +610,7 @@ export class ResourceService {
         },
         resourceError => {
           observer.error(resourceError);
+          return;
         }
       );
 
@@ -606,12 +628,15 @@ export class ResourceService {
     return new Observable(observer => {
       if (!id) {
         observer.error('resource is missing');
+        return;
       }
       if (!attributeName) {
         observer.error('attribute name is missing');
+        return;
       }
       if (valuesToRemove === null) {
         observer.error('no values to remove');
+        return;
       }
 
       let url = '';
@@ -652,6 +677,7 @@ export class ResourceService {
         },
         resourceError => {
           observer.error(resourceError);
+          return;
         }
       );
 

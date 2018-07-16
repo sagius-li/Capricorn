@@ -393,7 +393,7 @@ describe('ResourceService', () => {
     10000
   );
 
-  fit(
+  xit(
     'should add values to resource',
     function(done) {
       inject([ResourceService], (service: ResourceService) => {
