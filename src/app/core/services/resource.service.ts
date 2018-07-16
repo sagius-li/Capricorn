@@ -36,6 +36,10 @@ export class ResourceService {
     return `${this.baseUrl}${controllerName}/${methodName}`;
   }
 
+  private nomoralizeUrl(url: string, params: HttpParams) {
+    return `${url}?${params.toString().replace(/%25/g, '%')}`;
+  }
+
   private getUserNameFromConnection() {
     if (!this.connection) {
       return undefined;
@@ -158,6 +162,30 @@ export class ResourceService {
     });
   }
 
+  public getBaseUrl() {
+    return this.baseUrl;
+  }
+
+  public getVersion() {
+    return this.version;
+  }
+
+  public getEncryptionKey() {
+    return this.encryptionKey;
+  }
+
+  public getAuthenticationMode() {
+    return this.authenticationMode;
+  }
+
+  public getLoginUser() {
+    return this.loginUser;
+  }
+
+  public isLoaded() {
+    return this.loaded;
+  }
+
   public getResourceByID(
     id: string,
     attributesToGet: string[] = null,
@@ -205,9 +233,7 @@ export class ResourceService {
           'connectionInfo',
           encodeURIComponent(this.connection)
         );
-        request = this.http.get<DSResource>(
-          `${url}?${params.toString().replace(/%25/g, '%')}`
-        );
+        request = this.http.get<DSResource>(this.nomoralizeUrl(url, params));
       } else {
         url = this.buildUrl('resource/win', 'get/id');
         request = this.http.get<DSResource>(url, {
@@ -231,27 +257,406 @@ export class ResourceService {
     });
   }
 
-  public getBaseUrl() {
-    return this.baseUrl;
+  public getResourceByQuery(
+    query: string,
+    attributesToGet: string[] = null,
+    adminMode = false,
+    pageSize = 0,
+    index = 0,
+    cultureKey = 127,
+    resolveID = false,
+    deepResolve = false,
+    attributesToResolve: string[] = null,
+    attributesToSort: string[] = null
+  ) {
+    return new Observable(observer => {
+      if (!query) {
+        observer.error('query is missing');
+      }
+
+      let url = '';
+      let params: HttpParams = new HttpParams({
+        fromObject: {
+          query: query,
+          pageSize: String(pageSize),
+          index: String(index),
+          cultureKey: String(cultureKey),
+          resolveID: String(resolveID),
+          deepResolve: String(deepResolve)
+        }
+      });
+      if (attributesToGet !== null) {
+        attributesToGet.forEach(attribute => {
+          params = params.append('attributesToGet', attribute);
+        });
+      }
+      if (attributesToResolve !== null) {
+        attributesToResolve.forEach(attribute => {
+          params = params.append('attributesToResolve', attribute);
+        });
+      }
+      if (attributesToSort !== null) {
+        attributesToSort.forEach(attribute => {
+          params = params.append('attributesToSort', attribute);
+        });
+      }
+      let request: Observable<DSResourceSet>;
+
+      if (adminMode === true) {
+        url = this.buildUrl('resource/admin', 'get/query');
+        params = params.append('encryptionKey', this.encryptionKey);
+        request = this.http.get<DSResourceSet>(url, { params: params });
+      } else if (this.connection) {
+        url = this.buildUrl('resource/basic', 'get/query');
+        params = params.append(
+          'connectionInfo',
+          encodeURIComponent(this.connection)
+        );
+        request = this.http.get<DSResourceSet>(this.nomoralizeUrl(url, params));
+      } else {
+        url = this.buildUrl('resource/win', 'get/query');
+        request = this.http.get<DSResourceSet>(url, {
+          params: params,
+          withCredentials: true
+        });
+      }
+
+      request.subscribe(
+        (resources: DSResourceSet) => {
+          observer.next(resources);
+          observer.complete();
+        },
+        resourceError => {
+          observer.error(resourceError);
+        }
+      );
+
+      // unsubscribe
+      return { unsubscribe() {} };
+    });
   }
 
-  public getVersion() {
-    return this.version;
+  public getResourceCount(query: string, adminMode = false) {
+    return new Observable(observer => {
+      if (!query) {
+        observer.error('query is missing');
+      }
+
+      let url = '';
+      let params: HttpParams = new HttpParams({
+        fromObject: {
+          query: query
+        }
+      });
+      let request: Observable<number>;
+
+      if (adminMode === true) {
+        url = this.buildUrl('resource/admin', 'get/count');
+        params = params.append('encryptionKey', this.encryptionKey);
+        request = this.http.get<number>(url, { params: params });
+      } else if (this.connection) {
+        url = this.buildUrl('resource/basic', 'get/count');
+        params = params.append(
+          'connectionInfo',
+          encodeURIComponent(this.connection)
+        );
+        request = this.http.get<number>(this.nomoralizeUrl(url, params));
+      } else {
+        url = this.buildUrl('resource/win', 'get/count');
+        request = this.http.get<number>(url, {
+          params: params,
+          withCredentials: true
+        });
+      }
+
+      request.subscribe(
+        (count: number) => {
+          observer.next(count);
+          observer.complete();
+        },
+        resourceError => {
+          observer.error(resourceError);
+        }
+      );
+
+      // unsubscribe
+      return { unsubscribe() {} };
+    });
   }
 
-  public getEncryptionKey() {
-    return this.encryptionKey;
+  public deleteResource(id: string, adminMode = false) {
+    return new Observable(observer => {
+      if (!id) {
+        observer.error('id is missing');
+      }
+
+      let url = '';
+      let params: HttpParams = new HttpParams({
+        fromObject: {
+          id: id
+        }
+      });
+      let request: Observable<any>;
+
+      if (adminMode === true) {
+        url = this.buildUrl('resource/admin', 'delete');
+        params = params.append('encryptionKey', this.encryptionKey);
+        request = this.http.delete(url, { params: params });
+      } else if (this.connection) {
+        url = this.buildUrl('resource/basic', 'delete');
+        params = params.append(
+          'connectionInfo',
+          encodeURIComponent(this.connection)
+        );
+        request = this.http.delete(this.nomoralizeUrl(url, params));
+      } else {
+        url = this.buildUrl('resource/win', 'delete');
+        request = this.http.delete(url, {
+          params: params,
+          withCredentials: true
+        });
+      }
+
+      request.subscribe(
+        () => {
+          observer.next();
+          observer.complete();
+        },
+        resourceError => {
+          observer.error(resourceError);
+        }
+      );
+
+      // unsubscribe
+      return { unsubscribe() {} };
+    });
   }
 
-  public getAuthenticationMode() {
-    return this.authenticationMode;
+  public createResource(resource: DSResource, adminMode = false) {
+    return new Observable(observer => {
+      if (!resource) {
+        observer.error('resource is missing');
+      }
+
+      let url = '';
+      let params: HttpParams = new HttpParams();
+      let request: Observable<string>;
+
+      if (adminMode === true) {
+        url = this.buildUrl('resource/admin', 'create');
+        params = params.append('encryptionKey', this.encryptionKey);
+        request = this.http.post<string>(url, resource, { params: params });
+      } else if (this.connection) {
+        url = this.buildUrl('resource/basic', 'create');
+        params = params.append(
+          'connectionInfo',
+          encodeURIComponent(this.connection)
+        );
+        request = this.http.post<string>(
+          this.nomoralizeUrl(url, params),
+          resource
+        );
+      } else {
+        url = this.buildUrl('resource/win', 'create');
+        request = this.http.post<string>(url, resource, {
+          params: params,
+          withCredentials: true
+        });
+      }
+
+      request.subscribe(
+        id => {
+          observer.next(id);
+          observer.complete();
+        },
+        resourceError => {
+          observer.error(resourceError);
+        }
+      );
+
+      // unsubscribe
+      return { unsubscribe() {} };
+    });
   }
 
-  public getLoginUser() {
-    return this.loginUser;
+  public updateResource(
+    resource: DSResource,
+    isdelta = true,
+    adminMode = false
+  ) {
+    return new Observable(observer => {
+      if (!resource) {
+        observer.error('resource is missing');
+      }
+
+      let url = '';
+      let params: HttpParams = new HttpParams({
+        fromObject: {
+          isdelta: String(isdelta)
+        }
+      });
+      let request: Observable<string>;
+
+      if (adminMode === true) {
+        url = this.buildUrl('resource/admin', 'update');
+        params = params.append('encryptionKey', this.encryptionKey);
+        request = this.http.post<string>(url, resource, { params: params });
+      } else if (this.connection) {
+        url = this.buildUrl('resource/basic', 'update');
+        params = params.append(
+          'connectionInfo',
+          encodeURIComponent(this.connection)
+        );
+        request = this.http.post<string>(
+          this.nomoralizeUrl(url, params),
+          resource
+        );
+      } else {
+        url = this.buildUrl('resource/win', 'update');
+        request = this.http.post<string>(url, resource, {
+          params: params,
+          withCredentials: true
+        });
+      }
+
+      request.subscribe(
+        id => {
+          observer.next(id);
+          observer.complete();
+        },
+        resourceError => {
+          observer.error(resourceError);
+        }
+      );
+
+      // unsubscribe
+      return { unsubscribe() {} };
+    });
   }
 
-  public isLoaded() {
-    return this.loaded;
+  public addValues(
+    id: string,
+    attributeName: string,
+    valuesToAdd: string[] = null,
+    adminMode = false
+  ) {
+    return new Observable(observer => {
+      if (!id) {
+        observer.error('resource is missing');
+      }
+      if (!attributeName) {
+        observer.error('attribute name is missing');
+      }
+      if (valuesToAdd === null) {
+        observer.error('no values to add');
+      }
+
+      let url = '';
+      let params: HttpParams = new HttpParams({
+        fromObject: {
+          objectID: id,
+          attributeName: attributeName
+        }
+      });
+      valuesToAdd.forEach(attribute => {
+        params = params.append('valuesToAdd', attribute);
+      });
+      let request: Observable<string>;
+
+      if (adminMode === true) {
+        url = this.buildUrl('resource/admin', 'values/add');
+        params = params.append('encryptionKey', this.encryptionKey);
+        request = this.http.post<string>(url, id, { params: params });
+      } else if (this.connection) {
+        url = this.buildUrl('resource/basic', 'values/add');
+        params = params.append(
+          'connectionInfo',
+          encodeURIComponent(this.connection)
+        );
+        request = this.http.post<string>(this.nomoralizeUrl(url, params), id);
+      } else {
+        url = this.buildUrl('resource/win', 'values/add');
+        request = this.http.post<string>(url, id, {
+          params: params,
+          withCredentials: true
+        });
+      }
+
+      request.subscribe(
+        data => {
+          observer.next(data);
+          observer.complete();
+        },
+        resourceError => {
+          observer.error(resourceError);
+        }
+      );
+
+      // unsubscribe
+      return { unsubscribe() {} };
+    });
+  }
+
+  public removeValues(
+    id: string,
+    attributeName: string,
+    valuesToRemove: string[] = null,
+    adminMode = false
+  ) {
+    return new Observable(observer => {
+      if (!id) {
+        observer.error('resource is missing');
+      }
+      if (!attributeName) {
+        observer.error('attribute name is missing');
+      }
+      if (valuesToRemove === null) {
+        observer.error('no values to remove');
+      }
+
+      let url = '';
+      let params: HttpParams = new HttpParams({
+        fromObject: {
+          objectID: id,
+          attributeName: attributeName
+        }
+      });
+      valuesToRemove.forEach(attribute => {
+        params = params.append('valuesToRemove', attribute);
+      });
+      let request: Observable<string>;
+
+      if (adminMode === true) {
+        url = this.buildUrl('resource/admin', 'values/remove');
+        params = params.append('encryptionKey', this.encryptionKey);
+        request = this.http.post<string>(url, id, { params: params });
+      } else if (this.connection) {
+        url = this.buildUrl('resource/basic', 'values/remove');
+        params = params.append(
+          'connectionInfo',
+          encodeURIComponent(this.connection)
+        );
+        request = this.http.post<string>(this.nomoralizeUrl(url, params), id);
+      } else {
+        url = this.buildUrl('resource/win', 'values/remove');
+        request = this.http.post<string>(url, id, {
+          params: params,
+          withCredentials: true
+        });
+      }
+
+      request.subscribe(
+        data => {
+          observer.next(data);
+          observer.complete();
+        },
+        resourceError => {
+          observer.error(resourceError);
+        }
+      );
+
+      // unsubscribe
+      return { unsubscribe() {} };
+    });
   }
 }
