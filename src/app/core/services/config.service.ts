@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
+import { tap, map, switchMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -16,34 +17,21 @@ export class ConfigService {
   private loaded = false;
 
   public load(envFileName = 'env.json') {
-    return new Observable(observer => {
-      const envFilePath = `${this.pathPrefix}/${envFileName}`;
-      this.http.get(envFilePath).subscribe(
-        responseEnv => {
-          this.env = responseEnv;
-          const configFilePath = `${this.pathPrefix}/config.${
-            this.env['env']
-          }.json`;
-          this.http.get(configFilePath).subscribe(
-            data => {
-              this.config = data;
-              this.loaded = true;
-              observer.next();
-              observer.complete();
-            },
-            err => {
-              observer.error(err);
-              return;
-            }
-          );
-        },
-        errorEnv => {
-          observer.error(errorEnv);
-          return;
-        }
-      );
-      return { unsubscribe() {} };
-    });
+    const envFilePath = `${this.pathPrefix}/${envFileName}`;
+    return this.http.get(envFilePath).pipe(
+      tap(env => {
+        this.env = env;
+      }),
+      map(env => `${this.pathPrefix}/config.${this.env['env']}.json`),
+      switchMap(path => {
+        return this.http.get(path).pipe(
+          tap(config => {
+            this.config = config;
+            this.loaded = true;
+          })
+        );
+      })
+    );
   }
 
   public isLoaded(): boolean {

@@ -10,7 +10,7 @@ import { ConfigService } from './config.service';
 import { UtilsService } from './utils.service';
 import { ResourceService } from './resource.service';
 
-describe('ResourceService', () => {
+xdescribe('ResourceService', () => {
   let configServiceSpy: jasmine.SpyObj<ConfigService>;
   let utilsServiceSpy: jasmine.SpyObj<UtilsService>;
 
