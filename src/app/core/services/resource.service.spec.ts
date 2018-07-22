@@ -253,7 +253,7 @@ xdescribe('ResourceService', () => {
           .subscribe(
             () => {
               service
-                .deleteResource('ccdbf561-65de-4dfb-86f2-445abc0fc9f3')
+                .deleteResource('8ed0432d-92e4-4e63-b412-fb3fb9fdac8a')
                 .subscribe(
                   () => {
                     done();
@@ -432,7 +432,7 @@ xdescribe('ResourceService', () => {
       inject([ResourceService], (service: ResourceService) => {
         service.load().subscribe(
           () => {
-            const valuesToRemove = ['test2', 'test3'];
+            const valuesToRemove = ['test1', 'test2', 'test3'];
 
             service
               .removeValues(
