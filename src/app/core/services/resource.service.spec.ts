@@ -1,9 +1,5 @@
 import { TestBed, inject } from '@angular/core/testing';
-import {
-  HttpClientModule,
-  HttpClient,
-  HttpHandler
-} from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 
 import { DSResource, DSResourceSet } from '../models/resource.model';
 import { ConfigService } from './config.service';
@@ -56,79 +52,57 @@ xdescribe('ResourceService', () => {
     }
   ));
 
-  it('should be loaded with windows credential', function(done) {
-    inject([ResourceService], (service: ResourceService) => {
-      service.load().subscribe(
-        () => {
-          expect(service.isLoaded()).toBe(true);
-          expect(service.getVersion()).not.toEqual('n.a');
-          expect(service.getEncryptionKey()).toEqual('ContosoDemo');
-          expect(service.getLoginUser()).toBeDefined();
-          done();
-        },
-        err => {
-          done.fail(err);
-        }
-      );
-    })();
-  });
+  xit(
+    'should be loaded with windows credential',
+    function(done) {
+      inject([ResourceService], (service: ResourceService) => {
+        service.load().subscribe(
+          () => {
+            expect(service.isLoaded()).toBe(true);
+            expect(service.getVersion()).not.toEqual('n.a');
+            expect(service.getLanguage()).toBeDefined();
+            expect(service.getEncryptionKey()).toEqual('ContosoDemo');
+            expect(service.getLoginUser()).toBeDefined();
+            done();
+          },
+          err => {
+            done.fail(err);
+          }
+        );
+      })();
+    },
+    10000
+  );
 
-  it('should be loaded with basic credential', function(done) {
-    inject([ResourceService], (service: ResourceService) => {
-      const conn =
-        'baseaddress://localhost:5725;domain:contoso;username:mimadmin;password:yJJI/p/lc+WDOoNCR/l/3g==';
-      service.load(conn).subscribe(
-        () => {
-          expect(service.isLoaded()).toBe(true);
-          expect(service.getVersion()).not.toEqual('n.a');
-          expect(service.getEncryptionKey()).toEqual('ContosoDemo');
-          expect(service.getLoginUser()).toBeDefined();
-          done();
-        },
-        err => {
-          done.fail(err);
-        }
-      );
-    })();
-  });
+  xit(
+    'should be loaded with basic credential',
+    function(done) {
+      inject([ResourceService], (service: ResourceService) => {
+        const conn =
+          'baseaddress://localhost:5725;domain:contoso;username:mimadmin;password:yJJI/p/lc+WDOoNCR/l/3g==';
+        service.load(conn).subscribe(
+          () => {
+            expect(service.isLoaded()).toBe(true);
+            expect(service.getVersion()).not.toEqual('n.a');
+            expect(service.getLanguage()).toBeDefined();
+            expect(service.getEncryptionKey()).toEqual('ContosoDemo');
+            expect(service.getLoginUser()).toBeDefined();
+            done();
+          },
+          err => {
+            done.fail(err);
+          }
+        );
+      })();
+    },
+    10000
+  );
 
-  xit('should get resource by id with win auth', function(done) {
-    inject([ResourceService], (service: ResourceService) => {
-      service.load().subscribe(
-        () => {
-          service
-            .getResourceByID('7fb2b853-24f0-4498-9534-4e10589723c4', [
-              'DisplayName',
-              'AccountName'
-            ])
-            .subscribe(
-              (resource: DSResource) => {
-                expect(resource).toBeDefined();
-                expect(resource.ObjectID).toEqual(
-                  '7fb2b853-24f0-4498-9534-4e10589723c4'
-                );
-                expect(resource.Attributes['AccountName'].Value).toBeDefined();
-                done();
-              },
-              err => {
-                done.fail(err);
-              }
-            );
-        },
-        err => {
-          done.fail(err);
-        }
-      );
-    })();
-  });
-
-  xit('should get resource by id with basic auth', function(done) {
-    inject([ResourceService], (service: ResourceService) => {
-      service
-        .load(
-          'domain:contoso;username:mimadmin;password:yJJI/p/lc+WDOoNCR/l/3g=='
-        )
-        .subscribe(
+  xit(
+    'should get resource by id with win auth',
+    function(done) {
+      inject([ResourceService], (service: ResourceService) => {
+        service.load().subscribe(
           () => {
             service
               .getResourceByID('7fb2b853-24f0-4498-9534-4e10589723c4', [
@@ -155,66 +129,116 @@ xdescribe('ResourceService', () => {
             done.fail(err);
           }
         );
-    })();
-  });
+      })();
+    },
+    10000
+  );
 
-  xit('should get resource by query', function(done) {
-    inject([ResourceService], (service: ResourceService) => {
-      service.load().subscribe(
-        () => {
-          service
-            .getResourceByQuery(
-              `/Person[starts-with(AccountName,'%')]`,
-              ['DisplayName', 'AccountName'],
-              false,
-              10,
-              0
-            )
-            .subscribe(
-              (resources: DSResourceSet) => {
-                expect(resources).toBeDefined();
-                expect(resources.TotalCount).toBeGreaterThan(0);
-                expect(resources.Resources.length).toBe(10);
-                expect(
-                  resources.Resources[0].Attributes['AccountName'].Value
-                ).toBeDefined();
-                done();
-              },
-              err => {
-                done.fail(err);
-              }
-            );
-        },
-        err => {
-          done.fail(err);
-        }
-      );
-    })();
-  });
+  xit(
+    'should get resource by id with basic auth',
+    function(done) {
+      inject([ResourceService], (service: ResourceService) => {
+        service
+          .load(
+            'domain:contoso;username:mimadmin;password:yJJI/p/lc+WDOoNCR/l/3g=='
+          )
+          .subscribe(
+            () => {
+              service
+                .getResourceByID('7fb2b853-24f0-4498-9534-4e10589723c4', [
+                  'DisplayName',
+                  'AccountName'
+                ])
+                .subscribe(
+                  (resource: DSResource) => {
+                    expect(resource).toBeDefined();
+                    expect(resource.ObjectID).toEqual(
+                      '7fb2b853-24f0-4498-9534-4e10589723c4'
+                    );
+                    expect(
+                      resource.Attributes['AccountName'].Value
+                    ).toBeDefined();
+                    done();
+                  },
+                  err => {
+                    done.fail(err);
+                  }
+                );
+            },
+            err => {
+              done.fail(err);
+            }
+          );
+      })();
+    },
+    10000
+  );
 
-  xit('should get resource count', function(done) {
-    inject([ResourceService], (service: ResourceService) => {
-      service.load().subscribe(
-        () => {
-          service
-            .getResourceCount(`/Person[starts-with(AccountName,'%')]`)
-            .subscribe(
-              (count: number) => {
-                expect(count).toBeDefined();
-                expect(count).toBeGreaterThan(0);
-                done();
-              },
-              err => {
-                done.fail(err);
-              }
-            );
-        },
-        err => {
-          done.fail(err);
-        }
-      );
-    })();
-  });
+  xit(
+    'should get resource by query',
+    function(done) {
+      inject([ResourceService], (service: ResourceService) => {
+        service.load().subscribe(
+          () => {
+            service
+              .getResourceByQuery(
+                `/Person[starts-with(AccountName,'%')]`,
+                ['DisplayName', 'AccountName'],
+                false,
+                10,
+                0
+              )
+              .subscribe(
+                (resources: DSResourceSet) => {
+                  expect(resources).toBeDefined();
+                  expect(resources.TotalCount).toBeGreaterThan(0);
+                  expect(resources.Resources.length).toBe(10);
+                  expect(
+                    resources.Resources[0].Attributes['AccountName'].Value
+                  ).toBeDefined();
+                  done();
+                },
+                err => {
+                  done.fail(err);
+                }
+              );
+          },
+          err => {
+            done.fail(err);
+          }
+        );
+      })();
+    },
+    10000
+  );
+
+  xit(
+    'should get resource count',
+    function(done) {
+      inject([ResourceService], (service: ResourceService) => {
+        service.load().subscribe(
+          () => {
+            service
+              .getResourceCount(`/Person[starts-with(AccountName,'%')]`)
+              .subscribe(
+                (count: number) => {
+                  expect(count).toBeDefined();
+                  expect(count).toBeGreaterThan(0);
+                  done();
+                },
+                err => {
+                  done.fail(err);
+                }
+              );
+          },
+          err => {
+            done.fail(err);
+          }
+        );
+      })();
+    },
+    10000
+  );
 
   xit(
     'should delete resource',

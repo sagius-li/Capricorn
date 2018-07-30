@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
 import { Observable, throwError } from 'rxjs';
-import { tap, switchMap, flatMap } from 'rxjs/operators';
+import { tap, switchMap } from 'rxjs/operators';
 import * as moment from 'moment';
 
 import { ConfigService } from './config.service';
@@ -25,7 +25,8 @@ export class ResourceService {
 
   private baseUrl = '';
   private version = 'n.a';
-  private encryptionKey = undefined;
+  private language: string = undefined;
+  private encryptionKey: string = undefined;
   private connection: string = undefined;
   private authenticationMode = '';
   private loginUserAttributes: string[] = [];
@@ -75,19 +76,37 @@ export class ResourceService {
     const urlGetVersion = this.buildUrl('generic', 'version');
     return this.http.get(urlGetVersion).pipe(
       tap((version: string) => {
+        if (!version) {
+          return throwError(new Error('could not get data service version'));
+        }
         this.version = version;
       }),
+      // get encryption key
       switchMap(() => {
-        // get encryption key
         const urlGetEncryptionKey = this.buildUrl('generic', 'encryptionKey');
         return this.http.get(urlGetEncryptionKey).pipe(
           tap((key: string) => {
+            if (!key) {
+              return throwError(new Error('could not get encryption key'));
+            }
             this.encryptionKey = this.utils.Decrypt(key, '');
           })
         );
       }),
+      // get language
       switchMap(() => {
-        // get current login user
+        const urlGetLanguage = this.buildUrl('generic', 'language');
+        return this.http.get(urlGetLanguage).pipe(
+          tap((lang: string) => {
+            if (!lang) {
+              return throwError(new Error('could not get browser language'));
+            }
+            this.language = lang;
+          })
+        );
+      }),
+      // get current login user
+      switchMap(() => {
         if (conn) {
           // using basic authentication
           const urlGetPortalUser = this.buildUrl('resource/admin', 'get/query');
@@ -143,6 +162,10 @@ export class ResourceService {
 
   public getVersion() {
     return this.version;
+  }
+
+  public getLanguage() {
+    return this.language;
   }
 
   public getEncryptionKey() {
