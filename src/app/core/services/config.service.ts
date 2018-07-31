@@ -9,19 +9,22 @@ import { tap, map, switchMap } from 'rxjs/operators';
 export class ConfigService {
   constructor(private http: HttpClient) {}
 
-  private pathPrefix = 'assets';
+  private pathEnv = 'assets';
+  private pathConfig = 'assets/config';
 
   private env: object = null;
   private config: object = null;
   private loaded = false;
 
   public load(envFileName = 'env.json') {
-    const envFilePath = `${this.pathPrefix}/${envFileName}`;
+    const envFilePath = `${this.pathEnv}/${envFileName}`;
+    // get environment file
     return this.http.get(envFilePath).pipe(
       tap(env => {
         this.env = env;
       }),
-      map(env => `${this.pathPrefix}/config.${this.env['env']}.json`),
+      map(env => `${this.pathConfig}/config.${this.env['env']}.json`),
+      // get configuration file
       switchMap(path => {
         return this.http.get(path).pipe(
           tap(config => {

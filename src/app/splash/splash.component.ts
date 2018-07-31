@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
 
 import { StartupService } from '../core/services/startup.service';
+import { ConfigService } from '../core/services/config.service';
 
 @Component({
   selector: 'app-splash',
@@ -18,7 +19,8 @@ export class SplashComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private startup: StartupService
+    private startup: StartupService,
+    private config: ConfigService
   ) {}
 
   ngOnInit() {
@@ -28,7 +30,12 @@ export class SplashComponent implements OnInit, OnDestroy {
         switchMap((path: string) => {
           return this.startup.start().pipe(
             tap(() => {
-              if (path) {
+              if (
+                String(this.config.getEnv('testPageOnly', '')).toLowerCase() ===
+                'true'
+              ) {
+                this.router.navigate(['/test']);
+              } else if (path) {
                 this.router.navigate([path]);
               } else {
                 this.router.navigate(['/app']);

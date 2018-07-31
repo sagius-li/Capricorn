@@ -6,7 +6,7 @@ import { LocalizationModule } from '../modules/localization.module';
 import { StartupService } from './startup.service';
 import { TranslateService } from '@ngx-translate/core';
 
-describe('StartupService', () => {
+xdescribe('StartupService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientModule, LocalizationModule],

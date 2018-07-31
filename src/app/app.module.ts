@@ -12,13 +12,15 @@ import { AppComponent } from './app.component';
 import { SplashComponent } from './splash/splash.component';
 import { HomeComponent } from './home/home.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { TestComponent } from './test/test.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SplashComponent,
     HomeComponent,
-    DashboardComponent
+    DashboardComponent,
+    TestComponent
   ],
   imports: [
     BrowserModule,
