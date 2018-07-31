@@ -1,3 +1,14 @@
 {
-  "key_additional": "additional"
+  "i18n_greeting": "Welcome to Capricorn",
+  "i18n_languageExample": "Localization Example (using angular-l10n)",
+  "i18n_firstName": "First Name",
+  "i18n_lastName": "Last Name",
+  "i18n_accountName": "Account Name",
+  "i18n_languageName": "American English",
+  "i18n_dashboard": "Dashboard",
+  "i18n_userProfile": "User Profile",
+  "i18n_allResources": "All Resources",
+  "i18n_newItems": "New Items",
+  "i18n_notifications": "Notifications",
+  "i18n_settings": "Settings"
 }

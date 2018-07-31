@@ -1,0 +1,14 @@
+{
+  "i18n_greeting": "Willkommen to Capricorn",
+  "i18n_languageExample": "Beispiel für Localization (mit ngx-translate)",
+  "i18n_firstName": "Vorname",
+  "i18n_lastName": "Nachname",
+  "i18n_accountName": "Benutzername",
+  "i18n_languageName": "Deutsch",
+  "i18n_dashboard": "Dashboard",
+  "i18n_userProfile": "Benutzer Profil",
+  "i18n_allResources": "Ressourcen",
+  "i18n_newItems": "Neue Objekte",
+  "i18n_notifications": "Notifikationen",
+  "i18n_settings": "Einstellungen"
+}

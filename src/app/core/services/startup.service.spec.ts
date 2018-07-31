@@ -6,7 +6,7 @@ import { LocalizationModule } from '../modules/localization.module';
 import { StartupService } from './startup.service';
 import { TranslateService } from '@ngx-translate/core';
 
-xdescribe('StartupService', () => {
+describe('StartupService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientModule, LocalizationModule],
@@ -31,10 +31,10 @@ xdescribe('StartupService', () => {
             () => {
               expect(service.isLoaded()).toBe(true);
               // synchronous
-              expect(translate.instant('languageKey')).toEqual('127');
+              expect(translate.instant('i18n_languageKey')).toEqual('127');
               // asynchronous
-              translate.get('key_additional').subscribe((res: string) => {
-                expect(res).toEqual('additional');
+              translate.get('i18n_languageKey').subscribe((res: string) => {
+                expect(res).toEqual('127');
                 done();
               });
             },
@@ -62,10 +62,10 @@ xdescribe('StartupService', () => {
               () => {
                 expect(service.isLoaded()).toBe(true);
                 // synchronous
-                expect(translate.instant('languageKey')).toEqual('127');
+                expect(translate.instant('i18n_languageKey')).toEqual('127');
                 // asynchronous
-                translate.get('key_additional').subscribe((res: string) => {
-                  expect(res).toEqual('additional');
+                translate.get('i18n_languageKey').subscribe((res: string) => {
+                  expect(res).toEqual('127');
                   done();
                 });
               },
