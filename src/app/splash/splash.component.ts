@@ -35,10 +35,12 @@ export class SplashComponent implements OnInit, OnDestroy {
                 'true'
               ) {
                 this.router.navigate(['/test']);
-              } else if (path) {
-                this.router.navigate([path]);
               } else {
-                this.router.navigate(['/app']);
+                if (!path || path === '/test') {
+                  this.router.navigate(['/app']);
+                } else {
+                  this.router.navigate([path]);
+                }
               }
             })
           );

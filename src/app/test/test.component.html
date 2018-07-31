@@ -27,5 +27,38 @@
     <div fxFlex>
       <hr>
     </div>
+    <div fxFlex>
+      <ng-template ngFor let-language [ngForOf]="languages">
+        <span *ngIf="language.code.indexOf(currentLanguage)<0" style="margin-right: 10px;">
+          <a [routerLink]="" (click)="onChangeLanguage(language.route)">{{language.label}}</a>
+        </span>
+        <span *ngIf="language.code.indexOf(currentLanguage)>=0">{{language.label}} </span>
+      </ng-template>
+    </div>
   </div>
+
+  <!-- data service example -->
+  <div fxLayout="column">
+    <h3 fxFlex style="margin-bottom: -5px;">Data Service Example</h3>
+    <div fxFlex>
+      <hr>
+    </div>
+    <div fxFlex="none" fxLayout="row">
+      <button fxFlex="none" (click)="onFetchUsers()">Fetch Users</button>
+    </div>
+    <div fxFlex>
+      <div *ngIf="users && users.TotalCount > 0">
+        <ul>
+          <li *ngFor="let user of users.Resources">
+            <i class="fa fa-user-circle"></i>
+            <i class="material-icons" style="color:orange;font-size:18px;vertical-align:sub;">
+              face
+            </i>
+            {{user.DisplayName}} ({{user.Attributes['AccountName'].Value}})
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
 </div>
