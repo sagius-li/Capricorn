@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { Subscription } from 'rxjs';
-import { map, switchMap, tap, subscribeOn } from 'rxjs/operators';
+import { map, switchMap, tap } from 'rxjs/operators';
 
 import { StartupService } from '../core/services/startup.service';
 
@@ -38,19 +38,6 @@ export class SplashComponent implements OnInit, OnDestroy {
         })
       )
       .subscribe();
-
-    // this.sub = this.route.queryParams.subscribe(params => {
-    //   const path = params['path'];
-    //   if (path) {
-    //     this.startup.start().subscribe(() => {
-    //       this.router.navigate([path]);
-    //     });
-    //   } else {
-    //     this.startup.start().subscribe(() => {
-    //       this.router.navigate(['/app']);
-    //     });
-    //   }
-    // });
   }
 
   ngOnDestroy() {

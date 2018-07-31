@@ -25,6 +25,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
       }
     })
   ],
+  exports: [TranslateModule],
   declarations: []
 })
 export class LocalizationModule {}
