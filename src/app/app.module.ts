@@ -16,6 +16,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { TestComponent } from './test/test.component';
 
 import { MatTabsModule } from '@angular/material/tabs';
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { MatTabsModule } from '@angular/material/tabs';
     SplashComponent,
     HomeComponent,
     DashboardComponent,
-    TestComponent
+    TestComponent,
+    SidebarComponent
   ],
   imports: [
     BrowserModule,
