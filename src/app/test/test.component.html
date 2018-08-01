@@ -35,7 +35,7 @@
           <div fxFlex="none" fxLayout="row">
             <button fxFlex="none" (click)="onFetchUsers()">Fetch Users</button>
           </div>
-          <div fxFlex>
+          <div fxFlex="none">
             <div *ngIf="users && users.TotalCount > 0">
               <ul>
                 <li *ngFor="let user of users.Resources" style="list-style: none;">
@@ -57,7 +57,9 @@
             <ng-container *ngIf="(asyncTabTask | async) === null">
               Loading...
             </ng-container>
-            <div *ngIf="(asyncTabTask | async) !== null">Loading finished!</div>
+            <ul>
+              <li *ngFor="let item of asyncTabTask | async">{{item}}</li>
+            </ul>
           </div>
         </ng-template>
       </mat-tab>

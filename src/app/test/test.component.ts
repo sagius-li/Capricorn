@@ -19,8 +19,7 @@ export class TestComponent implements OnInit {
   currentLanguage = '';
   languages: string[];
   users: DSResourceSet;
-  asyncTabTask: Observable<string>;
-  asyncTabContent: string;
+  asyncTabTask: Observable<string[]>;
 
   constructor(
     private config: ConfigService,
@@ -34,9 +33,9 @@ export class TestComponent implements OnInit {
     this.currentLanguage = this.translate.currentLang;
     this.languages = this.config.getConfig('supportedLanguages');
 
-    this.asyncTabTask = Observable.create((observer: Observer<string>) => {
+    this.asyncTabTask = Observable.create((observer: Observer<string[]>) => {
       setTimeout(() => {
-        observer.next('ok');
+        observer.next(['First', 'Second', 'Third']);
       }, 3000);
     });
   }
