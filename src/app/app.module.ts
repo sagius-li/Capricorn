@@ -12,11 +12,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SplashComponent } from './splash/splash.component';
 import { HomeComponent } from './home/home.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+
 import { TestComponent } from './test/test.component';
 
 import { MatTabsModule } from '@angular/material/tabs';
-import { SidebarComponent } from './sidebar/sidebar.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -38,7 +41,9 @@ import { SidebarComponent } from './sidebar/sidebar.component';
     CoreModule,
     AppRoutingModule,
 
-    MatTabsModule
+    MatTabsModule,
+    MatTableModule,
+    MatPaginatorModule
   ],
   providers: [],
   bootstrap: [AppComponent]

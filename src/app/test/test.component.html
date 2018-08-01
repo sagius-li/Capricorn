@@ -8,7 +8,7 @@
   </div>
 
   <div fxFlex>
-    <mat-tab-group dynamicHeight mat-stretch-tabs disableRipple>
+    <mat-tab-group dynamicHeight mat-stretch-tabs [disableRipple]="true" [@.disabled]="true">
       <!-- general information -->
       <mat-tab label="General Infomation">
         <div fxFlex fxLayout="column" fxLayoutAlign="space-evenly start" fxLayoutGap="20px" class="first-tab-element">
@@ -51,6 +51,7 @@
         </div>
       </mat-tab>
 
+      <!-- async lazy loading -->
       <mat-tab label="Async Lazy Loading">
         <ng-template matTabContent>
           <div class="first-tab-element">
@@ -64,7 +65,8 @@
         </ng-template>
       </mat-tab>
 
-      <mat-tab label="Dragular Example">
+      <!-- dragula example -->
+      <mat-tab label="Dragula Example">
         <div fxLayout="row wrap">
           <div fxFlex="0 0 auto" class="container drag-container" dragula="DRAGULA_FACTS">
             <div>You can move these elements between these two containers</div>
@@ -87,6 +89,34 @@
             </div>
           </div>
         </div>
+      </mat-tab>
+
+      <!-- material table example -->
+      <mat-tab label="Material Table">
+        <mat-table [dataSource]="dataSource" class="mat-elevation-z8 first-tab-element">
+          <!-- column definition -->
+          <ng-container matColumnDef="DisplayName">
+            <mat-header-cell *matHeaderCellDef> Display Name </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.DisplayName}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="FirstName">
+            <mat-header-cell *matHeaderCellDef> First Name </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.Attributes['FirstName'].Value}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="LastName">
+            <mat-header-cell *matHeaderCellDef> Last Name </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.Attributes['LastName'].Value}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="AccountName">
+            <mat-header-cell *matHeaderCellDef> Account Name </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.Attributes['AccountName'].Value}} </mat-cell>
+          </ng-container>
+          <!-- row definition -->
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+
+        <mat-paginator [length]="resultsLength" [pageSize]="10"></mat-paginator>
       </mat-tab>
 
     </mat-tab-group>
