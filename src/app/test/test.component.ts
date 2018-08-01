@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { Observable, Observer } from 'rxjs';
+
 import { TranslateService } from '@ngx-translate/core';
 
 import { ConfigService } from '../core/services/config.service';
@@ -17,6 +19,8 @@ export class TestComponent implements OnInit {
   currentLanguage = '';
   languages: string[];
   users: DSResourceSet;
+  asyncTabTask: Observable<string>;
+  asyncTabContent: string;
 
   constructor(
     private config: ConfigService,
@@ -29,6 +33,12 @@ export class TestComponent implements OnInit {
     this.dsVersion = this.resource.getVersion();
     this.currentLanguage = this.translate.currentLang;
     this.languages = this.config.getConfig('supportedLanguages');
+
+    this.asyncTabTask = Observable.create((observer: Observer<string>) => {
+      setTimeout(() => {
+        observer.next('ok');
+      }, 3000);
+    });
   }
 
   onChangeLanguage(language: string) {
