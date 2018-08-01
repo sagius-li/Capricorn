@@ -1,0 +1,21 @@
+.first-tab-element {
+  margin-top: 20px;
+}
+
+.drag-container {
+  background-color: rgba(211, 211, 211, 0.3);
+  padding: 20px;
+  width: 300px;
+  margin-top: 20px;
+  margin-right: 20px;
+}
+
+.drag-container > div {
+  cursor: pointer;
+  background-color: rgba(211, 211, 211, 0.5);
+  padding: 10px;
+  margin: 5px;
+}
+.drag-container > div:hover {
+  background-color: rgba(211, 211, 211, 1);
+}

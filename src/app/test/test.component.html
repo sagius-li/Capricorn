@@ -8,10 +8,10 @@
   </div>
 
   <div fxFlex>
-    <mat-tab-group dynamicHeight mat-stretch-tabs>
+    <mat-tab-group dynamicHeight mat-stretch-tabs disableRipple>
       <!-- general information -->
       <mat-tab label="General Infomation">
-        <div fxFlex fxLayout="column" fxLayoutAlign="space-evenly start" fxLayoutGap="20px" style="margin-top: 20px;">
+        <div fxFlex fxLayout="column" fxLayoutAlign="space-evenly start" fxLayoutGap="20px" class="first-tab-element">
           <div fxLayout>Data Service Version: {{dsVersion}}</div>
           <div fxLayout>Current used Language: {{currentLanguage}}</div>
         </div>
@@ -19,7 +19,7 @@
 
       <!-- translation example -->
       <mat-tab label="{{'i18n_languageExample'|translate}}">
-        <div style="margin-top: 20px;">
+        <div class="first-tab-element">
           <ng-template ngFor let-language [ngForOf]="languages">
             <span *ngIf="language.code.indexOf(currentLanguage)<0" style="margin-right: 10px;">
               <a [routerLink]="" (click)="onChangeLanguage(language.route)">{{language.label}}</a>
@@ -31,7 +31,7 @@
 
       <!-- data service example -->
       <mat-tab label="Data Service Example">
-        <div fxLayout="column" style="margin-top: 20px;">
+        <div fxLayout="column" class="first-tab-element">
           <div fxFlex="none" fxLayout="row">
             <button fxFlex="none" (click)="onFetchUsers()">Fetch Users</button>
           </div>
@@ -53,7 +53,7 @@
 
       <mat-tab label="Async Lazy Loading">
         <ng-template matTabContent>
-          <div style="margin-top: 20px;">
+          <div class="first-tab-element">
             <ng-container *ngIf="(asyncTabTask | async) === null">
               Loading...
             </ng-container>
@@ -62,6 +62,34 @@
             </ul>
           </div>
         </ng-template>
+      </mat-tab>
+
+      <mat-tab label="Dragular Example">
+        <div fxLayout="row wrap">
+          <div fxFlex="0 0 auto" class="container drag-container" dragula="DRAGULA_FACTS">
+            <div>You can move these elements between these two containers</div>
+            <div>Moving them anywhere else isn't quite possible</div>
+            <div>There's also the possibility of moving elements around in the same container, changing their position</div>
+          </div>
+          <div fxFlex="0 0 auto" class="container drag-container" dragula="DRAGULA_FACTS">
+            <div>This is the default use case. You only need to specify the containers you want to use</div>
+            <div>More interactive use cases lie ahead</div>
+            <div>Make sure to check out the
+              <a href="https://github.com/bevacqua/dragula#readme">documentation on GitHub!</a>
+            </div>
+          </div>
+          <div fxFlex="0 0 auto" fxLayout="column wrap" fxFlexAlign="start">
+            <div fxFlex="0 0 auto" class="container drag-container" dragula="DRAGULA_FACTS">
+              <div>Widget 1</div>
+            </div>
+            <div fxFlex="0 0 auto" class="container drag-container" dragula="DRAGULA_FACTS">
+              <div>Widget 2</div>
+            </div>
+          </div>
+          <!-- <div fxFlex="0 0 auto" class="container drag-container" dragula="DRAGULA_FACTS">
+            <div>Click Me!</div>
+          </div> -->
+        </div>
       </mat-tab>
 
     </mat-tab-group>

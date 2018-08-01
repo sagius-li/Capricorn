@@ -1,6 +1,6 @@
 {
   "i18n_greeting": "欢迎来到卡普空",
-  "i18n_languageExample": "本地化示例 (使用 ngx-translate)",
+  "i18n_languageExample": "本地化示例 (ngx)",
   "i18n_firstName": "名",
   "i18n_lastName": "姓",
   "i18n_accountName": "用户名",
