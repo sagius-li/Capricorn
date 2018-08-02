@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 
 import { Observable, Observer, of } from 'rxjs';
 import { merge, switchMap, startWith, map, catchError } from 'rxjs/operators';
@@ -16,24 +16,24 @@ import { DSResourceSet } from '../core/models/resource.model';
   templateUrl: './test.component.html',
   styleUrls: ['./test.component.css']
 })
-export class TestComponent implements OnInit {
-  // #region variables for title
+export class TestComponent implements OnInit, AfterViewInit {
+  // #region members for title
   userName = '';
   // #endregion
-  // #region variables for general information
+  // #region members for general information
   dsVersion = '';
   currentLanguage = '';
   // #endregion
-  // #region variables for localization
+  // #region members for localization
   languages: string[];
   // #endregion
-  // #region variables for data service
+  // #region members for data service
   users: DSResourceSet;
   // #endregion
-  // #region variables for async lazy loading
+  // #region members for async lazy loading
   asyncTabTask: Observable<string[]>;
   // #endregion
-  // #region variables for material table
+  // #region members for material table
   displayedColumns = ['DisplayName', 'FirstName', 'LastName', 'AccountName'];
   dataSource = new MatTableDataSource();
   resultsLength = 0;
@@ -60,22 +60,30 @@ export class TestComponent implements OnInit {
         observer.next(['First', 'Second', 'Third']);
       }, 3000);
     });
+  }
 
+  ngAfterViewInit() {
     // material table
-    // this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));
+    this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));
 
     this.paginator.page
       .pipe(
-        // merge(this.sort.sortChange),
+        merge(this.sort.sortChange),
         startWith({}),
         switchMap(() => {
           this.isLoadingResults = true;
+          const sortAttribute = `${this.sort.active}:${this.sort.direction}`;
           return this.resource.getResourceByQuery(
             `/Person[starts-with(DisplayName,'%')]`,
             ['DisplayName', 'FirstName', 'LastName', 'AccountName'],
             false,
             this.paginator.pageSize,
-            this.paginator.pageIndex * this.paginator.pageSize
+            this.paginator.pageIndex * this.paginator.pageSize,
+            127,
+            false,
+            false,
+            [],
+            [sortAttribute]
           );
         }),
         map((data: DSResourceSet) => {

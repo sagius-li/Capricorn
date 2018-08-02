@@ -20,6 +20,8 @@ import { TestComponent } from './test/test.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -43,7 +45,9 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 
     MatTabsModule,
     MatTableModule,
-    MatPaginatorModule
+    MatSortModule,
+    MatPaginatorModule,
+    MatProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]
