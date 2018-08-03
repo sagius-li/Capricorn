@@ -1,7 +1,14 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 
 import { Observable, Observer, of } from 'rxjs';
-import { merge, switchMap, startWith, map, catchError } from 'rxjs/operators';
+import {
+  merge,
+  switchMap,
+  startWith,
+  map,
+  catchError,
+  delay
+} from 'rxjs/operators';
 
 import { TranslateService } from '@ngx-translate/core';
 
@@ -70,6 +77,8 @@ export class TestComponent implements OnInit, AfterViewInit {
       .pipe(
         merge(this.sort.sortChange),
         startWith({}),
+        // workaround for "Expression has changed after it was checked" error
+        delay(0),
         switchMap(() => {
           this.isLoadingResults = true;
           const sortAttribute = `${this.sort.active}:${this.sort.direction}`;
