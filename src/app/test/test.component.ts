@@ -17,6 +17,9 @@ import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 import { ConfigService } from '../core/services/config.service';
 import { ResourceService } from '../core/services/resource.service';
 import { DSResourceSet } from '../core/models/resource.model';
+import { DynamicContentService } from './dynamiccontent.service';
+
+import { LoadingspinnerComponent } from './loadingspinner/loadingspinner.component';
 
 @Component({
   selector: 'app-test',
@@ -52,7 +55,8 @@ export class TestComponent implements OnInit, AfterViewInit {
   constructor(
     private config: ConfigService,
     private resource: ResourceService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private dcontent: DynamicContentService
   ) {}
 
   ngOnInit() {
@@ -127,5 +131,15 @@ export class TestComponent implements OnInit, AfterViewInit {
       .subscribe((resources: DSResourceSet) => {
         this.users = resources;
       });
+  }
+
+  onLoadSpinner() {
+    const host = this.dcontent.reveal(
+      LoadingspinnerComponent,
+      document.querySelector('#spinnerContainer')
+    );
+    setTimeout(() => {
+      this.dcontent.hide(host);
+    }, 3000);
   }
 }

@@ -16,6 +16,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 
 import { TestComponent } from './test/test.component';
+import { LoadingspinnerComponent } from './test/loadingspinner/loadingspinner.component';
 
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTableModule } from '@angular/material/table';
@@ -30,7 +31,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     HomeComponent,
     DashboardComponent,
     TestComponent,
-    SidebarComponent
+    SidebarComponent,
+    LoadingspinnerComponent
   ],
   imports: [
     BrowserModule,
@@ -49,6 +51,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatPaginatorModule,
     MatProgressSpinnerModule
   ],
+  entryComponents: [LoadingspinnerComponent],
   providers: [],
   bootstrap: [AppComponent]
 })
