@@ -131,10 +131,17 @@
       <!-- dynamic content -->
       <mat-tab label="Dynamic Content">
         <div fxLayout="column" class="first-tab-element">
-          <div fxFlex="none" fxLayout="row">
-            <button fxFlex="none" (click)="onLoadSpinner()">Loading Spinner</button>
+          <div fxFlex="none" fxLayout="row" style="margin-bottom: 10px;">
+            <button fxFlex="none" (click)="onLoadWithService()">Using Service</button>
           </div>
-          <div id="spinnerContainer" fxFlex="1 1 200px" style="background-color: lightyellow"></div>
+          <div id="spinnerContainer" fxFlex="1 1 200px" style="background-color: lightyellow; width: 200px;">
+          </div>
+          <div fxFlex="none" style="margin-top: 20px; margin-bottom: 10px;">
+            <button fxFlex="none" (click)="onLoadWithDirective()">Using Directive</button>
+          </div>
+          <div fxFlex="1 1 200px" style="background-color: lightblue; width: 200px;">
+            <ng-template dcHost></ng-template>
+          </div>
         </div>
       </mat-tab>
 

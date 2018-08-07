@@ -1,4 +1,10 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  AfterViewInit,
+  ComponentFactoryResolver
+} from '@angular/core';
 
 import { Observable, Observer, of } from 'rxjs';
 import {
@@ -17,6 +23,8 @@ import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 import { ConfigService } from '../core/services/config.service';
 import { ResourceService } from '../core/services/resource.service';
 import { DSResourceSet } from '../core/models/resource.model';
+
+import { DchostDirective } from '../core/directives/dchost.directive';
 import { DynamicContentService } from './dynamiccontent.service';
 
 import { LoadingspinnerComponent } from './loadingspinner/loadingspinner.component';
@@ -51,11 +59,13 @@ export class TestComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   // #endregion
+  @ViewChild(DchostDirective) dcHost: DchostDirective;
 
   constructor(
     private config: ConfigService,
     private resource: ResourceService,
     private translate: TranslateService,
+    private cfr: ComponentFactoryResolver,
     private dcontent: DynamicContentService
   ) {}
 
@@ -133,13 +143,25 @@ export class TestComponent implements OnInit, AfterViewInit {
       });
   }
 
-  onLoadSpinner() {
+  onLoadWithService() {
     const host = this.dcontent.reveal(
       LoadingspinnerComponent,
       document.querySelector('#spinnerContainer')
     );
     setTimeout(() => {
       this.dcontent.hide(host);
+    }, 3000);
+  }
+
+  onLoadWithDirective() {
+    const componentFactory = this.cfr.resolveComponentFactory(
+      LoadingspinnerComponent
+    );
+    const viewContainerRef = this.dcHost.viewContainerRef;
+    viewContainerRef.clear();
+    const componentRef = viewContainerRef.createComponent(componentFactory);
+    setTimeout(() => {
+      viewContainerRef.clear();
     }, 3000);
   }
 }
