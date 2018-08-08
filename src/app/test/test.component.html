@@ -67,7 +67,34 @@
 
       <!-- dragula example -->
       <mat-tab label="Dragula Example">
-        <div fxLayout="row wrap">
+        <mat-grid-list cols="4" gutterSize="10px" rowHeight="200px" style="margin-top: 20px; margin-bottom: 20px;">
+          <mat-grid-tile class="drag-cell" dragula="DRAGULA_CELL">
+            <div class="drag-item">One</div>
+          </mat-grid-tile>
+          <mat-grid-tile class="drag-cell" rowspan="2" dragula="DRAGULA_CELL">
+            <div class="drag-item">Two</div>
+          </mat-grid-tile>
+          <mat-grid-tile class="drag-cell" dragula="DRAGULA_CELL">
+            <div class="drag-item">Three</div>
+          </mat-grid-tile>
+          <mat-grid-tile class="drag-cell" dragula="DRAGULA_CELL">
+            <div class="drag-item">Four</div>
+          </mat-grid-tile>
+          <mat-grid-tile class="drag-cell" dragula="DRAGULA_CELL">
+            <div class="drag-item">Five</div>
+          </mat-grid-tile>
+          <mat-grid-tile class="drag-cell" dragula="DRAGULA_CELL">
+            <div class="drag-item">Six</div>
+          </mat-grid-tile>
+          <mat-grid-tile class="drag-cell" dragula="DRAGULA_CELL">
+            <div class="drag-item">Seven</div>
+          </mat-grid-tile>
+          <mat-grid-tile class="drag-cell" dragula="DRAGULA_CELL">
+            <div class="drag-item">Eight</div>
+          </mat-grid-tile>
+        </mat-grid-list>
+
+        <!-- <div fxLayout="row wrap">
           <div fxFlex="0 0 auto" class="container drag-container" dragula="DRAGULA_FACTS">
             <div>You can move these elements between these two containers</div>
             <div>Moving them anywhere else isn't quite possible</div>
@@ -88,7 +115,7 @@
               <div>Widget 2</div>
             </div>
           </div>
-        </div>
+        </div> -->
       </mat-tab>
 
       <!-- material table example -->

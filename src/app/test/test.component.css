@@ -20,6 +20,22 @@
   background-color: rgba(211, 211, 211, 1);
 }
 
+.drag-cell {
+  background-color: rgba(211, 211, 211, 0.3);
+  padding: 20px;
+}
+
+.drag-item {
+  cursor: pointer;
+  background-color: rgba(211, 211, 211, 0.5);
+  padding: 10px;
+  height: 100%;
+  width: 100%;
+}
+.drag-item:hover {
+  background-color: rgba(211, 211, 211, 1);
+}
+
 .loading-shade {
   position: absolute;
   top: 0;
