@@ -52,3 +52,8 @@
 .mat-header-cell {
   font-size: 14px;
 }
+
+.full-size {
+  height: 100%;
+  width: 100%;
+}

@@ -68,6 +68,35 @@
       <!-- dragula example -->
       <mat-tab label="Dragula Example">
         <mat-grid-list cols="4" gutterSize="10px" rowHeight="200px" style="margin-top: 20px; margin-bottom: 20px;">
+          <mat-grid-tile class="drag-cell">
+            <div class="full-size" fxLayout="row">
+              <app-mock fxFlex="grow" [data]="{content: 'Mock Item', bgColor: 'lightblue'}"></app-mock>
+            </div>
+          </mat-grid-tile>
+          <mat-grid-tile rowspan="2" class="drag-cell">
+
+          </mat-grid-tile>
+          <mat-grid-tile class="drag-cell">
+
+          </mat-grid-tile>
+          <mat-grid-tile class="drag-cell">
+
+          </mat-grid-tile>
+          <mat-grid-tile class="drag-cell">
+
+          </mat-grid-tile>
+          <mat-grid-tile class="drag-cell">
+
+          </mat-grid-tile>
+          <mat-grid-tile class="drag-cell">
+
+          </mat-grid-tile>
+          <mat-grid-tile class="drag-cell">
+
+          </mat-grid-tile>
+        </mat-grid-list>
+
+        <!-- <mat-grid-list cols="4" gutterSize="10px" rowHeight="200px" style="margin-top: 20px; margin-bottom: 20px;">
           <mat-grid-tile class="drag-cell" dragula="DRAGULA_CELL">
             <div class="drag-item">One</div>
           </mat-grid-tile>
@@ -92,7 +121,7 @@
           <mat-grid-tile class="drag-cell" dragula="DRAGULA_CELL">
             <div class="drag-item">Eight</div>
           </mat-grid-tile>
-        </mat-grid-list>
+        </mat-grid-list> -->
 
         <!-- <div fxLayout="row wrap">
           <div fxFlex="0 0 auto" class="container drag-container" dragula="DRAGULA_FACTS">
