@@ -2,7 +2,7 @@ import { TestBed, inject } from '@angular/core/testing';
 
 import { WidgetService } from './widget.service';
 
-fdescribe('WidgetService', () => {
+xdescribe('WidgetService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [WidgetService]

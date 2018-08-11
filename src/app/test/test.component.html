@@ -68,31 +68,10 @@
       <!-- dragula example -->
       <mat-tab label="Dragula Example">
         <mat-grid-list cols="4" gutterSize="10px" rowHeight="200px" style="margin-top: 20px; margin-bottom: 20px;">
-          <mat-grid-tile class="drag-cell">
-          </mat-grid-tile>
-          <mat-grid-tile rowspan="2" class="drag-cell">
+          <mat-grid-tile *ngFor="let config of widgetConfig" [rowspan]="config.rowSpan" [colspan]="config.colSpan" class="drag-cell">
             <div class="full-size" fxLayout="row">
-              <ng-container dcHost="mock1"></ng-container>
+              <ng-container [dcHost]="config.position"></ng-container>
             </div>
-
-          </mat-grid-tile>
-          <mat-grid-tile class="drag-cell">
-
-          </mat-grid-tile>
-          <mat-grid-tile class="drag-cell">
-
-          </mat-grid-tile>
-          <mat-grid-tile class="drag-cell">
-
-          </mat-grid-tile>
-          <mat-grid-tile class="drag-cell">
-
-          </mat-grid-tile>
-          <mat-grid-tile class="drag-cell">
-
-          </mat-grid-tile>
-          <mat-grid-tile class="drag-cell">
-
           </mat-grid-tile>
         </mat-grid-list>
 

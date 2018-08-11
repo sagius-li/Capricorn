@@ -66,10 +66,9 @@ export class TestComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort)
   sort: MatSort;
   // #endregion
-  @ViewChild(DchostDirective)
-  dcHost: DchostDirective;
   @ViewChildren(DchostDirective)
-  mockHosts: QueryList<DchostDirective>;
+  dcHosts: QueryList<DchostDirective>;
+  widgetConfig = [];
 
   constructor(
     private config: ConfigService,
@@ -92,6 +91,85 @@ export class TestComponent implements OnInit, AfterViewInit {
         observer.next(['First', 'Second', 'Third']);
       }, 3000);
     });
+
+    // dynamic content
+    const configStr = `
+      [
+        {
+          "name": "Mock 1",
+          "type": "MockComponent",
+          "description": "Mock 1",
+          "position": "cell1",
+          "rowSpan": 1,
+          "colSpan": 1,
+          "data": {
+            "content": "Mock 1",
+            "bgColor": "lightyellow"
+          }
+        },
+        {
+          "name": "Mock 2",
+          "type": "MockComponent",
+          "description": "Mock 2",
+          "position": "cell2",
+          "rowSpan": 2,
+          "colSpan": 1,
+          "data": {
+            "content": "Mock 2",
+            "bgColor": "lightblue"
+          }
+        },
+        {
+          "name": "Mock 3",
+          "type": "MockComponent",
+          "description": "Mock 3",
+          "position": "cell3",
+          "rowSpan": 1,
+          "colSpan": 1,
+          "data": {
+            "content": "Mock 3",
+            "bgColor": "lightyellow"
+          }
+        },
+        {
+          "name": "Mock 4",
+          "type": "MockComponent",
+          "description": "Mock 4",
+          "position": "cell4",
+          "rowSpan": 1,
+          "colSpan": 1,
+          "data": {
+            "content": "Mock 4",
+            "bgColor": "lightyellow"
+          }
+        },
+        {
+          "name": "Mock 5",
+          "type": "MockComponent",
+          "description": "Mock 5",
+          "position": "cell5",
+          "rowSpan": 1,
+          "colSpan": 1,
+          "data": {
+            "content": "Mock 5",
+            "bgColor": "lightyellow"
+          }
+        },
+        {
+          "name": "Mock 6",
+          "type": "MockComponent",
+          "description": "Mock 6",
+          "position": "cell6",
+          "rowSpan": 1,
+          "colSpan": 1,
+          "data": {
+            "content": "Mock 6",
+            "bgColor": "lightyellow"
+          }
+        }
+      ]
+    `;
+    this.widgetConfig = this.widget.getWidgetConfig(configStr);
   }
 
   ngAfterViewInit() {
@@ -135,50 +213,20 @@ export class TestComponent implements OnInit, AfterViewInit {
       });
 
     // dynamic content
-    const configStr = `
-      [
-        {
-          "name": "Mock 1",
-          "type": "MockComponent",
-          "description": "Mock 1",
-          "position": "1",
-          "rowSpan": 1,
-          "colSpan": 1,
-          "data": {
-            "content": "Mock 1",
-            "bgColor": "lightblue"
-          }
-        },
-        {
-          "name": "Mock 2",
-          "type": "MockComponent",
-          "description": "Mock 2",
-          "position": "2",
-          "rowSpan": 1,
-          "colSpan": 1,
-          "data": {
-            "content": "Mock 2",
-            "bgColor": "lightyellow"
-          }
-        }
-      ]
-    `;
-    const widgetConfig = this.widget.getWidgetConfig(configStr);
     setTimeout(() => {
-      const componentFactory = this.cfr.resolveComponentFactory(
-        widgetConfig[0].type
-      );
-      this.mockHosts.forEach(host => {
-        if (host.hostName === 'mock1') {
+      this.widgetConfig.forEach(widget => {
+        const componentFactory = this.cfr.resolveComponentFactory(widget.type);
+        const host = this.dcHosts.find(h => h.hostName === widget.position);
+        if (host) {
           const viewContainerRef = host.viewContainerRef;
           viewContainerRef.clear();
           const componentRef = viewContainerRef.createComponent(
             componentFactory
           );
-          (<DcComponent>componentRef.instance).data = widgetConfig[0].data;
+          (<DcComponent>componentRef.instance).data = widget.data;
         }
       });
-    }, 200);
+    }, 0);
   }
 
   onChangeLanguage(language: string) {
@@ -214,11 +262,14 @@ export class TestComponent implements OnInit, AfterViewInit {
     const componentFactory = this.cfr.resolveComponentFactory(
       LoadingspinnerComponent
     );
-    const viewContainerRef = this.dcHost.viewContainerRef;
-    viewContainerRef.clear();
-    const componentRef = viewContainerRef.createComponent(componentFactory);
-    setTimeout(() => {
+    const host = this.dcHosts.find(h => h.hostName === 'host1');
+    if (host) {
+      const viewContainerRef = host.viewContainerRef;
       viewContainerRef.clear();
-    }, 3000);
+      const componentRef = viewContainerRef.createComponent(componentFactory);
+      setTimeout(() => {
+        viewContainerRef.clear();
+      }, 3000);
+    }
   }
 }
