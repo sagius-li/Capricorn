@@ -7,6 +7,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { ConfigService } from '../services/config.service';
 import { ResourceService } from '../services/resource.service';
 import { StartupService } from '../services/startup.service';
+import { WidgetService } from '../services/widget.service';
 
 import { DchostDirective } from '../directives/dchost.directive';
 
@@ -19,7 +20,8 @@ export function startup(startupService: StartupService) {
 @NgModule({
   imports: [CommonModule, HttpClientModule, FlexLayoutModule],
   declarations: [DchostDirective, MockComponent],
-  providers: [ConfigService, ResourceService, StartupService],
+  entryComponents: [MockComponent],
+  providers: [ConfigService, ResourceService, StartupService, WidgetService],
   exports: [DchostDirective, MockComponent]
 })
 export class CoreModule {}

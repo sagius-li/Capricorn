@@ -2,6 +2,8 @@ import {
   Component,
   OnInit,
   ViewChild,
+  ViewChildren,
+  QueryList,
   AfterViewInit,
   ComponentFactoryResolver
 } from '@angular/core';
@@ -22,9 +24,12 @@ import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 
 import { ConfigService } from '../core/services/config.service';
 import { ResourceService } from '../core/services/resource.service';
+import { WidgetService } from '../core/services/widget.service';
+
 import { DSResourceSet } from '../core/models/resource.model';
 
 import { DchostDirective } from '../core/directives/dchost.directive';
+import { DcComponent } from '../core/models/dccomponent.interface';
 import { DynamicContentService } from './dynamiccontent.service';
 
 import { LoadingspinnerComponent } from './loadingspinner/loadingspinner.component';
@@ -56,17 +61,23 @@ export class TestComponent implements OnInit, AfterViewInit {
   dataSource = new MatTableDataSource();
   resultsLength = 0;
   isLoadingResults = false;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator)
+  paginator: MatPaginator;
+  @ViewChild(MatSort)
+  sort: MatSort;
   // #endregion
-  @ViewChild(DchostDirective) dcHost: DchostDirective;
+  @ViewChild(DchostDirective)
+  dcHost: DchostDirective;
+  @ViewChildren(DchostDirective)
+  mockHosts: QueryList<DchostDirective>;
 
   constructor(
     private config: ConfigService,
     private resource: ResourceService,
     private translate: TranslateService,
     private cfr: ComponentFactoryResolver,
-    private dcontent: DynamicContentService
+    private dcontent: DynamicContentService,
+    private widget: WidgetService
   ) {}
 
   ngOnInit() {
@@ -122,6 +133,52 @@ export class TestComponent implements OnInit, AfterViewInit {
       .subscribe(data => {
         this.dataSource.data = data;
       });
+
+    // dynamic content
+    const configStr = `
+      [
+        {
+          "name": "Mock 1",
+          "type": "MockComponent",
+          "description": "Mock 1",
+          "position": "1",
+          "rowSpan": 1,
+          "colSpan": 1,
+          "data": {
+            "content": "Mock 1",
+            "bgColor": "lightblue"
+          }
+        },
+        {
+          "name": "Mock 2",
+          "type": "MockComponent",
+          "description": "Mock 2",
+          "position": "2",
+          "rowSpan": 1,
+          "colSpan": 1,
+          "data": {
+            "content": "Mock 2",
+            "bgColor": "lightyellow"
+          }
+        }
+      ]
+    `;
+    const widgetConfig = this.widget.getWidgetConfig(configStr);
+    setTimeout(() => {
+      const componentFactory = this.cfr.resolveComponentFactory(
+        widgetConfig[0].type
+      );
+      this.mockHosts.forEach(host => {
+        if (host.hostName === 'mock1') {
+          const viewContainerRef = host.viewContainerRef;
+          viewContainerRef.clear();
+          const componentRef = viewContainerRef.createComponent(
+            componentFactory
+          );
+          (<DcComponent>componentRef.instance).data = widgetConfig[0].data;
+        }
+      });
+    }, 200);
   }
 
   onChangeLanguage(language: string) {
