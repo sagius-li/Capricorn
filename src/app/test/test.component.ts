@@ -33,6 +33,7 @@ import { DcComponent } from '../core/models/dccomponent.interface';
 import { DynamicContentService } from './dynamiccontent.service';
 
 import { LoadingspinnerComponent } from './loadingspinner/loadingspinner.component';
+import { Console } from '@angular/core/src/console';
 
 @Component({
   selector: 'app-test',
@@ -271,5 +272,20 @@ export class TestComponent implements OnInit, AfterViewInit {
         viewContainerRef.clear();
       }, 3000);
     }
+  }
+
+  onMoveWidget($event: any, target: any) {
+    const sourceConfig = $event.dragData;
+    const targetConfig = target;
+
+    const sourceIndex = this.widgetConfig.findIndex(
+      w => w.position === sourceConfig.position
+    );
+    const targetIndex = this.widgetConfig.findIndex(
+      w => w.position === targetConfig.position
+    );
+
+    this.widgetConfig[sourceIndex] = targetConfig;
+    this.widgetConfig[targetIndex] = sourceConfig;
   }
 }

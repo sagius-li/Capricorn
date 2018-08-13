@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DragulaModule } from 'ng2-dragula';
+import { DndModule } from 'ng2-dnd';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { LocalizationModule } from './core/modules/localization.module';
@@ -40,6 +41,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 
     BrowserAnimationsModule,
     DragulaModule.forRoot(),
+    DndModule.forRoot(),
     FlexLayoutModule,
     LocalizationModule,
 
