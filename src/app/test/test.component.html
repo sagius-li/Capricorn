@@ -68,13 +68,21 @@
       <!-- dragula example -->
       <mat-tab label="Dragula Example">
         <mat-grid-list cols="4" gutterSize="10px" rowHeight="200px" style="margin-top: 20px; margin-bottom: 20px;">
+          <mat-grid-tile dnd-droppable *ngFor="let config of widgetConfig" [rowspan]="config.rowSpan" [colspan]="config.colSpan" (onDropSuccess)="onMoveWidget($event, config)">
+            <app-drag [dragItem]="config" [editMode]="true">
+              <ng-container [dcHost]="config.position"></ng-container>
+            </app-drag>
+          </mat-grid-tile>
+        </mat-grid-list>
+
+        <!-- <mat-grid-list cols="4" gutterSize="10px" rowHeight="200px" style="margin-top: 20px; margin-bottom: 20px;">
           <mat-grid-tile dnd-droppable *ngFor="let config of widgetConfig" [rowspan]="config.rowSpan" [colspan]="config.colSpan" class="drag-cell"
             (onDropSuccess)="onMoveWidget($event, config)">
             <div dnd-draggable [dragEnabled]="true" [dragData]="config" class="full-size" fxLayout="row">
               <ng-container [dcHost]="config.position"></ng-container>
             </div>
           </mat-grid-tile>
-        </mat-grid-list>
+        </mat-grid-list> -->
 
         <!-- <mat-grid-list cols="4" gutterSize="10px" rowHeight="200px" style="margin-top: 20px; margin-bottom: 20px;">
           <mat-grid-tile class="drag-cell" dragula="DRAGULA_CELL">
@@ -102,29 +110,6 @@
             <div class="drag-item">Eight</div>
           </mat-grid-tile>
         </mat-grid-list> -->
-
-        <!-- <div fxLayout="row wrap">
-          <div fxFlex="0 0 auto" class="container drag-container" dragula="DRAGULA_FACTS">
-            <div>You can move these elements between these two containers</div>
-            <div>Moving them anywhere else isn't quite possible</div>
-            <div>There's also the possibility of moving elements around in the same container, changing their position</div>
-          </div>
-          <div fxFlex="0 0 auto" class="container drag-container" dragula="DRAGULA_FACTS">
-            <div>This is the default use case. You only need to specify the containers you want to use</div>
-            <div>More interactive use cases lie ahead</div>
-            <div>Make sure to check out the
-              <a href="https://github.com/bevacqua/dragula#readme">documentation on GitHub!</a>
-            </div>
-          </div>
-          <div fxFlex="0 0 auto" fxLayout="column wrap" fxFlexAlign="start">
-            <div fxFlex="0 0 auto" class="container drag-container" dragula="DRAGULA_FACTS">
-              <div>Widget 1</div>
-            </div>
-            <div fxFlex="0 0 auto" class="container drag-container" dragula="DRAGULA_FACTS">
-              <div>Widget 2</div>
-            </div>
-          </div>
-        </div> -->
       </mat-tab>
 
       <!-- material table example -->

@@ -11,7 +11,7 @@
 }
 
 .drag-container > div {
-  cursor: pointer;
+  /* cursor: pointer; */
   background-color: rgba(211, 211, 211, 0.5);
   padding: 10px;
   margin: 5px;
@@ -26,7 +26,7 @@
 }
 
 .drag-item {
-  cursor: pointer;
+  /* cursor: pointer; */
   background-color: rgba(211, 211, 211, 0.5);
   padding: 10px;
   height: 100%;
@@ -51,9 +51,4 @@
 
 .mat-header-cell {
   font-size: 14px;
-}
-
-.full-size {
-  height: 100%;
-  width: 100%;
 }

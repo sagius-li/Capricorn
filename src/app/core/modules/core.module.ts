@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { DndModule } from 'ng2-dnd';
 
 import { ConfigService } from '../services/config.service';
 import { ResourceService } from '../services/resource.service';
@@ -11,6 +12,7 @@ import { WidgetService } from '../services/widget.service';
 
 import { DchostDirective } from '../directives/dchost.directive';
 
+import { DragComponent } from '../components/drag/drag.component';
 import { MockComponent } from '../components/mock/mock.component';
 
 export function startup(startupService: StartupService) {
@@ -18,10 +20,10 @@ export function startup(startupService: StartupService) {
 }
 
 @NgModule({
-  imports: [CommonModule, HttpClientModule, FlexLayoutModule],
-  declarations: [DchostDirective, MockComponent],
+  imports: [CommonModule, HttpClientModule, FlexLayoutModule, DndModule],
+  declarations: [DchostDirective, DragComponent, MockComponent],
   entryComponents: [MockComponent],
   providers: [ConfigService, ResourceService, StartupService, WidgetService],
-  exports: [DchostDirective, MockComponent]
+  exports: [DndModule, DchostDirective, DragComponent, MockComponent]
 })
 export class CoreModule {}
