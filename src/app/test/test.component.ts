@@ -33,7 +33,6 @@ import { DcComponent } from '../core/models/dccomponent.interface';
 import { DynamicContentService } from './dynamiccontent.service';
 
 import { LoadingspinnerComponent } from './loadingspinner/loadingspinner.component';
-import { Console } from '@angular/core/src/console';
 
 @Component({
   selector: 'app-test',
