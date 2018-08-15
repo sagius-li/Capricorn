@@ -7,9 +7,11 @@
   </div>
   <div class="sidebar-seperator" fxFlex="none"></div>
   <div class="sidebar-item" fxFlex="none" *ngFor="let item of sidebarItems">
-    <a [routerLink]="item.path" fxLayout="row">
-      <i class="material-icons" fxFlex="none">{{item.icon}}</i>
-      <div fxFlex="none" fxHide.lt-md="true">{{item.title|translate}}</div>
-    </a>
+    <div [ngClass]="{'sidebar-item-focus':isFocusedItem(item)}">
+      <a [routerLink]="item.path" fxLayout="row">
+        <i class="material-icons" fxFlex="none">{{item.icon}}</i>
+        <div fxFlex="none" fxHide.lt-md="true">{{item.title|translate}}</div>
+      </a>
+    </div>
   </div>
 </div>

@@ -24,7 +24,7 @@
   ],
   "sidebarItems": [
     {
-      "path": "dashboard",
+      "path": "home",
       "title": "dashboard",
       "icon": "dashboard"
     },

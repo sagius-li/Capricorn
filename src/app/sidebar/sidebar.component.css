@@ -27,6 +27,10 @@
   width: 90%;
 }
 
+.sidebar-item-focus {
+  background-color: rgba(238, 238, 238, 0.8);
+}
+
 .sidebar-filter .sidebar-item a {
   display: block;
   margin: 10px 0px;

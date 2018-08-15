@@ -24,45 +24,45 @@
   ],
   "sidebarItems": [
     {
-      "path": "dashboard",
-      "title": "dashboard",
+      "path": "home",
+      "title": "i18n_dashboard",
       "icon": "dashboard"
     },
     {
       "path": "profile",
-      "title": "userProfile",
+      "title": "i18n_userProfile",
       "icon": "person"
     },
     {
       "path": "resources",
-      "title": "allResources",
+      "title": "i18n_allResources",
       "icon": "apps"
     },
     {
       "path": "newitem",
-      "title": "newItems",
+      "title": "i18n_newItems",
       "icon": "add_to_photos",
       "items": [
         {
           "path": "newuser",
-          "title": "newUser",
+          "title": "i18n_newUser",
           "icon": "person_add"
         },
         {
           "path": "newgroup",
-          "title": "newGroup",
+          "title": "i18n_newGroup",
           "icon": "group_add"
         }
       ]
     },
     {
       "path": "notifications",
-      "title": "notifications",
+      "title": "i18n_notifications",
       "icon": "notifications"
     },
     {
       "path": "settings",
-      "title": "settings",
+      "title": "i18n_settings",
       "icon": "settings"
     }
   ],
