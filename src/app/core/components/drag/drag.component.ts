@@ -11,7 +11,17 @@ export class DragComponent implements OnInit {
   @Input()
   editMode = false;
 
+  isHovering = false;
+
   constructor() {}
 
   ngOnInit() {}
+
+  onMouseEnter() {
+    this.isHovering = true;
+  }
+
+  onMouseLeave() {
+    this.isHovering = false;
+  }
 }

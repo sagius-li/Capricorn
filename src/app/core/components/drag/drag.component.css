@@ -18,3 +18,7 @@
 .drag-layer:hover {
   background-color: rgba(128, 128, 128, 0.2);
 }
+
+/* >>> .size-menu .mat-menu-content {
+  background-color: lightgray;
+} */
