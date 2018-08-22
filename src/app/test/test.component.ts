@@ -287,4 +287,18 @@ export class TestComponent implements OnInit, AfterViewInit {
     this.widgetConfig[sourceIndex] = targetConfig;
     this.widgetConfig[targetIndex] = sourceConfig;
   }
+
+  onResized($event, config) {
+    config.colSpan = $event[0];
+    config.rowSpan = $event[1];
+  }
+
+  onDelete(config) {
+    const index = this.widgetConfig.findIndex(
+      w => w.position === config.position
+    );
+    if (index > -1) {
+      this.widgetConfig.splice(index, 1);
+    }
+  }
 }

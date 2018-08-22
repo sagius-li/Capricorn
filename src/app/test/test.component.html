@@ -69,7 +69,7 @@
       <mat-tab label="Dragula Example">
         <mat-grid-list cols="4" gutterSize="10px" rowHeight="200px" style="margin-top: 20px; margin-bottom: 20px;">
           <mat-grid-tile dnd-droppable *ngFor="let config of widgetConfig" [rowspan]="config.rowSpan" [colspan]="config.colSpan" (onDropSuccess)="onMoveWidget($event, config)">
-            <app-drag [dragItem]="config" [editMode]="true">
+            <app-drag [dragItem]="config" [editMode]="true" (resized)="onResized($event, config)" (deleted)="onDelete(config)">
               <ng-container [dcHost]="config.position"></ng-container>
             </app-drag>
           </mat-grid-tile>
