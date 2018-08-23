@@ -104,7 +104,8 @@ export class TestComponent implements OnInit, AfterViewInit {
           "colSpan": 1,
           "data": {
             "content": "Mock 1",
-            "bgColor": "lightyellow"
+            "bgColor": "lightyellow",
+            "image_1_1": "assets/img/mock/11request.PNG"
           }
         },
         {
@@ -112,11 +113,12 @@ export class TestComponent implements OnInit, AfterViewInit {
           "type": "MockComponent",
           "description": "Mock 2",
           "position": "cell2",
-          "rowSpan": 2,
+          "rowSpan": 1,
           "colSpan": 1,
           "data": {
             "content": "Mock 2",
-            "bgColor": "lightblue"
+            "bgColor": "lightblue",
+            "image_1_1": "assets/img/mock/11syncstatus.PNG"
           }
         },
         {
@@ -125,10 +127,11 @@ export class TestComponent implements OnInit, AfterViewInit {
           "description": "Mock 3",
           "position": "cell3",
           "rowSpan": 1,
-          "colSpan": 1,
+          "colSpan": 2,
           "data": {
             "content": "Mock 3",
-            "bgColor": "lightyellow"
+            "bgColor": "lightyellow",
+            "image_1_1": "assets/img/mock/21users.PNG"
           }
         },
         {
@@ -137,10 +140,11 @@ export class TestComponent implements OnInit, AfterViewInit {
           "description": "Mock 4",
           "position": "cell4",
           "rowSpan": 1,
-          "colSpan": 1,
+          "colSpan": 2,
           "data": {
             "content": "Mock 4",
-            "bgColor": "lightyellow"
+            "bgColor": "lightyellow",
+            "image_1_1": "assets/img/mock/21groups.PNG"
           }
         },
         {
@@ -148,11 +152,12 @@ export class TestComponent implements OnInit, AfterViewInit {
           "type": "MockComponent",
           "description": "Mock 5",
           "position": "cell5",
-          "rowSpan": 1,
-          "colSpan": 1,
+          "rowSpan": 2,
+          "colSpan": 2,
           "data": {
             "content": "Mock 5",
-            "bgColor": "lightyellow"
+            "bgColor": "lightyellow",
+            "image_1_1": "assets/img/mock/22myrequest.PNG"
           }
         },
         {
@@ -164,6 +169,42 @@ export class TestComponent implements OnInit, AfterViewInit {
           "colSpan": 1,
           "data": {
             "content": "Mock 6",
+            "bgColor": "lightyellow"
+          }
+        },
+        {
+          "name": "Mock 7",
+          "type": "MockComponent",
+          "description": "Mock 7",
+          "position": "cell7",
+          "rowSpan": 1,
+          "colSpan": 1,
+          "data": {
+            "content": "Mock 7",
+            "bgColor": "lightyellow"
+          }
+        },
+        {
+          "name": "Mock 8",
+          "type": "MockComponent",
+          "description": "Mock 8",
+          "position": "cell8",
+          "rowSpan": 1,
+          "colSpan": 1,
+          "data": {
+            "content": "Mock 8",
+            "bgColor": "lightyellow"
+          }
+        },
+        {
+          "name": "Mock 9",
+          "type": "MockComponent",
+          "description": "Mock 9",
+          "position": "cell9",
+          "rowSpan": 1,
+          "colSpan": 1,
+          "data": {
+            "content": "Mock 9",
             "bgColor": "lightyellow"
           }
         }

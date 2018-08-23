@@ -21,7 +21,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   @ViewChildren(DchostDirective)
   dcHosts: QueryList<DchostDirective>;
   widgetConfig = [];
-  colNumber = 4;
+  colNumber = 6;
 
   constructor(
     private widgetService: WidgetService,
@@ -29,11 +29,11 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   ) {
     window.onresize = e => {
       if (window.innerWidth < 840) {
-        this.colNumber = 2;
-      } else if (window.innerWidth >= 840 && window.innerWidth < 1600) {
         this.colNumber = 4;
-      } else {
+      } else if (window.innerWidth >= 840 && window.innerWidth < 1600) {
         this.colNumber = 6;
+      } else {
+        this.colNumber = 8;
       }
     };
   }
@@ -107,8 +107,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
           "type": "MockComponent",
           "description": "Mock 6",
           "position": "cell6",
-          "rowSpan": 2,
-          "colSpan": 2,
+          "rowSpan": 1,
+          "colSpan": 1,
           "data": {
             "content": "Mock 6",
             "bgColor": "lightgreen"
@@ -186,5 +186,19 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
     this.widgetConfig[sourceIndex] = targetConfig;
     this.widgetConfig[targetIndex] = sourceConfig;
+  }
+
+  onResized($event, config) {
+    config.colSpan = $event[0];
+    config.rowSpan = $event[1];
+  }
+
+  onDelete(config) {
+    const index = this.widgetConfig.findIndex(
+      w => w.position === config.position
+    );
+    if (index > -1) {
+      this.widgetConfig.splice(index, 1);
+    }
   }
 }
