@@ -11,7 +11,13 @@ export class MockComponent implements OnInit, DcComponent {
   @Input()
   data: any;
 
+  componentSize: string;
+
   constructor() {}
 
   ngOnInit() {}
+
+  resize(size: number[]) {
+    this.componentSize = `${size[0]}${size[1]}`;
+  }
 }

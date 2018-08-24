@@ -100,12 +100,13 @@ export class TestComponent implements OnInit, AfterViewInit {
           "type": "MockComponent",
           "description": "Mock 1",
           "position": "cell1",
-          "rowSpan": 1,
           "colSpan": 1,
+          "rowSpan": 1,
           "data": {
             "content": "Mock 1",
             "bgColor": "lightyellow",
-            "image_1_1": "assets/img/mock/11request.PNG"
+            "image_1_1": "assets/img/mock/11request.PNG",
+            "image_3_1": "assets/img/mock/31request.PNG"
           }
         },
         {
@@ -113,12 +114,12 @@ export class TestComponent implements OnInit, AfterViewInit {
           "type": "MockComponent",
           "description": "Mock 2",
           "position": "cell2",
+          "colSpan": 2,
           "rowSpan": 1,
-          "colSpan": 1,
           "data": {
             "content": "Mock 2",
             "bgColor": "lightblue",
-            "image_1_1": "assets/img/mock/11syncstatus.PNG"
+            "image_1_1": "assets/img/mock/21users.PNG"
           }
         },
         {
@@ -126,12 +127,12 @@ export class TestComponent implements OnInit, AfterViewInit {
           "type": "MockComponent",
           "description": "Mock 3",
           "position": "cell3",
-          "rowSpan": 1,
-          "colSpan": 2,
+          "colSpan": 3,
+          "rowSpan": 3,
           "data": {
             "content": "Mock 3",
             "bgColor": "lightyellow",
-            "image_1_1": "assets/img/mock/21users.PNG"
+            "image_1_1": "assets/img/mock/22myrequest.PNG"
           }
         },
         {
@@ -139,12 +140,12 @@ export class TestComponent implements OnInit, AfterViewInit {
           "type": "MockComponent",
           "description": "Mock 4",
           "position": "cell4",
+          "colSpan": 1,
           "rowSpan": 1,
-          "colSpan": 2,
           "data": {
             "content": "Mock 4",
             "bgColor": "lightyellow",
-            "image_1_1": "assets/img/mock/21groups.PNG"
+            "image_1_1": "assets/img/mock/11syncstatus.PNG"
           }
         },
         {
@@ -152,60 +153,12 @@ export class TestComponent implements OnInit, AfterViewInit {
           "type": "MockComponent",
           "description": "Mock 5",
           "position": "cell5",
-          "rowSpan": 2,
           "colSpan": 2,
+          "rowSpan": 1,
           "data": {
             "content": "Mock 5",
             "bgColor": "lightyellow",
-            "image_1_1": "assets/img/mock/22myrequest.PNG"
-          }
-        },
-        {
-          "name": "Mock 6",
-          "type": "MockComponent",
-          "description": "Mock 6",
-          "position": "cell6",
-          "rowSpan": 1,
-          "colSpan": 1,
-          "data": {
-            "content": "Mock 6",
-            "bgColor": "lightyellow"
-          }
-        },
-        {
-          "name": "Mock 7",
-          "type": "MockComponent",
-          "description": "Mock 7",
-          "position": "cell7",
-          "rowSpan": 1,
-          "colSpan": 1,
-          "data": {
-            "content": "Mock 7",
-            "bgColor": "lightyellow"
-          }
-        },
-        {
-          "name": "Mock 8",
-          "type": "MockComponent",
-          "description": "Mock 8",
-          "position": "cell8",
-          "rowSpan": 1,
-          "colSpan": 1,
-          "data": {
-            "content": "Mock 8",
-            "bgColor": "lightyellow"
-          }
-        },
-        {
-          "name": "Mock 9",
-          "type": "MockComponent",
-          "description": "Mock 9",
-          "position": "cell9",
-          "rowSpan": 1,
-          "colSpan": 1,
-          "data": {
-            "content": "Mock 9",
-            "bgColor": "lightyellow"
+            "image_1_1": "assets/img/mock/21groups.PNG"
           }
         }
       ]
@@ -264,6 +217,7 @@ export class TestComponent implements OnInit, AfterViewInit {
           const componentRef = viewContainerRef.createComponent(
             componentFactory
           );
+          widget.componentRef = componentRef;
           (<DcComponent>componentRef.instance).data = widget.data;
         }
       });
@@ -332,6 +286,8 @@ export class TestComponent implements OnInit, AfterViewInit {
   onResized($event, config) {
     config.colSpan = $event[0];
     config.rowSpan = $event[1];
+
+    (<DcComponent>config.componentRef.instance).resize($event);
   }
 
   onDelete(config) {

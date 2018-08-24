@@ -2,8 +2,9 @@
   <div fxFlex="none">{{data.content}}</div>
 </div> -->
 
-<div fxLayout="row nowrap" fxLayoutAlign="center center" style="height: 100%; width: 100%; padding: 10px;">
+<div fxLayout="row nowrap" fxLayoutAlign="center center" style="height: 100%; width: 100%;">
   <div fxFlex="1 1 auto">
-    <img [src]="data.image_1_1" alt="" width="100%">
+    <img [src]="data.image_1_1" alt="" width="100%" *ngIf="componentSize!=='31'">
+    <img [src]="data.image_3_1" alt="" width="100%" *ngIf="componentSize==='31'">
   </div>
 </div>
