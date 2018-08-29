@@ -7,20 +7,36 @@
 }
 
 .sidebar-filter .logo {
-  padding: 15px;
+  padding: 5px;
 }
 .sidebar-filter .logo .fullImage {
   max-height: 54px;
 }
 .sidebar-filter .logo .iconImage {
   max-height: 46px;
+  margin-top: 4px;
+  margin-bottom: 3px;
 }
 
 .sidebar-filter .sidebar-seperator {
   width: 90%;
   height: 1px;
   background-color: rgba(180, 180, 180, 0.3);
-  margin-bottom: 15px;
+  margin-top: -5px;
+}
+
+.sidebar-filter .sidebar-nav {
+  width: 90%;
+  height: 20px;
+  cursor: pointer;
+  margin-top: 2px;
+  margin-bottom: -8px;
+}
+.sidebar-filter .sidebar-nav:hover {
+  background-color: rgba(180, 180, 180, 0.1);
+}
+.sidebar-filter .sidebar-nav .nav-icon {
+  color: rgba(160, 160, 160, 1);
 }
 
 .sidebar-filter .sidebar-item {

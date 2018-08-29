@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 
 import { WidgetService } from '../core/services/widget.service';
+import { SwapService } from '../core/services/swap.service';
 
 import { DchostDirective } from '../core/directives/dchost.directive';
 import { DcComponent } from '../core/models/dccomponent.interface';
@@ -25,18 +26,9 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   constructor(
     private widgetService: WidgetService,
-    private cfr: ComponentFactoryResolver
-  ) {
-    window.onresize = e => {
-      if (window.innerWidth < 840) {
-        this.colNumber = 4;
-      } else if (window.innerWidth >= 840 && window.innerWidth < 1600) {
-        this.colNumber = 6;
-      } else {
-        this.colNumber = 8;
-      }
-    };
-  }
+    private cfr: ComponentFactoryResolver,
+    private swap: SwapService
+  ) {}
 
   ngOnInit() {
     // #region mock data
@@ -154,6 +146,27 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     `;
     // #endregion
     this.widgetConfig = this.widgetService.getWidgetConfig(configStr);
+
+    this.swap.windowResize.subscribe((size: string) => {
+      switch (size) {
+        case 'xs':
+          this.colNumber = 2;
+          break;
+        case 'sm':
+          this.colNumber = 4;
+          break;
+        case 'md':
+          this.colNumber = 6;
+          break;
+        case 'lg':
+          this.colNumber = 8;
+          break;
+        default:
+          this.colNumber = 6;
+          break;
+      }
+    });
+    this.swap.verifyWindowSize();
   }
 
   ngAfterViewInit() {

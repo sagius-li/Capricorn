@@ -12,6 +12,7 @@ import { ConfigService } from '../services/config.service';
 import { ResourceService } from '../services/resource.service';
 import { StartupService } from '../services/startup.service';
 import { WidgetService } from '../services/widget.service';
+import { SwapService } from '../services/swap.service';
 
 import { DchostDirective } from '../directives/dchost.directive';
 
@@ -33,7 +34,19 @@ export function startup(startupService: StartupService) {
   ],
   declarations: [DchostDirective, DragComponent, MockComponent],
   entryComponents: [MockComponent],
-  providers: [ConfigService, ResourceService, StartupService, WidgetService],
-  exports: [DndModule, DchostDirective, DragComponent, MockComponent]
+  providers: [
+    ConfigService,
+    ResourceService,
+    StartupService,
+    WidgetService,
+    SwapService
+  ],
+  exports: [
+    DndModule,
+    MatIconModule,
+    DchostDirective,
+    DragComponent,
+    MockComponent
+  ]
 })
 export class CoreModule {}
