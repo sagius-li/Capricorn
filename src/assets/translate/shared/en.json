@@ -1,6 +1,7 @@
 {
   "i18n_greeting": "Welcome to Capricorn",
   "i18n_languageExample": "Localization Example (ngx)",
+  "i18n_generalInfo": "General Information",
   "i18n_firstName": "First Name",
   "i18n_lastName": "Last Name",
   "i18n_accountName": "Account Name",

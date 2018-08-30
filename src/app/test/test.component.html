@@ -10,42 +10,36 @@
   <div fxFlex>
     <mat-tab-group dynamicHeight mat-stretch-tabs [disableRipple]="true" [@.disabled]="true">
       <!-- general information -->
-      <mat-tab label="General Infomation">
+      <mat-tab label="{{'i18n_generalInfo'|translate}}">
         <div fxFlex fxLayout="column" fxLayoutAlign="space-evenly start" fxLayoutGap="20px" class="first-tab-element">
           <div fxLayout>Data Service Version: {{dsVersion}}</div>
           <div fxLayout>Current used Language: {{currentLanguage}}</div>
-        </div>
-      </mat-tab>
-
-      <!-- translation example -->
-      <mat-tab label="{{'i18n_languageExample'|translate}}">
-        <div class="first-tab-element">
-          <ng-template ngFor let-language [ngForOf]="languages">
-            <span *ngIf="language.code.indexOf(currentLanguage)<0" style="margin-right: 10px;">
-              <a [routerLink]="" (click)="onChangeLanguage(language.route)">{{language.label}}</a>
-            </span>
-            <span *ngIf="language.code.indexOf(currentLanguage)>=0">{{language.label}} </span>
-          </ng-template>
-        </div>
-      </mat-tab>
-
-      <!-- data service example -->
-      <mat-tab label="Data Service Example">
-        <div fxLayout="column" class="first-tab-element">
-          <div fxFlex="none" fxLayout="row">
-            <button fxFlex="none" (click)="onFetchUsers()">Fetch Users</button>
+          <!-- localization example (ngx) -->
+          <div fxLayout class="first-tab-element">
+            <ng-template ngFor let-language [ngForOf]="languages">
+              <span *ngIf="language.code.indexOf(currentLanguage)<0" style="margin-right: 10px;">
+                <a [routerLink]="" (click)="onChangeLanguage(language.route)">{{language.label}}</a>
+              </span>
+              <span *ngIf="language.code.indexOf(currentLanguage)>=0">{{language.label}} </span>
+            </ng-template>
           </div>
-          <div fxFlex="none">
-            <div *ngIf="users && users.TotalCount > 0">
-              <ul>
-                <li *ngFor="let user of users.Resources" style="list-style: none;">
-                  <i class="fa fa-user-circle"></i>
-                  <i class="material-icons" style="color:orange;font-size:18px;vertical-align:sub;">
-                    face
-                  </i>
-                  {{user.DisplayName}} ({{user.Attributes['AccountName'].Value}})
-                </li>
-              </ul>
+          <!-- data service example -->
+          <div fxLayout="column" class="first-tab-element">
+            <div fxFlex="none" fxLayout="row">
+              <button fxFlex="none" (click)="onFetchUsers()">Fetch Users</button>
+            </div>
+            <div fxFlex="none">
+              <div *ngIf="users && users.TotalCount > 0">
+                <ul>
+                  <li *ngFor="let user of users.Resources" style="list-style: none;">
+                    <i class="fa fa-user-circle"></i>
+                    <i class="material-icons" style="color:orange;font-size:18px;vertical-align:sub;">
+                      face
+                    </i>
+                    {{user.DisplayName}} ({{user.Attributes['AccountName'].Value}})
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
