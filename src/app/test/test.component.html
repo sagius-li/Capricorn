@@ -45,6 +45,38 @@
         </div>
       </mat-tab>
 
+      <mat-tab label="Kendo UI Example">
+        <!-- password status -->
+        <kendo-chart>
+          <kendo-chart-legend position="bottom" orientation="horizontal"></kendo-chart-legend>
+          <kendo-chart-tooltip format="{0}"></kendo-chart-tooltip>
+          <kendo-chart-series>
+            <kendo-chart-title text="Password Status"></kendo-chart-title>
+            <kendo-chart-series-item name="Password Reset" type="column" [data]="passwordData" field="reset" categoryField="date"></kendo-chart-series-item>
+            <kendo-chart-series-item name="Password Registation" type="column" [data]="passwordData" field="register" categoryField="date"></kendo-chart-series-item>
+          </kendo-chart-series>
+          <kendo-chart-category-axis>
+            <kendo-chart-category-axis-item baseUnit="days" [labels]="{ format: 'd', rotation: 'auto' }">
+            </kendo-chart-category-axis-item>
+          </kendo-chart-category-axis>
+        </kendo-chart>
+        <!-- request status -->
+        <kendo-chart [seriesColors]="['lightblue', 'yellow', 'red']" style="margin-top: 20px;">
+          <kendo-chart-legend position="bottom"></kendo-chart-legend>
+          <kendo-chart-tooltip format="{0}"></kendo-chart-tooltip>
+          <kendo-chart-series>
+            <kendo-chart-title text="Request Status"></kendo-chart-title>
+            <kendo-chart-series-item type="pie" [data]="requestData" field="value" categoryField="type">
+              <kendo-chart-series-item-tooltip>
+                <ng-template let-category="category" let-value="value">
+                  {{category}}: {{value}}
+                </ng-template>
+              </kendo-chart-series-item-tooltip>
+            </kendo-chart-series-item>
+          </kendo-chart-series>
+        </kendo-chart>
+      </mat-tab>
+
       <!-- async lazy loading -->
       <mat-tab label="Async Lazy Loading">
         <ng-template matTabContent>

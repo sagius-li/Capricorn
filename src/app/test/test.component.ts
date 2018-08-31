@@ -34,6 +34,8 @@ import { DynamicContentService } from './dynamiccontent.service';
 
 import { LoadingspinnerComponent } from './loadingspinner/loadingspinner.component';
 
+import * as moment from 'moment';
+
 @Component({
   selector: 'app-test',
   templateUrl: './test.component.html',
@@ -66,9 +68,62 @@ export class TestComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort)
   sort: MatSort;
   // #endregion
+  // #region members for dynamic content and d&d
   @ViewChildren(DchostDirective)
   dcHosts: QueryList<DchostDirective>;
   widgetConfig = [];
+  // #endregion
+  // #region members for charts
+  passwordData = [
+    {
+      date: moment()
+        .subtract(4, 'days')
+        .toDate(),
+      reset: 5,
+      register: 12
+    },
+    {
+      date: moment()
+        .subtract(3, 'days')
+        .toDate(),
+      reset: 8,
+      register: 10
+    },
+    {
+      date: moment()
+        .subtract(2, 'days')
+        .toDate(),
+      reset: 3,
+      register: 16
+    },
+    {
+      date: moment()
+        .subtract(1, 'days')
+        .toDate(),
+      reset: 2,
+      register: 18
+    },
+    {
+      date: moment().toDate(),
+      reset: 6,
+      register: 8
+    }
+  ];
+  requestData = [
+    {
+      type: 'Completed',
+      value: 52
+    },
+    {
+      type: 'Authorizing',
+      value: 6
+    },
+    {
+      type: 'Failed',
+      value: 2
+    }
+  ];
+  // #endregion
 
   constructor(
     private config: ConfigService,
