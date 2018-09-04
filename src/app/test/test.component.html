@@ -45,50 +45,48 @@
         </div>
       </mat-tab>
 
+      <!-- kendo ui example -->
       <mat-tab label="Kendo UI Example">
-        <!-- password status -->
-        <kendo-chart>
-          <kendo-chart-legend position="bottom" orientation="horizontal"></kendo-chart-legend>
-          <kendo-chart-tooltip format="{0}"></kendo-chart-tooltip>
-          <kendo-chart-series>
-            <kendo-chart-title text="Password Status"></kendo-chart-title>
-            <kendo-chart-series-item name="Password Reset" type="column" [data]="passwordData" field="reset" categoryField="date"></kendo-chart-series-item>
-            <kendo-chart-series-item name="Password Registation" type="column" [data]="passwordData" field="register" categoryField="date"></kendo-chart-series-item>
-          </kendo-chart-series>
-          <kendo-chart-category-axis>
-            <kendo-chart-category-axis-item baseUnit="days" [labels]="{ format: 'd', rotation: 'auto' }">
-            </kendo-chart-category-axis-item>
-          </kendo-chart-category-axis>
-        </kendo-chart>
-        <!-- request status -->
-        <kendo-chart [seriesColors]="['lightblue', 'yellow', 'red']" style="margin-top: 20px;">
-          <kendo-chart-legend position="bottom"></kendo-chart-legend>
-          <kendo-chart-tooltip format="{0}"></kendo-chart-tooltip>
-          <kendo-chart-series>
-            <kendo-chart-title text="Request Status"></kendo-chart-title>
-            <kendo-chart-series-item type="pie" [data]="requestData" field="value" categoryField="type">
-              <kendo-chart-series-item-tooltip>
-                <ng-template let-category="category" let-value="value">
-                  {{category}}: {{value}}
-                </ng-template>
-              </kendo-chart-series-item-tooltip>
-            </kendo-chart-series-item>
-          </kendo-chart-series>
-        </kendo-chart>
+        <div fxLayout="row">
+          <div fxFlex>
+            <!-- password status -->
+            <kendo-chart>
+              <kendo-chart-legend position="bottom" orientation="horizontal"></kendo-chart-legend>
+              <kendo-chart-tooltip format="{0}"></kendo-chart-tooltip>
+              <kendo-chart-series>
+                <kendo-chart-title text="Password Status"></kendo-chart-title>
+                <kendo-chart-series-item name="Password Reset" type="column" [data]="passwordData" field="reset" categoryField="date"></kendo-chart-series-item>
+                <kendo-chart-series-item name="Password Registation" type="column" [data]="passwordData" field="register" categoryField="date"></kendo-chart-series-item>
+              </kendo-chart-series>
+              <kendo-chart-category-axis>
+                <kendo-chart-category-axis-item baseUnit="days" [labels]="{ format: 'd', rotation: 'auto' }">
+                </kendo-chart-category-axis-item>
+              </kendo-chart-category-axis>
+            </kendo-chart>
+          </div>
+          <div fxFlex>
+            <!-- request status -->
+            <kendo-chart [seriesColors]="['lightblue', 'yellow', 'red']">
+              <kendo-chart-legend position="bottom"></kendo-chart-legend>
+              <kendo-chart-tooltip format="{0}"></kendo-chart-tooltip>
+              <kendo-chart-series>
+                <kendo-chart-title text="Request Status"></kendo-chart-title>
+                <kendo-chart-series-item type="pie" [data]="requestData" field="value" categoryField="type">
+                  <kendo-chart-series-item-tooltip>
+                    <ng-template let-category="category" let-value="value">
+                      {{category}}: {{value}}
+                    </ng-template>
+                  </kendo-chart-series-item-tooltip>
+                </kendo-chart-series-item>
+              </kendo-chart-series>
+            </kendo-chart>
+          </div>
+        </div>
       </mat-tab>
 
-      <!-- async lazy loading -->
-      <mat-tab label="Async Lazy Loading">
-        <ng-template matTabContent>
-          <div class="first-tab-element">
-            <ng-container *ngIf="(asyncTabTask | async) === null">
-              Loading...
-            </ng-container>
-            <ul>
-              <li *ngFor="let item of asyncTabTask | async">{{item}}</li>
-            </ul>
-          </div>
-        </ng-template>
+      <!-- components -->
+      <mat-tab label="Components">
+
       </mat-tab>
 
       <!-- dragula example -->
@@ -175,23 +173,34 @@
         </div>
       </mat-tab>
 
-      <!-- dynamic content -->
-      <mat-tab label="Dynamic Content">
-        <div fxLayout="column" class="first-tab-element">
-          <div fxFlex="none" fxLayout="row" style="margin-bottom: 10px;">
-            <button fxFlex="none" (click)="onLoadWithService()">Using Service</button>
+      <!-- dynamic content and lazy loading -->
+      <mat-tab label="Dynamic Content & Lazy Loading">
+        <ng-template matTabContent>
+          <!-- lazy loading -->
+          <div class="first-tab-element">
+            <ng-container *ngIf="(asyncTabTask | async) === null">
+              Loading...
+            </ng-container>
+            <ul>
+              <li *ngFor="let item of asyncTabTask | async">{{item}}</li>
+            </ul>
           </div>
-          <div id="spinnerContainer" fxFlex="1 1 200px" style="background-color: lightyellow; width: 200px;">
+          <!-- dynamic content -->
+          <div fxLayout="column" class="first-tab-element">
+            <div fxFlex="none" fxLayout="row" style="margin-bottom: 10px;">
+              <button fxFlex="none" (click)="onLoadWithService()">Using Service</button>
+            </div>
+            <div id="spinnerContainer" fxFlex="1 1 200px" style="background-color: lightyellow; width: 200px;">
+            </div>
+            <div fxFlex="none" style="margin-top: 20px; margin-bottom: 10px;">
+              <button fxFlex="none" (click)="onLoadWithDirective()">Using Directive</button>
+            </div>
+            <div fxFlex="1 1 200px" style="background-color: lightblue; width: 200px;">
+              <ng-template dcHost="host1"></ng-template>
+            </div>
           </div>
-          <div fxFlex="none" style="margin-top: 20px; margin-bottom: 10px;">
-            <button fxFlex="none" (click)="onLoadWithDirective()">Using Directive</button>
-          </div>
-          <div fxFlex="1 1 200px" style="background-color: lightblue; width: 200px;">
-            <ng-template dcHost="host1"></ng-template>
-          </div>
-        </div>
+        </ng-template>
       </mat-tab>
-
     </mat-tab-group>
 
   </div>
