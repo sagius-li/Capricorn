@@ -17,6 +17,7 @@ import { SwapService } from '../services/swap.service';
 import { DchostDirective } from '../directives/dchost.directive';
 
 import { DragComponent } from '../components/drag/drag.component';
+import { EditbarComponent } from '../components/editbar/editbar.component';
 import { MockComponent } from '../components/mock/mock.component';
 
 export function startup(startupService: StartupService) {
@@ -32,7 +33,12 @@ export function startup(startupService: StartupService) {
     MatMenuModule,
     MatIconModule
   ],
-  declarations: [DchostDirective, DragComponent, MockComponent],
+  declarations: [
+    DchostDirective,
+    DragComponent,
+    EditbarComponent,
+    MockComponent
+  ],
   entryComponents: [MockComponent],
   providers: [
     ConfigService,
@@ -46,6 +52,7 @@ export function startup(startupService: StartupService) {
     MatIconModule,
     DchostDirective,
     DragComponent,
+    EditbarComponent,
     MockComponent
   ]
 })

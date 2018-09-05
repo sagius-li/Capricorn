@@ -8,7 +8,8 @@
   </div>
 
   <div fxFlex>
-    <mat-tab-group dynamicHeight mat-stretch-tabs [disableRipple]="true" [@.disabled]="true">
+    <!-- <mat-tab-group dynamicHeight mat-stretch-tabs [disableRipple]="true" [@.disabled]="true"> -->
+    <mat-tab-group dynamicHeight mat-stretch-tabs [disableRipple]="true">
       <!-- general information -->
       <mat-tab label="{{'i18n_generalInfo'|translate}}">
         <div fxFlex fxLayout="column" fxLayoutAlign="space-evenly start" fxLayoutGap="20px" class="first-tab-element">
@@ -86,7 +87,7 @@
 
       <!-- components -->
       <mat-tab label="Components">
-
+        <app-editbar></app-editbar>
       </mat-tab>
 
       <!-- dragula example -->
