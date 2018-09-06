@@ -5,8 +5,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { DndModule } from 'ng2-dnd';
 
+import { LocalizationModule } from '../modules/localization.module';
+
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { ConfigService } from '../services/config.service';
 import { ResourceService } from '../services/resource.service';
@@ -30,8 +33,10 @@ export function startup(startupService: StartupService) {
     HttpClientModule,
     FlexLayoutModule,
     DndModule,
+    LocalizationModule,
     MatMenuModule,
-    MatIconModule
+    MatIconModule,
+    MatTooltipModule
   ],
   declarations: [
     DchostDirective,
@@ -48,6 +53,7 @@ export function startup(startupService: StartupService) {
     SwapService
   ],
   exports: [
+    LocalizationModule,
     DndModule,
     MatIconModule,
     DchostDirective,

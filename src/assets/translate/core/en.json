@@ -1,3 +1,8 @@
 {
-  "i18n_languageKey": "127"
+  "key_languageKey": "127",
+  "key_edit": "edit",
+  "key_refresh": "refresh",
+  "key_add": "add",
+  "key_save": "save",
+  "key_cancel": "cancel"
 }

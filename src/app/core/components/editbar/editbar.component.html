@@ -1,17 +1,23 @@
-<div [fxLayout]="direction" [fxLayoutAlign]="direction==='row'?'end center':'start end'" [style.color]="color" fxLayoutGap="20px">
-  <div [@editMode]="{value:editMode, params:{inactiveTrans:transInactive,activeTrans:transActive}}" fxFlex="0 0 auto" [fxLayout]="direction"
-    [fxLayoutAlign]="direction==='row'?'end center':'start end'" [fxFlexOrder]="direction==='row'?1:2" fxLayoutGap="20px" class="expand-menu">
-    <div fxFlex="0 0 auto" class="link-div">
+<div [fxLayout]="direction" [fxLayoutAlign]="direction==='row'?'end center':'start end'" [style.color]="color"
+  fxLayoutGap="20px">
+  <div [@editMode]="{value:editMode, params:{inactiveTrans:transInactive,activeTrans:transActive}}" fxFlex="0 0 auto"
+    [fxLayout]="direction" [fxLayoutAlign]="direction==='row'?'end center':'start end'" [fxFlexOrder]="direction==='row'?1:2"
+    fxLayoutGap="20px" class="expand-menu">
+    <div *ngIf="buttons.includes('save')" fxFlex="0 0 auto" class="link-div" matTooltip="{{'key_save'|translate}}"
+      (click)="onSave()">
       <mat-icon [style.fontSize]="size" [style.height]="size" [style.width]="size">save</mat-icon>
     </div>
-    <div fxFlex="0 0 auto" class="link-div">
+    <div *ngIf="buttons.includes('add')" fxFlex="0 0 auto" class="link-div" matTooltip="{{'key_add'|translate}}"
+      (click)="onAdd()">
       <mat-icon [style.fontSize]="size" [style.height]="size" [style.width]="size">add_box</mat-icon>
     </div>
-    <div fxFlex="0 0 auto" class="link-div">
+    <div *ngIf="buttons.includes('refresh')" fxFlex="0 0 auto" class="link-div" matTooltip="{{'key_refresh'|translate}}"
+      (click)="onRefresh()">
       <mat-icon [style.fontSize]="size" [style.height]="size" [style.width]="size">refresh</mat-icon>
     </div>
   </div>
-  <div fxFlex="0 0 auto" [fxFlexOrder]="direction==='row'?2:1" class="link-div" (click)="toggleEditMode()">
+  <div fxFlex="0 0 auto" [fxFlexOrder]="direction==='row'?2:1" class="link-div" (click)="toggleEditMode()" matTooltip="{{mainIconText|translate}}"
+    (click)="onMainAction()">
     <mat-icon [style.fontSize]="size" [style.height]="size" [style.width]="size">{{mainIcon}}</mat-icon>
   </div>
 </div>

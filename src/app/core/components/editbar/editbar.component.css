@@ -1,6 +1,9 @@
 .link-div {
   cursor: pointer;
 }
+.link-div:hover {
+  filter: brightness(50%);
+}
 
 .expand-menu {
   overflow: hidden;

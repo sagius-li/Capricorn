@@ -1,5 +1,4 @@
-<div *ngIf="editMode" class="drag-layer" fxLayout="row" dnd-draggable [dragEnabled]="true" [dragData]="dragItem" (mouseenter)="onMouseEnter()"
-  (mouseleave)="onMouseLeave()">
+<div *ngIf="editMode" class="drag-layer" fxLayout="row" dnd-draggable [dragEnabled]="true" [dragData]="dragItem">
   <div fxFlex="1 1 auto" fxLayout="row" fxLayoutAlign="end start" style="margin: 10px;">
     <div style="color: gray; margin-right: 5px;" (click)="delete()">
       <mat-icon>delete</mat-icon>

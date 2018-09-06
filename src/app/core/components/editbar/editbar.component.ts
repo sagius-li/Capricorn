@@ -1,10 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import {
   trigger,
   state,
   style,
   transition,
-  animate
+  animate,
+  keyframes
 } from '@angular/animations';
 
 @Component({
@@ -41,9 +42,25 @@ export class EditbarComponent implements OnInit {
   color = 'rgba(128, 128, 128, 0.8)';
   @Input()
   size = '30px';
+  @Input()
+  buttons = ['refresh', 'add', 'save'];
+  @Input()
+  saveAndReturn = true;
+
+  @Output()
+  add = new EventEmitter();
+  @Output()
+  cancel = new EventEmitter();
+  @Output()
+  edit = new EventEmitter();
+  @Output()
+  refresh = new EventEmitter();
+  @Output()
+  save = new EventEmitter();
 
   editMode = 'inactive';
   mainIcon = 'edit';
+  mainIconText = 'key_edit';
   transInactive = 'translateX(150%)';
   transActive = 'translateX(0)';
 
@@ -59,5 +76,26 @@ export class EditbarComponent implements OnInit {
   toggleEditMode() {
     this.editMode = this.editMode === 'inactive' ? 'active' : 'inactive';
     this.mainIcon = this.editMode === 'inactive' ? 'edit' : 'cancel';
+    this.mainIconText =
+      this.editMode === 'inactive' ? 'key_edit' : 'key_cancel';
+  }
+
+  onAdd() {
+    this.add.emit();
+  }
+
+  onMainAction() {
+    this.editMode === 'inactive' ? this.edit.emit() : this.cancel.emit();
+  }
+
+  onRefresh() {
+    this.refresh.emit();
+  }
+
+  onSave() {
+    if (this.saveAndReturn) {
+      this.toggleEditMode();
+    }
+    this.save.emit();
   }
 }

@@ -6,7 +6,6 @@ import { DragulaModule } from 'ng2-dragula';
 import { DndModule } from 'ng2-dnd';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
-import { LocalizationModule } from './core/modules/localization.module';
 import { CoreModule } from './core/modules/core.module';
 import { AppRoutingModule } from './app-routing.module';
 
@@ -48,7 +47,6 @@ import 'hammerjs';
     DragulaModule.forRoot(),
     DndModule.forRoot(),
     FlexLayoutModule,
-    LocalizationModule,
 
     CoreModule,
     AppRoutingModule,

@@ -1,3 +1,8 @@
 {
-  "i18n_languageKey": "1031"
+  "key_languageKey": "1031",
+  "key_edit": "editieren",
+  "key_refresh": "aktualisieren",
+  "key_add": "hinzufügen",
+  "key_save": "speichern",
+  "key_cancel": "abbrechen"
 }

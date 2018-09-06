@@ -56,8 +56,10 @@
               <kendo-chart-tooltip format="{0}"></kendo-chart-tooltip>
               <kendo-chart-series>
                 <kendo-chart-title text="Password Status"></kendo-chart-title>
-                <kendo-chart-series-item name="Password Reset" type="column" [data]="passwordData" field="reset" categoryField="date"></kendo-chart-series-item>
-                <kendo-chart-series-item name="Password Registation" type="column" [data]="passwordData" field="register" categoryField="date"></kendo-chart-series-item>
+                <kendo-chart-series-item name="Password Reset" type="column" [data]="passwordData" field="reset"
+                  categoryField="date"></kendo-chart-series-item>
+                <kendo-chart-series-item name="Password Registation" type="column" [data]="passwordData" field="register"
+                  categoryField="date"></kendo-chart-series-item>
               </kendo-chart-series>
               <kendo-chart-category-axis>
                 <kendo-chart-category-axis-item baseUnit="days" [labels]="{ format: 'd', rotation: 'auto' }">
@@ -87,13 +89,20 @@
 
       <!-- components -->
       <mat-tab label="Components">
-        <app-editbar></app-editbar>
+        <div fxLayout="row">
+          <div fxFlex></div>
+          <div fxFlex style="overflow: hidden;">
+            <app-editbar></app-editbar>
+          </div>
+          <div fxFlex></div>
+        </div>
       </mat-tab>
 
       <!-- dragula example -->
       <mat-tab label="Dragula Example">
         <mat-grid-list cols="6" gutterSize="10px" rowHeight="1:1" style="margin-top: 20px; margin-bottom: 20px;">
-          <mat-grid-tile dnd-droppable *ngFor="let config of widgetConfig" [rowspan]="config.rowSpan" [colspan]="config.colSpan" (onDropSuccess)="onMoveWidget($event, config)">
+          <mat-grid-tile dnd-droppable *ngFor="let config of widgetConfig" [rowspan]="config.rowSpan" [colspan]="config.colSpan"
+            (onDropSuccess)="onMoveWidget($event, config)">
             <app-drag [dragItem]="config" [editMode]="true" (resized)="onResized($event, config)" (deleted)="onDelete(config)">
               <ng-container [dcHost]="config.position"></ng-container>
             </app-drag>
@@ -146,7 +155,8 @@
           </div>
           <!-- material table -->
           <div style="height: 400px; overflow: auto;">
-            <mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort matSortActive="DisplayName" matSortDisableClear matSortDirection="asc">
+            <mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort matSortActive="DisplayName"
+              matSortDisableClear matSortDirection="asc">
               <!-- column definition -->
               <ng-container matColumnDef="DisplayName">
                 <mat-header-cell *matHeaderCellDef mat-sort-header> Display Name </mat-header-cell>

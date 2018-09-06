@@ -16,19 +16,9 @@ export class DragComponent implements OnInit {
   @Output()
   deleted = new EventEmitter();
 
-  isHovering = false;
-
   constructor() {}
 
   ngOnInit() {}
-
-  onMouseEnter() {
-    this.isHovering = true;
-  }
-
-  onMouseLeave() {
-    this.isHovering = false;
-  }
 
   resize(size: number[]) {
     this.resized.emit(size);
