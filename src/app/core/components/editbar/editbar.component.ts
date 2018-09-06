@@ -17,15 +17,17 @@ import {
         'inactive',
         style({
           opacity: 0,
-          transform: 'translateX(150%)'
-        })
+          transform: '{{inactiveTrans}}'
+        }),
+        { params: { inactiveTrans: 'translateX(150%)' } }
       ),
       state(
         'active',
         style({
           opacity: 1,
-          transform: 'translateX(0)'
-        })
+          transform: '{{activeTrans}}'
+        }),
+        { params: { activeTrans: 'translateX(0)' } }
       ),
       transition('inactive => active', animate(300)),
       transition('active => inactive', animate(300))
@@ -42,10 +44,17 @@ export class EditbarComponent implements OnInit {
 
   editMode = 'inactive';
   mainIcon = 'edit';
+  transInactive = 'translateX(150%)';
+  transActive = 'translateX(0)';
 
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.transInactive =
+      this.direction === 'row' ? 'translateX(150%)' : 'translateY(-150%)';
+    this.transActive =
+      this.direction === 'row' ? 'translateX(0)' : 'translateY(0)';
+  }
 
   toggleEditMode() {
     this.editMode = this.editMode === 'inactive' ? 'active' : 'inactive';
