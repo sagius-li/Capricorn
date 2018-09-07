@@ -13,6 +13,9 @@ import {
   DSResourceSet
 } from '../models/resource.model';
 
+/**
+ * Data layer to communicate with data storage
+ */
 @Injectable({
   providedIn: 'root'
 })
@@ -53,6 +56,16 @@ export class ResourceService {
     return this.connection.substring(pos1 + 9, pos2);
   }
 
+  /**
+   * Initialize the service, get version number, encryption key, language and login user
+   * @example
+   * Call with windows credential
+   * load()
+   * Call with basic credential
+   * load(\'baseaddress://localhost:5725;domain:contoso;username:mimadmin;password:yJJI/p/lc+WDOoNCR/l/3g==\')
+   * @param conn Connection string contains base address,domain, user name and password to access the data
+   * @returns No return value, settings are hold in private properties
+   */
   public load(conn?: string) {
     // get configuration
     this.baseUrl = this.config.getConfig(
@@ -156,44 +169,66 @@ export class ResourceService {
     );
   }
 
+  /** Get base url, like //localhost:6867/api/ */
   public getBaseUrl() {
     return this.baseUrl;
   }
 
+  /** Get service version */
   public getVersion() {
     return this.version;
   }
 
+  /** Get language */
   public getLanguage() {
     return this.language;
   }
 
+  /** Get encryption key */
   public getEncryptionKey() {
     return this.encryptionKey;
   }
 
+  /** Get authentication mode (windows / basic) */
   public getAuthenticationMode() {
     return this.authenticationMode;
   }
 
+  /** Get login user as portal resource */
   public getLoginUser() {
     return this.loginUser;
   }
 
+  /** Indicate if the service has been initialized */
   public isLoaded() {
     return this.loaded;
   }
 
+  /**
+   * Get resource object by ID
+   * @example
+   * Get MIM Poral install user with attributes DisplayName and Manager and resolve Manager as resource
+   * getResourceByID(\'7fb2b853-24f0-4498-9534-4e10589723c4\',
+   * [\'DisplayName\', \'Manager\'], true, true, 127, true, false, [\'DisplayName\'])
+   * @param id The GUID
+   * @param attributesToGet An array of attributes which should be returned
+   * @param adminMode Whether admin mode should be used. In admin mode all resources are accessible
+   * @param includePermission Whether permission info should be append to ever returned attributes
+   * @param cultureKey In which language the values should be returned
+   * @param resolveID If set to true, reference attributes are interpreted as resource instead of a GUID
+   * @param deepResolve Whether reference resolution should be done recusivly
+   * @param attributesToResolve An array of attributes which should be returned by resolving references
+   */
   public getResourceByID(
     id: string,
     attributesToGet: string[] = null,
-    adminMode = false,
-    includePermission = false,
+    adminMode: boolean = false,
+    includePermission: boolean = false,
     cultureKey: number = 127,
-    resolveID = false,
-    deepResolve = false,
+    resolveID: boolean = false,
+    deepResolve: boolean = false,
     attributesToResolve: string[] = null
-  ) {
+  ): Observable<DSResource> {
     if (!id) {
       return throwError('id is missing');
     }
@@ -242,6 +277,22 @@ export class ResourceService {
     return request;
   }
 
+  /**
+   * Get resource object by query
+   * @example
+   * getResourceByQuery(\'/Person\', [\'DisplayName\', \'AccountName\'],
+   * false, 20, 0, 127, false, false, null, [\'DisplayName:asc\', \'AccountName:dsc\'])
+   * @param query Query to fetch resource
+   * @param attributesToGet An array of attributes which should be returned
+   * @param adminMode Whether admin mode should be used. In admin mode all resources are accessible
+   * @param pageSize How many resources will be returned in one request. If set to 0, all resources will be returned
+   * @param index The begin position from where the request should begin to fetch and return resources
+   * @param cultureKey In which language the values should be returned
+   * @param resolveID If set to true, reference attributes are interpreted as resource instead of a GUID
+   * @param deepResolve Whether reference resolution should be done recusivly
+   * @param attributesToResolve An array of attributes which should be returned by resolving references
+   * @param attributesToSort An array of attributes and sort options
+   */
   public getResourceByQuery(
     query: string,
     attributesToGet: string[] = null,
@@ -253,7 +304,7 @@ export class ResourceService {
     deepResolve = false,
     attributesToResolve: string[] = null,
     attributesToSort: string[] = null
-  ) {
+  ): Observable<DSResourceSet> {
     if (!query) {
       return throwError('query is missing');
     }
@@ -308,7 +359,15 @@ export class ResourceService {
     return request;
   }
 
-  public getResourceCount(query: string, adminMode = false) {
+  /**
+   * Get the count of found resources by query
+   * @param query Query to fetch resource
+   * @param adminMode Whether admin mode should be used. In admin mode all resources are accessible
+   */
+  public getResourceCount(
+    query: string,
+    adminMode = false
+  ): Observable<number> {
     if (!query) {
       return throwError('query is missing');
     }
@@ -343,7 +402,12 @@ export class ResourceService {
     return request;
   }
 
-  public deleteResource(id: string, adminMode = false) {
+  /**
+   *
+   * @param id The GUID
+   * @param adminMode Whether admin mode should be used. In admin mode all resources are accessible
+   */
+  public deleteResource(id: string, adminMode = false): Observable<any> {
     if (!id) {
       return throwError('id is missing');
     }
@@ -378,7 +442,15 @@ export class ResourceService {
     return request;
   }
 
-  public createResource(resource: DSResource, adminMode = false) {
+  /**
+   * Create resource
+   * @param resource Resource to create
+   * @param adminMode Whether admin mode should be used. In admin mode all resources are accessible
+   */
+  public createResource(
+    resource: DSResource,
+    adminMode = false
+  ): Observable<string> {
     if (!resource) {
       return throwError('resource is missing');
     }
@@ -412,11 +484,17 @@ export class ResourceService {
     return request;
   }
 
+  /**
+   *
+   * @param resource Resource to update
+   * @param isdelta If set to true, only attributes with dirty mark will be updated, otherwise all attributes will be updated
+   * @param adminMode Whether admin mode should be used. In admin mode all resources are accessible
+   */
   public updateResource(
     resource: DSResource,
     isdelta = true,
     adminMode = false
-  ) {
+  ): Observable<string> {
     if (!resource) {
       return throwError('resource is missing');
     }
@@ -454,12 +532,19 @@ export class ResourceService {
     return request;
   }
 
+  /**
+   * Add values to a multivalue-attribute
+   * @param id The GUID of the target resource
+   * @param attributeName Name of the multivalue-attribute
+   * @param valuesToAdd Values, which will be added to the multivalue-attribute
+   * @param adminMode Whether admin mode should be used. In admin mode all resources are accessible
+   */
   public addValues(
     id: string,
     attributeName: string,
     valuesToAdd: string[] = null,
     adminMode = false
-  ) {
+  ): Observable<string> {
     if (!id) {
       return throwError('id is missing');
     }
@@ -504,12 +589,19 @@ export class ResourceService {
     return request;
   }
 
+  /**
+   * Remove values from a multivalue-attribute
+   * @param id The GUID of the target resource
+   * @param attributeName Name of the multivalue-attribute
+   * @param valuesToRemove Values, which will be removed from the multivalue-attribute
+   * @param adminMode Whether admin mode should be used. In admin mode all resources are accessible
+   */
   public removeValues(
     id: string,
     attributeName: string,
     valuesToRemove: string[] = null,
     adminMode = false
-  ) {
+  ): Observable<string> {
     if (!id) {
       return throwError('id is missing');
     }
