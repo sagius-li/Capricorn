@@ -20,30 +20,54 @@ import {
   providedIn: 'root'
 })
 export class ResourceService {
+  /** Using HttpClient, ConfigService and UtilsService */
   constructor(
     private http: HttpClient,
     private config: ConfigService,
     private utils: UtilsService
   ) {}
 
+  /** Property to hold base url */
   private baseUrl = '';
+  /** Property to hold version number */
   private version = 'n.a';
+  /** Property to hold language key */
   private language: string = undefined;
+  /** Property to hold encryption key */
   private encryptionKey: string = undefined;
+  /** Property to hold connection string */
   private connection: string = undefined;
+  /** Property to hold authentication mode */
   private authenticationMode = '';
+  /** Property to hold login user attributes, which should be loaded */
   private loginUserAttributes: string[] = [];
+  /** Property to hold user resource object */
   private loginUser: DSResource = undefined;
+  /** Property to hold indicator, if the service has been loaded */
   private loaded = false;
 
+  /**
+   * Build url using controller name and method name
+   * @param controllerName Web API controller name
+   * @param methodName Web API method name
+   */
   private buildUrl(controllerName: string, methodName: string) {
     return `${this.baseUrl}${controllerName}/${methodName}`;
   }
 
+  /**
+   * Nomoralize http parameters in the url
+   * @param url Base address
+   * @param params Http parameters
+   */
   private nomoralizeUrl(url: string, params: HttpParams) {
     return `${url}?${params.toString().replace(/%25/g, '%')}`;
   }
 
+  /**
+   * Get user account name out of the connection string
+   * @returns Account name
+   */
   private getUserNameFromConnection() {
     if (!this.connection) {
       return undefined;

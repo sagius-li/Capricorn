@@ -7,18 +7,32 @@ import { tap, switchMap } from 'rxjs/operators';
 import { ResourceService } from './resource.service';
 import { ConfigService } from './config.service';
 
+/**
+ * Bootstrap core services and modules and prepare for the first start
+ */
 @Injectable({
   providedIn: 'root'
 })
 export class StartupService {
+  /** Property to indicate if the service has been loaded */
   private loaded = false;
 
+  /**
+   * Initialize the service
+   * @param config ConfigService
+   * @param resource ResourceService
+   * @param translate TranslateService
+   */
   constructor(
     private config: ConfigService,
     private resource: ResourceService,
     private translate: TranslateService
   ) {}
 
+  /**
+   * Start the bootstrap process
+   * @param conn Connection string includes base address, user name, domain and password
+   */
   public start(conn?: string) {
     // init configuration service
     return this.config.load().pipe(
@@ -57,6 +71,9 @@ export class StartupService {
     );
   }
 
+  /**
+   * Indicate if the service has been loaded
+   */
   public isLoaded() {
     return this.loaded;
   }

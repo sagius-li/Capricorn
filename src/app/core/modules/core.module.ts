@@ -23,6 +23,7 @@ import { DragComponent } from '../components/drag/drag.component';
 import { EditbarComponent } from '../components/editbar/editbar.component';
 import { MockComponent } from '../components/mock/mock.component';
 
+/** @ignore */
 export function startup(startupService: StartupService) {
   return (conn?: string) => startupService.start(conn);
 }
