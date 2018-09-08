@@ -1,9 +1,17 @@
 <div fxLayout="column">
-  <mat-grid-list [cols]="colNumber" gutterSize="10px" rowHeight="1:1" style="margin-top: 20px; margin-bottom: 20px;">
-    <mat-grid-tile dnd-droppable *ngFor="let config of widgetConfig" [rowspan]="config.rowSpan" [colspan]="config.colSpan" (onDropSuccess)="onMoveWidget($event, config)">
-      <app-drag [dragItem]="config" [editMode]="true" (resized)="onResized($event, config)" (deleted)="onDelete(config)">
-        <ng-container [dcHost]="config.position"></ng-container>
-      </app-drag>
-    </mat-grid-tile>
-  </mat-grid-list>
+  <div fxFlex fxLayout="row" fxLayoutAlign="end center">
+    <div fxFlex="1 1 auto" style="overflow: hidden;">
+      <app-editbar (edit)="onEdit()" (cancel)="onCancel()"></app-editbar>
+    </div>
+  </div>
+  <div fxFlex>
+    <mat-grid-list [cols]="colNumber" gutterSize="10px" rowHeight="1:1" style="margin-top: 20px; margin-bottom: 20px;">
+      <mat-grid-tile dnd-droppable *ngFor="let config of widgetConfig" [rowspan]="config.rowSpan" [colspan]="config.colSpan"
+        (onDropSuccess)="onMoveWidget($event, config)">
+        <app-drag [dragItem]="config" [editMode]="editMode" (resized)="onResized($event, config)" (deleted)="onDelete(config)">
+          <ng-container [dcHost]="config.position"></ng-container>
+        </app-drag>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div>
 </div>

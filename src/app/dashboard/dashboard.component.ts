@@ -21,8 +21,10 @@ import { DcComponent } from '../core/models/dccomponent.interface';
 export class DashboardComponent implements OnInit, AfterViewInit {
   @ViewChildren(DchostDirective)
   dcHosts: QueryList<DchostDirective>;
+
   widgetConfig = [];
   colNumber = 6;
+  editMode = false;
 
   constructor(
     private widgetService: WidgetService,
@@ -213,5 +215,13 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     if (index > -1) {
       this.widgetConfig.splice(index, 1);
     }
+  }
+
+  onEdit() {
+    this.editMode = true;
+  }
+
+  onCancel() {
+    this.editMode = false;
   }
 }

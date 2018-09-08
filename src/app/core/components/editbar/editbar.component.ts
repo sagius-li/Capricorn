@@ -4,8 +4,7 @@ import {
   state,
   style,
   transition,
-  animate,
-  keyframes
+  animate
 } from '@angular/animations';
 
 /**
@@ -33,8 +32,8 @@ import {
         }),
         { params: { activeTrans: 'translateX(0)' } }
       ),
-      transition('inactive => active', animate(300)),
-      transition('active => inactive', animate(300))
+      transition('inactive => active', animate(200)),
+      transition('active => inactive', animate(200))
     ])
   ]
 })
@@ -99,16 +98,13 @@ export class EditbarComponent implements OnInit {
     this.mainIcon = this.editMode === 'inactive' ? 'edit' : 'cancel';
     this.mainIconText =
       this.editMode === 'inactive' ? 'key_edit' : 'key_cancel';
+
+    this.editMode === 'inactive' ? this.cancel.emit() : this.edit.emit();
   }
 
   /** Emit add event */
   onAdd() {
     this.add.emit();
-  }
-
-  /** Emit main action (edit, cancel) */
-  onMainAction() {
-    this.editMode === 'inactive' ? this.edit.emit() : this.cancel.emit();
   }
 
   /** Emit refresh action */

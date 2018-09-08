@@ -16,8 +16,7 @@
       <mat-icon [style.fontSize]="size" [style.height]="size" [style.width]="size">refresh</mat-icon>
     </div>
   </div>
-  <div fxFlex="0 0 auto" [fxFlexOrder]="direction==='row'?2:1" class="link-div" (click)="toggleEditMode()" matTooltip="{{mainIconText|translate}}"
-    (click)="onMainAction()">
+  <div fxFlex="0 0 auto" [fxFlexOrder]="direction==='row'?2:1" class="link-div" (click)="toggleEditMode()" matTooltip="{{mainIconText|translate}}">
     <mat-icon [style.fontSize]="size" [style.height]="size" [style.width]="size">{{mainIcon}}</mat-icon>
   </div>
 </div>
