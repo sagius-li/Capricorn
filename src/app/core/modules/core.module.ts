@@ -11,6 +11,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
+import { ChartsModule } from '@progress/kendo-angular-charts';
+
 import { ConfigService } from '../services/config.service';
 import { ResourceService } from '../services/resource.service';
 import { StartupService } from '../services/startup.service';
@@ -22,6 +24,7 @@ import { DchostDirective } from '../directives/dchost.directive';
 import { DragComponent } from '../components/drag/drag.component';
 import { EditbarComponent } from '../components/editbar/editbar.component';
 import { MockComponent } from '../components/mock/mock.component';
+import { ChartComponent } from '../components/chart/chart.component';
 
 /** @ignore */
 export function startup(startupService: StartupService) {
@@ -37,13 +40,15 @@ export function startup(startupService: StartupService) {
     LocalizationModule,
     MatMenuModule,
     MatIconModule,
-    MatTooltipModule
+    MatTooltipModule,
+    ChartsModule
   ],
   declarations: [
     DchostDirective,
     DragComponent,
     EditbarComponent,
-    MockComponent
+    MockComponent,
+    ChartComponent
   ],
   entryComponents: [MockComponent],
   providers: [
@@ -57,10 +62,14 @@ export function startup(startupService: StartupService) {
     LocalizationModule,
     DndModule,
     MatIconModule,
+    ChartsModule,
+
     DchostDirective,
+
     DragComponent,
     EditbarComponent,
-    MockComponent
+    MockComponent,
+    ChartComponent
   ]
 })
 export class CoreModule {}

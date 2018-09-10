@@ -51,15 +51,19 @@
         <div fxLayout="row">
           <div fxFlex>
             <!-- password status -->
-            <kendo-chart>
+            <kendo-chart [seriesColors]="">
               <kendo-chart-legend position="bottom" orientation="horizontal"></kendo-chart-legend>
-              <kendo-chart-tooltip format="{0}"></kendo-chart-tooltip>
+              <!-- <kendo-chart-tooltip format="{0}"></kendo-chart-tooltip> -->
               <kendo-chart-series>
                 <kendo-chart-title text="Password Status"></kendo-chart-title>
                 <kendo-chart-series-item name="Password Reset" type="column" [data]="passwordData" field="reset"
-                  categoryField="date"></kendo-chart-series-item>
+                  categoryField="date">
+                  <kendo-chart-tooltip format="{0}"></kendo-chart-tooltip>
+                </kendo-chart-series-item>
                 <kendo-chart-series-item name="Password Registation" type="column" [data]="passwordData" field="register"
-                  categoryField="date"></kendo-chart-series-item>
+                  categoryField="date">
+                  <kendo-chart-tooltip format="{0}"></kendo-chart-tooltip>
+                </kendo-chart-series-item>
               </kendo-chart-series>
               <kendo-chart-category-axis>
                 <kendo-chart-category-axis-item baseUnit="days" [labels]="{ format: 'd', rotation: 'auto' }">
@@ -71,7 +75,6 @@
             <!-- request status -->
             <kendo-chart [seriesColors]="['lightblue', 'yellow', 'red']">
               <kendo-chart-legend position="bottom"></kendo-chart-legend>
-              <kendo-chart-tooltip format="{0}"></kendo-chart-tooltip>
               <kendo-chart-series>
                 <kendo-chart-title text="Request Status"></kendo-chart-title>
                 <kendo-chart-series-item type="pie" [data]="requestData" field="value" categoryField="type">
@@ -80,6 +83,8 @@
                       {{category}}: {{value}}
                     </ng-template>
                   </kendo-chart-series-item-tooltip>
+                  <kendo-chart-series-item-labels [content]="labelContent" background="none">
+                  </kendo-chart-series-item-labels>
                 </kendo-chart-series-item>
               </kendo-chart-series>
             </kendo-chart>
@@ -89,8 +94,11 @@
 
       <!-- components -->
       <mat-tab label="Components">
-        <div fxLayout="row">
-          <div fxFlex></div>
+        <div fxLayout="row" style="height: 400px;">
+          <div fxFlex>
+            <app-chart [seriesData]="[{category:'completed',value:52},{category:'failed',value:6},{category:'pending',value:2}]"
+              [legend]="{visible:true,position:'bottom'}"></app-chart>
+          </div>
           <div fxFlex style="overflow: hidden;">
             <app-editbar></app-editbar>
           </div>

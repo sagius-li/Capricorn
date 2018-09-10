@@ -353,4 +353,8 @@ export class TestComponent implements OnInit, AfterViewInit {
       this.widgetConfig.splice(index, 1);
     }
   }
+
+  labelContent(e: any): string {
+    return e.category;
+  }
 }

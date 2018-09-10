@@ -25,7 +25,6 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatGridListModule } from '@angular/material/grid-list';
 
-import { ChartsModule } from '@progress/kendo-angular-charts';
 import { LayoutModule } from '@progress/kendo-angular-layout';
 
 import 'hammerjs';
@@ -58,7 +57,6 @@ import 'hammerjs';
     MatProgressSpinnerModule,
     MatGridListModule,
 
-    ChartsModule,
     LayoutModule
   ],
   entryComponents: [LoadingspinnerComponent],
