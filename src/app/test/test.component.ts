@@ -36,7 +36,12 @@ import { DynamicContentService } from './dynamiccontent.service';
 
 import { LoadingspinnerComponent } from './loadingspinner/loadingspinner.component';
 
-import { SeriesConfig } from '../core/models/chart.model';
+import {
+  SeriesConfig,
+  QueryConfig,
+  ChartConfig,
+  Position
+} from '../core/models/chart.model';
 
 @Component({
   selector: 'app-test',
@@ -127,44 +132,41 @@ export class TestComponent implements OnInit, AfterViewInit {
   ];
   // #endregion
   // #region members for chart component
-  chartSeriesData = [
-    { category: 'completed', value: 52, reset: 5 },
-    { category: 'failed', value: 6, reset: 8 },
-    { category: 'pending', value: 2, reset: 11 }
-  ];
   chartSeriesConfig: SeriesConfig[] = [
     {
-      name: 'completed',
+      name: 'dummy',
       categoryField: 'category',
       valueField: 'value',
-      queryConfg: {
-        method: 'resource/win/get/count',
-        // tslint:disable-next-line:quotemark
-        query: "/Request[RequestStatus='completed']"
-      }
-    },
-    {
-      name: 'pending',
-      categoryField: 'category',
-      valueField: 'value',
-      queryConfg: {
-        method: 'resource/win/get/count',
-        // tslint:disable-next-line:quotemark
-        query: "/Request[RequestStatus='pending']"
-      }
-    },
-    {
-      name: 'failed',
-      categoryField: 'category',
-      valueField: 'value',
-      queryConfg: {
-        method: 'resource/win/get/count',
-        query:
+      queryConfig: [
+        {
+          name: 'completed',
+          method: 'resource/win/get/count',
           // tslint:disable-next-line:quotemark
-          "/Request[RequestStatus!='completed' and RequestStatus!='pending']"
-      }
+          query: "/Request[RequestStatus='completed']"
+        },
+        {
+          name: 'pending',
+          method: 'resource/win/get/count',
+          // tslint:disable-next-line:quotemark
+          query: "/Request[RequestStatus='pending']"
+        },
+        {
+          name: 'failed',
+          method: 'resource/win/get/count',
+          query:
+            // tslint:disable-next-line:quotemark
+            "/Request[RequestStatus!='completed' and RequestStatus!='pending']"
+        }
+      ]
     }
   ];
+  chartData: ChartConfig = {
+    chartTitle: 'Requests',
+    seriesType: 'donut',
+    seriesConfig: this.chartSeriesConfig,
+    legend: { position: Position.bottom, visible: true },
+    labelConfig: { format: '{1}', visible: true, color: 'white' }
+  };
   //#endregion
 
   constructor(

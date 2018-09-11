@@ -13,6 +13,7 @@ export class ChartLegend {
 }
 
 export class QueryConfig {
+  name: string;
   method: string;
   query: string;
 }
@@ -22,8 +23,9 @@ export class SeriesConfig {
   name: string;
   categoryField: string;
   valueField: string;
-  queryConfg?: QueryConfig;
   color?: string;
+  data?: any[];
+  queryConfig?: QueryConfig[];
 }
 
 /** Data model for tooltip config */
@@ -41,12 +43,11 @@ export class LabelConfig {
 
 /** Data model for chart config */
 export class ChartConfig {
-  seriesType: string;
+  seriesType?: string;
   chartTitle?: string;
+  seriesColor?: string[];
   legend?: ChartLegend;
-  seriesData: any[];
-  seriesColors?: string[];
-  seriesConfig: SeriesConfig[];
+  seriesConfig?: SeriesConfig[];
   tooltipConfig?: TooltipConfig;
   labelConfig?: LabelConfig;
 }

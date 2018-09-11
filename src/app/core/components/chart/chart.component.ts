@@ -9,7 +9,8 @@ import {
   SeriesConfig,
   Position,
   TooltipConfig,
-  LabelConfig
+  LabelConfig,
+  QueryConfig
 } from '../../models/chart.model';
 import { ResourceService } from '../../services/resource.service';
 
@@ -27,13 +28,20 @@ export class ChartComponent implements OnInit, DcComponent {
   @Input()
   chartTitle: string;
   @Input()
+  seriesColor: string[];
+  @Input()
   legend: ChartLegend = { position: Position.bottom, visible: false };
   @Input()
-  seriesData: any[] = [{ category: 'dummy', value: 1 }];
-  @Input()
   seriesConfig: SeriesConfig[] = [
-    { name: 'dummy', categoryField: 'category', valueField: 'value' }
+    {
+      name: 'dummy',
+      categoryField: 'category',
+      valueField: 'value',
+      data: [{ category: 'dummy', value: 1 }]
+    }
   ];
+  @Input()
+  queryConfig: QueryConfig[] = undefined;
   @Input()
   tooltipConfig: TooltipConfig = { format: '{0}: {1}', visible: false };
   @Input()
@@ -49,8 +57,8 @@ export class ChartComponent implements OnInit, DcComponent {
       chartTitle: this.chartTitle,
       legend: this.legend,
       seriesType: this.seriesType,
+      seriesColor: this.seriesColor,
       seriesConfig: this.seriesConfig,
-      seriesData: this.seriesData,
       tooltipConfig: this.tooltipConfig,
       labelConfig: this.labelConfig
     };
@@ -66,6 +74,9 @@ export class ChartComponent implements OnInit, DcComponent {
       if (this.data.seriesType) {
         this.chartConfig.seriesType = this.data.seriesType;
       }
+      if (this.data.seriesColor) {
+        this.chartConfig.seriesColor = this.data.seriesColor;
+      }
       if (this.data.seriesConfig) {
         this.chartConfig.seriesConfig = this.data.seriesConfig;
       }
@@ -75,52 +86,37 @@ export class ChartComponent implements OnInit, DcComponent {
       if (this.data.labelConfig) {
         this.chartConfig.labelConfig = this.data.labelConfig;
       }
-      if (this.data.seriesData) {
-        this.chartConfig.seriesData = this.data.seriesData;
-      }
     }
 
-    // extract series colors
-    if (this.chartConfig && this.chartConfig.seriesConfig) {
-      const colors = this.chartConfig.seriesConfig
-        .filter(c => c.color)
-        .map(a => a.color);
-      this.chartConfig.seriesColors =
-        colors && colors.length > 0 ? colors : undefined;
-    }
-
-    const seriesConfigWithQuery = this.chartConfig.seriesConfig.filter(
-      s => s.queryConfg
-    );
-    if (seriesConfigWithQuery.length === this.chartConfig.seriesConfig.length) {
-      const observableBatch = [];
-      this.chartConfig.seriesConfig.forEach(config => {
-        if (config.queryConfg.method && config.queryConfg.query) {
-          observableBatch.push(
-            this.svcResource.callMethod('', config.queryConfg.method, 'get', {
-              query: config.queryConfg.query
-            })
-          );
-        }
-      });
-      if (observableBatch.length === this.chartConfig.seriesConfig.length) {
-        forkJoin(observableBatch).subscribe(
-          result => {
+    // overwrite series data with query fetching results
+    this.chartConfig.seriesConfig.forEach(seriesConfig => {
+      if (seriesConfig.queryConfig) {
+        const observableBatch = [];
+        const names = [];
+        seriesConfig.queryConfig.forEach(config => {
+          if (config.name && config.method && config.query) {
+            names.push(config.name);
+            observableBatch.push(
+              this.svcResource.callMethod('', config.method, 'get', {
+                query: config.query
+              })
+            );
+          }
+        });
+        if (observableBatch.length === seriesConfig.queryConfig.length) {
+          forkJoin(observableBatch).subscribe(result => {
             const chartData = [];
             result.forEach((item, index) => {
               const data = {};
-              data[
-                this.chartConfig.seriesConfig[index].categoryField
-              ] = this.chartConfig.seriesConfig[index].name;
-              data[this.chartConfig.seriesConfig[index].valueField] = item;
+              data[seriesConfig.categoryField] = names[index];
+              data[seriesConfig.valueField] = item;
               chartData.push(data);
             });
-            this.chartConfig.seriesData = chartData;
-          },
-          err => {}
-        );
+            seriesConfig.data = chartData;
+          });
+        }
       }
-    }
+    });
   }
 
   resize(size: number[]) {}

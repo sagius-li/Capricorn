@@ -1,9 +1,9 @@
-<kendo-chart [seriesColors]="chartConfig.seriesColors">
+<kendo-chart [seriesColors]="chartConfig.seriesColor">
   <kendo-chart-legend [position]="chartConfig.legend.position" [visible]="chartConfig.legend && chartConfig.legend.visible"></kendo-chart-legend>
   <kendo-chart-series>
     <kendo-chart-title [text]="chartConfig.chartTitle" [visible]="chartConfig.chartTitle"></kendo-chart-title>
     <kendo-chart-series-item *ngFor="let config of chartConfig.seriesConfig" [name]="config.name" [type]="chartConfig.seriesType"
-      [data]="chartConfig.seriesData" [field]="config.valueField" [categoryField]="config.categoryField">
+      [data]="config.data" [field]="config.valueField" [categoryField]="config.categoryField">
       <kendo-chart-series-item-tooltip [visible]="chartConfig.tooltipConfig && chartConfig.tooltipConfig.visible">
         <ng-template let-category="category" let-value="value">
           {{tooltipContent(category, value)}}
