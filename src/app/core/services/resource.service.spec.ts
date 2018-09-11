@@ -6,7 +6,7 @@ import { ConfigService } from './config.service';
 import { UtilsService } from './utils.service';
 import { ResourceService } from './resource.service';
 
-xdescribe('ResourceService', () => {
+describe('ResourceService', () => {
   let configServiceSpy: jasmine.SpyObj<ConfigService>;
   let utilsServiceSpy: jasmine.SpyObj<UtilsService>;
 
@@ -88,6 +88,42 @@ xdescribe('ResourceService', () => {
             expect(service.getEncryptionKey()).toEqual('ContosoDemo');
             expect(service.getLoginUser()).toBeDefined();
             done();
+          },
+          err => {
+            done.fail(err);
+          }
+        );
+      })();
+    },
+    10000
+  );
+
+  fit(
+    'should call service method',
+    function(done) {
+      inject([ResourceService], (service: ResourceService) => {
+        service.load().subscribe(
+          () => {
+            service
+              .callMethod('resource/win', 'get/id', 'get', {
+                id: '7fb2b853-24f0-4498-9534-4e10589723c4',
+                attributesToGet: ['DisplayName', 'AccountName']
+              })
+              .subscribe(
+                (resource: DSResource) => {
+                  expect(resource).toBeDefined();
+                  expect(resource.ObjectID).toEqual(
+                    '7fb2b853-24f0-4498-9534-4e10589723c4'
+                  );
+                  expect(
+                    resource.Attributes['AccountName'].Value
+                  ).toBeDefined();
+                  done();
+                },
+                err => {
+                  done.fail(err);
+                }
+              );
           },
           err => {
             done.fail(err);

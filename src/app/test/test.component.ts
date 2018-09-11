@@ -18,6 +18,8 @@ import {
   delay
 } from 'rxjs/operators';
 
+import * as moment from 'moment';
+
 import { TranslateService } from '@ngx-translate/core';
 
 import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
@@ -34,7 +36,7 @@ import { DynamicContentService } from './dynamiccontent.service';
 
 import { LoadingspinnerComponent } from './loadingspinner/loadingspinner.component';
 
-import * as moment from 'moment';
+import { SeriesConfig } from '../core/models/chart.model';
 
 @Component({
   selector: 'app-test',
@@ -124,6 +126,21 @@ export class TestComponent implements OnInit, AfterViewInit {
     }
   ];
   // #endregion
+  // #region members for chart component
+  chartSeriesData = [
+    { category: 'completed', value: 52, reset: 5 },
+    { category: 'failed', value: 6, reset: 8 },
+    { category: 'pending', value: 2, reset: 11 }
+  ];
+  chartSeriesConfig: SeriesConfig[] = [
+    {
+      name: 'completed',
+      categoryField: 'category',
+      valueField: 'value',
+      queryConfg: { method: '', query: '' }
+    }
+  ];
+  //#endregion
 
   constructor(
     private config: ConfigService,

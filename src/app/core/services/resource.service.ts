@@ -56,6 +56,26 @@ export class ResourceService {
   }
 
   /**
+   * Build HttpParams
+   * @param params Http parameters to build
+   */
+  private buildHttpParams(params: any): HttpParams {
+    let retVal = new HttpParams();
+
+    Object.keys(params).forEach(key => {
+      if (params[key] instanceof Array) {
+        params[key].forEach(element => {
+          retVal = retVal.append(key, element);
+        });
+      } else {
+        retVal = retVal.append(key, params[key]);
+      }
+    });
+
+    return retVal;
+  }
+
+  /**
    * Nomoralize http parameters in the url
    * @param url Base address
    * @param params Http parameters
@@ -226,6 +246,56 @@ export class ResourceService {
   /** Indicate if the service has been initialized */
   public isLoaded() {
     return this.loaded;
+  }
+
+  /**
+   * Call any service method
+   * @param controllerName Controller name
+   * @param methodName Method name
+   * @param actionName Action name
+   * @param data Data as HttpParams or as body
+   */
+  public callMethod(
+    controllerName: string,
+    methodName: string,
+    actionName: string,
+    data: any
+  ): Observable<any> {
+    if (!controllerName || !methodName || !actionName || !data) {
+      return throwError('parameter is missing');
+    }
+
+    const url = this.buildUrl(controllerName, methodName);
+    let params: HttpParams = new HttpParams();
+    let request: Observable<any>;
+
+    switch (actionName.toLowerCase()) {
+      case 'get':
+        // params = new HttpParams({ fromObject: data });
+        params = this.buildHttpParams(data);
+        request = this.http.get<any>(url, {
+          params: params,
+          withCredentials: true
+        });
+        break;
+      case 'delete':
+        params = new HttpParams({ fromObject: data });
+        request = this.http.delete(url, {
+          params: params,
+          withCredentials: true
+        });
+        break;
+      case 'post':
+        request = this.http.post<string>(url, data, {
+          params: params,
+          withCredentials: true
+        });
+        break;
+      default:
+        return throwError('action name is invalid');
+    }
+
+    return request;
   }
 
   /**

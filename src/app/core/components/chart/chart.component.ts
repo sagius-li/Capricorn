@@ -22,7 +22,7 @@ export class ChartComponent implements OnInit, DcComponent {
   @Input()
   seriesType = 'pie';
   @Input()
-  chartTitle = 'dummy';
+  chartTitle: string;
   @Input()
   legend: ChartLegend = { position: Position.bottom, visible: false };
   @Input()

@@ -96,8 +96,7 @@
       <mat-tab label="Components">
         <div fxLayout="row" style="height: 400px;">
           <div fxFlex>
-            <app-chart [seriesData]="[{category:'completed',value:52},{category:'failed',value:6},{category:'pending',value:2}]"
-              [legend]="{visible:true,position:'bottom'}"></app-chart>
+            <app-chart [seriesData]="chartSeriesData"></app-chart>
           </div>
           <div fxFlex style="overflow: hidden;">
             <app-editbar></app-editbar>
