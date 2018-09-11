@@ -96,7 +96,7 @@
       <mat-tab label="Components">
         <div fxLayout="row" style="height: 400px;">
           <div fxFlex>
-            <app-chart [seriesData]="chartSeriesData"></app-chart>
+            <app-chart [seriesData]="chartSeriesData" [seriesConfig]="chartSeriesConfig" [seriesType]="'column'"></app-chart>
           </div>
           <div fxFlex style="overflow: hidden;">
             <app-editbar></app-editbar>

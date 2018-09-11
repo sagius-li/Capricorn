@@ -137,7 +137,32 @@ export class TestComponent implements OnInit, AfterViewInit {
       name: 'completed',
       categoryField: 'category',
       valueField: 'value',
-      queryConfg: { method: '', query: '' }
+      queryConfg: {
+        method: 'resource/win/get/count',
+        // tslint:disable-next-line:quotemark
+        query: "/Request[RequestStatus='completed']"
+      }
+    },
+    {
+      name: 'pending',
+      categoryField: 'category',
+      valueField: 'value',
+      queryConfg: {
+        method: 'resource/win/get/count',
+        // tslint:disable-next-line:quotemark
+        query: "/Request[RequestStatus='pending']"
+      }
+    },
+    {
+      name: 'failed',
+      categoryField: 'category',
+      valueField: 'value',
+      queryConfg: {
+        method: 'resource/win/get/count',
+        query:
+          // tslint:disable-next-line:quotemark
+          "/Request[RequestStatus!='completed' and RequestStatus!='pending']"
+      }
     }
   ];
   //#endregion

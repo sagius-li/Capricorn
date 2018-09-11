@@ -261,7 +261,7 @@ export class ResourceService {
     actionName: string,
     data: any
   ): Observable<any> {
-    if (!controllerName || !methodName || !actionName || !data) {
+    if (!methodName || !actionName || !data) {
       return throwError('parameter is missing');
     }
 
