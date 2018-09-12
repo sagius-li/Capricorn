@@ -79,6 +79,7 @@ export class TestComponent implements OnInit, AfterViewInit {
   @ViewChildren(DchostDirective)
   dcHosts: QueryList<DchostDirective>;
   widgetConfig = [];
+  dragEditMode = false;
   // #endregion
   // #region members for charts
   passwordData = [
@@ -196,16 +197,36 @@ export class TestComponent implements OnInit, AfterViewInit {
       [
         {
           "name": "Mock 1",
-          "type": "MockComponent",
+          "type": "ChartComponent",
           "description": "Mock 1",
           "position": "cell1",
           "colSpan": 1,
           "rowSpan": 1,
           "data": {
-            "content": "Mock 1",
-            "bgColor": "lightyellow",
-            "image_1_1": "assets/img/mock/11request.PNG",
-            "image_3_1": "assets/img/mock/31request.PNG"
+            "seriesConfig": [
+              {
+                "name": "request",
+                "categoryField": "category",
+                "valueField": "value",
+                "queryConfig": [
+                  {
+                    "name": "completed",
+                    "method": "resource/win/get/count",
+                    "query": "/Request[RequestStatus='completed']"
+                  },
+                  {
+                    "name": "pending",
+                    "method": "resource/win/get/count",
+                    "query": "/Request[RequestStatus='pending']"
+                  },
+                  {
+                    "name": "failed",
+                    "method": "resource/win/get/count",
+                    "query": "/Request[RequestStatus!='completed' and RequestStatus!='pending']"
+                  }
+                ]
+              }
+            ]
           }
         },
         {
@@ -396,6 +417,14 @@ export class TestComponent implements OnInit, AfterViewInit {
     if (index > -1) {
       this.widgetConfig.splice(index, 1);
     }
+  }
+
+  onEditbarEdit() {
+    this.dragEditMode = true;
+  }
+
+  onEditbarCancel() {
+    this.dragEditMode = false;
   }
 
   labelContent(e: any): string {

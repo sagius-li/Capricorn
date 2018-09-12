@@ -1,17 +1,21 @@
-<kendo-chart [seriesColors]="chartConfig.seriesColor">
-  <kendo-chart-legend [position]="chartConfig.legend.position" [visible]="chartConfig.legend && chartConfig.legend.visible"></kendo-chart-legend>
-  <kendo-chart-series>
-    <kendo-chart-title [text]="chartConfig.chartTitle" [visible]="chartConfig.chartTitle"></kendo-chart-title>
-    <kendo-chart-series-item *ngFor="let config of chartConfig.seriesConfig" [name]="config.name" [type]="chartConfig.seriesType"
-      [data]="config.data" [field]="config.valueField" [categoryField]="config.categoryField">
-      <kendo-chart-series-item-tooltip [visible]="chartConfig.tooltipConfig && chartConfig.tooltipConfig.visible">
-        <ng-template let-category="category" let-value="value">
-          {{tooltipContent(category, value)}}
-        </ng-template>
-      </kendo-chart-series-item-tooltip>
-      <kendo-chart-series-item-labels [visible]="chartConfig.labelConfig && chartConfig.labelConfig.visible" [content]="labelContent"
-        background="none" [color]="chartConfig.labelConfig.color">
-      </kendo-chart-series-item-labels>
-    </kendo-chart-series-item>
-  </kendo-chart-series>
-</kendo-chart>
+<div fxLayout="row nowrap" style="height: 100%; width: 100%;">
+  <div fxFlex="1 1 100%">
+    <kendo-chart [seriesColors]="chartConfig.seriesColor" style="height: 100%; width: 100%;">
+      <kendo-chart-legend [position]="chartConfig.legend.position" [visible]="chartConfig.legend && chartConfig.legend.visible"></kendo-chart-legend>
+      <kendo-chart-series>
+        <kendo-chart-title [text]="chartConfig.chartTitle" [visible]="chartConfig.chartTitle"></kendo-chart-title>
+        <kendo-chart-series-item *ngFor="let config of chartConfig.seriesConfig" [name]="config.name" [type]="chartConfig.seriesType"
+          [data]="config.data" [field]="config.valueField" [categoryField]="config.categoryField">
+          <kendo-chart-series-item-tooltip [visible]="chartConfig.tooltipConfig && chartConfig.tooltipConfig.visible">
+            <ng-template let-category="category" let-value="value">
+              {{tooltipContent(category, value)}}
+            </ng-template>
+          </kendo-chart-series-item-tooltip>
+          <kendo-chart-series-item-labels [visible]="chartConfig.labelConfig && chartConfig.labelConfig.visible"
+            [content]="labelContent" background="none" [color]="chartConfig.labelConfig.color">
+          </kendo-chart-series-item-labels>
+        </kendo-chart-series-item>
+      </kendo-chart-series>
+    </kendo-chart>
+  </div>
+</div>

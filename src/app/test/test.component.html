@@ -95,26 +95,33 @@
       <!-- components -->
       <mat-tab label="Components">
         <div fxLayout="row" style="height: 400px;">
-          <div fxFlex>
+          <div fxFlex="1 1 auto">
             <app-chart [data]="chartData" [labelConfig]="chartData.labelConfig"></app-chart>
           </div>
-          <div fxFlex style="overflow: hidden;">
+          <div fxFlex="1 1 auto" style="overflow: hidden;">
             <app-editbar></app-editbar>
           </div>
-          <div fxFlex></div>
+          <div fxFlex="1 1 auto"></div>
         </div>
       </mat-tab>
 
       <!-- dragula example -->
       <mat-tab label="Dragula Example">
-        <mat-grid-list cols="6" gutterSize="10px" rowHeight="1:1" style="margin-top: 20px; margin-bottom: 20px;">
-          <mat-grid-tile dnd-droppable *ngFor="let config of widgetConfig" [rowspan]="config.rowSpan" [colspan]="config.colSpan"
-            (onDropSuccess)="onMoveWidget($event, config)">
-            <app-drag [dragItem]="config" [editMode]="true" (resized)="onResized($event, config)" (deleted)="onDelete(config)">
-              <ng-container [dcHost]="config.position"></ng-container>
-            </app-drag>
-          </mat-grid-tile>
-        </mat-grid-list>
+        <div fxLayout="column">
+          <div fxFlex="0 0 auto">
+            <app-editbar (edit)="onEditbarEdit()" (cancel)="onEditbarCancel()"></app-editbar>
+          </div>
+          <div fxFlex="1 1 auto">
+            <mat-grid-list cols="6" gutterSize="10px" rowHeight="1:1">
+              <mat-grid-tile dnd-droppable *ngFor="let config of widgetConfig" [rowspan]="config.rowSpan" [colspan]="config.colSpan"
+                (onDropSuccess)="onMoveWidget($event, config)">
+                <app-drag [dragItem]="config" [editMode]="dragEditMode" (resized)="onResized($event, config)" (deleted)="onDelete(config)">
+                  <ng-container [dcHost]="config.position"></ng-container>
+                </app-drag>
+              </mat-grid-tile>
+            </mat-grid-list>
+          </div>
+        </div>
 
         <!-- <mat-grid-list cols="4" gutterSize="10px" rowHeight="200px" style="margin-top: 20px; margin-bottom: 20px;">
           <mat-grid-tile dnd-droppable *ngFor="let config of widgetConfig" [rowspan]="config.rowSpan" [colspan]="config.colSpan" class="drag-cell"

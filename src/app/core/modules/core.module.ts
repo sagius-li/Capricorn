@@ -50,7 +50,7 @@ export function startup(startupService: StartupService) {
     MockComponent,
     ChartComponent
   ],
-  entryComponents: [MockComponent],
+  entryComponents: [MockComponent, ChartComponent],
   providers: [
     ConfigService,
     ResourceService,

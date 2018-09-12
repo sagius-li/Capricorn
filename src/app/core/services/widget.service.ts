@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { MockComponent } from '../components/mock/mock.component';
+import { ChartComponent } from '../components/chart/chart.component';
 
 /**
  * Service for dynamic component creation
@@ -13,7 +14,8 @@ export class WidgetService {
    * A dictionary of available components, which can be created dynamically
    */
   widgetIndex = {
-    MockComponent: MockComponent
+    MockComponent: MockComponent,
+    ChartComponent: ChartComponent
   };
 
   /** @ignore */
