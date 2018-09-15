@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { Observable, forkJoin } from 'rxjs';
+import { NgxSpinnerService } from 'ngx-spinner';
+
+import { forkJoin } from 'rxjs';
 
 import { DcComponent } from '../../models/dccomponent.interface';
 import {
@@ -49,7 +51,10 @@ export class ChartComponent implements OnInit, DcComponent {
 
   chartConfig: ChartConfig;
 
-  constructor(private svcResource: ResourceService) {}
+  constructor(
+    private svcResource: ResourceService,
+    private spinner: NgxSpinnerService
+  ) {}
 
   ngOnInit() {
     // init chartConfig using @input values
@@ -91,30 +96,36 @@ export class ChartComponent implements OnInit, DcComponent {
     // overwrite series data with query fetching results
     this.chartConfig.seriesConfig.forEach(seriesConfig => {
       if (seriesConfig.queryConfig) {
-        const observableBatch = [];
-        const names = [];
-        seriesConfig.queryConfig.forEach(config => {
-          if (config.name && config.method && config.query) {
-            names.push(config.name);
-            observableBatch.push(
-              this.svcResource.callMethod('', config.method, 'get', {
-                query: config.query
-              })
-            );
-          }
-        });
-        if (observableBatch.length === seriesConfig.queryConfig.length) {
-          forkJoin(observableBatch).subscribe(result => {
-            const chartData = [];
-            result.forEach((item, index) => {
-              const data = {};
-              data[seriesConfig.categoryField] = names[index];
-              data[seriesConfig.valueField] = item;
-              chartData.push(data);
-            });
-            seriesConfig.data = chartData;
+        this.spinner.show();
+
+        setTimeout(() => {
+          const observableBatch = [];
+          const names = [];
+          seriesConfig.queryConfig.forEach(config => {
+            if (config.name && config.method && config.query) {
+              names.push(config.name);
+              observableBatch.push(
+                this.svcResource.callMethod('', config.method, 'get', {
+                  query: config.query
+                })
+              );
+            }
           });
-        }
+          if (observableBatch.length === seriesConfig.queryConfig.length) {
+            forkJoin(observableBatch).subscribe(result => {
+              const chartData = [];
+              result.forEach((item, index) => {
+                const data = {};
+                data[seriesConfig.categoryField] = names[index];
+                data[seriesConfig.valueField] = item;
+                chartData.push(data);
+              });
+              seriesConfig.data = chartData;
+
+              this.spinner.hide();
+            });
+          }
+        }, 1000);
       }
     });
   }

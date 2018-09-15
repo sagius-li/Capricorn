@@ -10,6 +10,9 @@ import { LocalizationModule } from '../modules/localization.module';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 import { ChartsModule } from '@progress/kendo-angular-charts';
 
@@ -41,6 +44,8 @@ export function startup(startupService: StartupService) {
     MatMenuModule,
     MatIconModule,
     MatTooltipModule,
+    MatProgressSpinnerModule,
+    NgxSpinnerModule,
     ChartsModule
   ],
   declarations: [
@@ -62,6 +67,8 @@ export function startup(startupService: StartupService) {
     LocalizationModule,
     DndModule,
     MatIconModule,
+    MatProgressSpinnerModule,
+    NgxSpinnerModule,
     ChartsModule,
 
     DchostDirective,

@@ -22,7 +22,6 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatGridListModule } from '@angular/material/grid-list';
 
 import { LayoutModule } from '@progress/kendo-angular-layout';
@@ -54,7 +53,6 @@ import 'hammerjs';
     MatTableModule,
     MatSortModule,
     MatPaginatorModule,
-    MatProgressSpinnerModule,
     MatGridListModule,
 
     LayoutModule
