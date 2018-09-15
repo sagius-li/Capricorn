@@ -132,6 +132,11 @@ export class ChartComponent implements OnInit, DcComponent {
 
   resize(size: number[]) {}
 
+  configure() {
+    alert('start configuring chart component...');
+    return null;
+  }
+
   public labelContent = (e: any) => {
     if (this.labelConfig && this.labelConfig.visible) {
       return this.labelConfig.format

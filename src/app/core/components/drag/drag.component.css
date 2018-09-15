@@ -19,6 +19,14 @@
   background-color: rgba(128, 128, 128, 0.2);
 }
 
+.drag-icon {
+  font-size: 22px;
+  color: rgba(128, 128, 128, 0.8);
+}
+.drag-icon:hover {
+  color: rgba(128, 128, 128, 1);
+}
+
 /* >>> .size-menu .mat-menu-content {
   background-color: lightgray;
 } */

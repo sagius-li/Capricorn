@@ -4,5 +4,8 @@
   "key_refresh": "aktualisieren",
   "key_add": "hinzufügen",
   "key_save": "speichern",
-  "key_cancel": "abbrechen"
+  "key_cancel": "abbrechen",
+  "key_delete": "löschen",
+  "key_configure": "configurieren",
+  "key_resize": "größe anpassen"
 }

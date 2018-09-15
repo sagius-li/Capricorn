@@ -4,5 +4,8 @@
   "key_refresh": "刷新",
   "key_add": "添加",
   "key_save": "储存",
-  "key_cancel": "取消"
+  "key_cancel": "取消",
+  "key_delete": "删除",
+  "key_configure": "设置",
+  "key_resize": "调整大小"
 }

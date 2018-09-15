@@ -403,11 +403,15 @@ export class TestComponent implements OnInit, AfterViewInit {
     this.widgetConfig[targetIndex] = sourceConfig;
   }
 
-  onResized($event, config) {
+  onResize($event, config) {
     config.colSpan = $event[0];
     config.rowSpan = $event[1];
 
     (<DcComponent>config.componentRef.instance).resize($event);
+  }
+
+  onConfigure(config) {
+    (<DcComponent>config.componentRef.instance).configure();
   }
 
   onDelete(config) {

@@ -31,4 +31,11 @@ export class MockComponent implements OnInit, DcComponent {
   resize(size: number[]) {
     this.componentSize = `${size[0]}${size[1]}`;
   }
+
+  /**
+   * Configure the component
+   */
+  configure() {
+    return null;
+  }
 }

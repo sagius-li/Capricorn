@@ -18,10 +18,13 @@ export class DragComponent implements OnInit {
 
   /** Event emitter for window resized */
   @Output()
-  resized = new EventEmitter<number[]>();
+  resiz = new EventEmitter<number[]>();
+  /** Event emitter for configure */
+  @Output()
+  configure = new EventEmitter();
   /** Event emitter for content deleted */
   @Output()
-  deleted = new EventEmitter();
+  delete = new EventEmitter();
 
   /** @ignore */
   constructor() {}
@@ -33,14 +36,21 @@ export class DragComponent implements OnInit {
    * Emit the resized event with the new size
    * @param size Size[colSpan, rowSpan]
    */
-  resize(size: number[]) {
-    this.resized.emit(size);
+  onResize(size: number[]) {
+    this.resiz.emit(size);
+  }
+
+  /**
+   * Emit the configure event
+   */
+  onConfigure() {
+    this.configure.emit();
   }
 
   /**
    * Emit the deleted event
    */
-  delete() {
-    this.deleted.emit();
+  onDelete() {
+    this.delete.emit();
   }
 }

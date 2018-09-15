@@ -4,5 +4,8 @@
   "key_refresh": "refresh",
   "key_add": "add",
   "key_save": "save",
-  "key_cancel": "cancel"
+  "key_cancel": "cancel",
+  "key_delete": "delete",
+  "key_configure": "configure",
+  "key_resize": "resize"
 }

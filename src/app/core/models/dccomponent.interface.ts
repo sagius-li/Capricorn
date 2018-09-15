@@ -4,6 +4,8 @@
 export interface DcComponent {
   /** Data to be passed in */
   data: any;
-  /** resize event */
+  /** resize component */
   resize: (size: number[]) => void;
+  /** configure component */
+  configure: () => any;
 }
