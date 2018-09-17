@@ -15,6 +15,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { NgxSpinnerModule } from 'ngx-spinner';
 
 import { ChartsModule } from '@progress/kendo-angular-charts';
+import { DialogsModule } from '@progress/kendo-angular-dialog';
 
 import { ConfigService } from '../services/config.service';
 import { ResourceService } from '../services/resource.service';
@@ -46,7 +47,8 @@ export function startup(startupService: StartupService) {
     MatTooltipModule,
     MatProgressSpinnerModule,
     NgxSpinnerModule,
-    ChartsModule
+    ChartsModule,
+    DialogsModule
   ],
   declarations: [
     DchostDirective,

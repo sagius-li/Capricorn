@@ -5,6 +5,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { forkJoin } from 'rxjs';
 
 import { DcComponent } from '../../models/dccomponent.interface';
+
 import {
   ChartLegend,
   ChartConfig,
@@ -14,6 +15,13 @@ import {
   LabelConfig,
   QueryConfig
 } from '../../models/chart.model';
+
+import {
+  DialogService,
+  DialogRef,
+  DialogCloseResult
+} from '@progress/kendo-angular-dialog';
+
 import { ResourceService } from '../../services/resource.service';
 
 @Component({
@@ -53,7 +61,8 @@ export class ChartComponent implements OnInit, DcComponent {
 
   constructor(
     private svcResource: ResourceService,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private dialogService: DialogService
   ) {}
 
   ngOnInit() {
@@ -133,7 +142,15 @@ export class ChartComponent implements OnInit, DcComponent {
   resize(size: number[]) {}
 
   configure() {
-    alert('start configuring chart component...');
+    const dialog: DialogRef = this.dialogService.open({
+      title: 'Please confirm',
+      content: 'Are you sure?',
+      actions: [{ text: 'No' }, { text: 'Yes', primary: true }],
+      width: 450,
+      height: 200,
+      minWidth: 250
+    });
+
     return null;
   }
 
