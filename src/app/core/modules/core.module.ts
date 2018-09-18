@@ -11,6 +11,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButton, MatButtonModule } from '@angular/material/button';
 
 import { NgxSpinnerModule } from 'ngx-spinner';
 
@@ -29,6 +31,7 @@ import { DragComponent } from '../components/drag/drag.component';
 import { EditbarComponent } from '../components/editbar/editbar.component';
 import { MockComponent } from '../components/mock/mock.component';
 import { ChartComponent } from '../components/chart/chart.component';
+import { PopupComponent } from '../components/popup/popup.component';
 
 /** @ignore */
 export function startup(startupService: StartupService) {
@@ -46,6 +49,8 @@ export function startup(startupService: StartupService) {
     MatIconModule,
     MatTooltipModule,
     MatProgressSpinnerModule,
+    MatDialogModule,
+    MatButtonModule,
     NgxSpinnerModule,
     ChartsModule,
     DialogsModule
@@ -55,9 +60,10 @@ export function startup(startupService: StartupService) {
     DragComponent,
     EditbarComponent,
     MockComponent,
-    ChartComponent
+    ChartComponent,
+    PopupComponent
   ],
-  entryComponents: [MockComponent, ChartComponent],
+  entryComponents: [MockComponent, ChartComponent, PopupComponent],
   providers: [
     ConfigService,
     ResourceService,

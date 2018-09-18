@@ -16,13 +16,9 @@ import {
   QueryConfig
 } from '../../models/chart.model';
 
-import {
-  DialogService,
-  DialogRef,
-  DialogCloseResult
-} from '@progress/kendo-angular-dialog';
-
 import { ResourceService } from '../../services/resource.service';
+import { PopupService } from '../../services/popup.service';
+import { PopupType } from '../popup/popup.component';
 
 @Component({
   selector: 'app-chart',
@@ -62,7 +58,7 @@ export class ChartComponent implements OnInit, DcComponent {
   constructor(
     private svcResource: ResourceService,
     private spinner: NgxSpinnerService,
-    private dialogService: DialogService
+    private popup: PopupService
   ) {}
 
   ngOnInit() {
@@ -142,13 +138,14 @@ export class ChartComponent implements OnInit, DcComponent {
   resize(size: number[]) {}
 
   configure() {
-    const dialog: DialogRef = this.dialogService.open({
-      title: 'Please confirm',
-      content: 'Are you sure?',
-      actions: [{ text: 'No' }, { text: 'Yes', primary: true }],
-      width: 450,
-      height: 200,
-      minWidth: 250
+    const popupRef = this.popup.show(
+      PopupType.confirm,
+      'Processing...',
+      'Info Popup Confirmation'
+    );
+
+    popupRef.afterClosed().subscribe(result => {
+      console.log(result);
     });
 
     return null;

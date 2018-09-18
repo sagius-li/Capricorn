@@ -7,5 +7,8 @@
   "key_cancel": "cancel",
   "key_delete": "delete",
   "key_configure": "configure",
-  "key_resize": "resize"
+  "key_resize": "resize",
+  "key_ok": "OK",
+  "key_yes": "Yes",
+  "key_no": "No"
 }

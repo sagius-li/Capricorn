@@ -7,5 +7,8 @@
   "key_cancel": "abbrechen",
   "key_delete": "löschen",
   "key_configure": "configurieren",
-  "key_resize": "größe anpassen"
+  "key_resize": "größe anpassen",
+  "key_ok": "OK",
+  "key_yes": "Ja",
+  "key_no": "Nein"
 }
