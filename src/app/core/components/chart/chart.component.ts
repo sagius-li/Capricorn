@@ -4,8 +4,6 @@ import { NgxSpinnerService } from 'ngx-spinner';
 
 import { forkJoin } from 'rxjs';
 
-import { DcComponent } from '../../models/dccomponent.interface';
-
 import {
   ChartLegend,
   ChartConfig,
@@ -16,9 +14,11 @@ import {
   QueryConfig
 } from '../../models/chart.model';
 
+import { MatDialog } from '@angular/material';
+
+import { DcComponent } from '../../models/dccomponent.interface';
 import { ResourceService } from '../../services/resource.service';
-import { PopupService } from '../../services/popup.service';
-import { PopupType } from '../popup/popup.component';
+import { ChartConfigComponent } from '../chart/chartconfig.component';
 
 @Component({
   selector: 'app-chart',
@@ -58,7 +58,7 @@ export class ChartComponent implements OnInit, DcComponent {
   constructor(
     private svcResource: ResourceService,
     private spinner: NgxSpinnerService,
-    private popup: PopupService
+    private dialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -138,14 +138,9 @@ export class ChartComponent implements OnInit, DcComponent {
   resize(size: number[]) {}
 
   configure() {
-    const popupRef = this.popup.show(
-      PopupType.confirm,
-      'Processing...',
-      'Info Popup Confirmation'
-    );
-
-    popupRef.afterClosed().subscribe(result => {
-      console.log(result);
+    const dialogRef = this.dialog.open(ChartConfigComponent, {
+      minWidth: '500px',
+      data: this.chartConfig
     });
 
     return null;

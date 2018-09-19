@@ -10,5 +10,9 @@
   "key_resize": "größe anpassen",
   "key_ok": "OK",
   "key_yes": "Ja",
-  "key_no": "Nein"
+  "key_no": "Nein",
+  "key_submit": "bestätigen",
+  "key_chartConfig": "Diagramm Konfiguration",
+  "key_chartTitle": "Diagramm Titel",
+  "key_chartType": "Diagramm Typ"
 }

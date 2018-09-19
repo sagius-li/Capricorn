@@ -10,5 +10,9 @@
   "key_resize": "resize",
   "key_ok": "OK",
   "key_yes": "Yes",
-  "key_no": "No"
+  "key_no": "No",
+  "key_submit": "Submit",
+  "key_chartConfig": "Chart Configuration",
+  "key_chartTitle": "Chart Title",
+  "key_chartType": "Chart Type"
 }

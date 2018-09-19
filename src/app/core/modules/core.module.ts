@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -12,7 +13,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDialogModule } from '@angular/material/dialog';
-import { MatButton, MatButtonModule } from '@angular/material/button';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
 
 import { NgxSpinnerModule } from 'ngx-spinner';
 
@@ -31,6 +35,7 @@ import { DragComponent } from '../components/drag/drag.component';
 import { EditbarComponent } from '../components/editbar/editbar.component';
 import { MockComponent } from '../components/mock/mock.component';
 import { ChartComponent } from '../components/chart/chart.component';
+import { ChartConfigComponent } from '../components/chart/chartconfig.component';
 import { PopupComponent } from '../components/popup/popup.component';
 
 /** @ignore */
@@ -41,6 +46,7 @@ export function startup(startupService: StartupService) {
 @NgModule({
   imports: [
     CommonModule,
+    FormsModule,
     HttpClientModule,
     FlexLayoutModule,
     DndModule,
@@ -51,6 +57,9 @@ export function startup(startupService: StartupService) {
     MatProgressSpinnerModule,
     MatDialogModule,
     MatButtonModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatSelectModule,
     NgxSpinnerModule,
     ChartsModule,
     DialogsModule
@@ -61,9 +70,15 @@ export function startup(startupService: StartupService) {
     EditbarComponent,
     MockComponent,
     ChartComponent,
+    ChartConfigComponent,
     PopupComponent
   ],
-  entryComponents: [MockComponent, ChartComponent, PopupComponent],
+  entryComponents: [
+    MockComponent,
+    ChartComponent,
+    PopupComponent,
+    ChartConfigComponent
+  ],
   providers: [
     ConfigService,
     ResourceService,
@@ -72,6 +87,8 @@ export function startup(startupService: StartupService) {
     SwapService
   ],
   exports: [
+    FormsModule,
+
     LocalizationModule,
     DndModule,
     MatIconModule,
