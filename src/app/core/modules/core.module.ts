@@ -17,6 +17,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 import { NgxSpinnerModule } from 'ngx-spinner';
 
@@ -60,6 +61,7 @@ export function startup(startupService: StartupService) {
     MatInputModule,
     MatFormFieldModule,
     MatSelectModule,
+    MatSlideToggleModule,
     NgxSpinnerModule,
     ChartsModule,
     DialogsModule

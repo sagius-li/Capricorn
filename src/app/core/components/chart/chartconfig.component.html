@@ -13,6 +13,30 @@
       <input matInput [placeholder]="'key_chartTitle'|translate" [(ngModel)]="data.chartTitle">
     </mat-form-field>
   </div>
+  <div fxFlex="auto" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
+    <mat-slide-toggle fxFlex="auto" [(ngModel)]="data.legend.visible" #legendVisible>{{'key_chartLegend'|translate}}</mat-slide-toggle>
+    <mat-form-field fxFlex="auto">
+      <mat-select [placeholder]="'key_chartLegendPosition'|translate" [(ngModel)]="data.legend.position" [disabled]="!legendVisible.checked">
+        <mat-option value="top">top</mat-option>
+        <mat-option value="bottom">bottom</mat-option>
+        <mat-option value="left">left</mat-option>
+        <mat-option value="right">right</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div fxFlex="auto" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
+    <mat-slide-toggle fxFlex="auto" [(ngModel)]="data.tooltipConfig.visible" #tooltipVisible>{{'key_chartTooltip'|translate}}</mat-slide-toggle>
+    <mat-form-field fxFlex="auto">
+      <input matInput [placeholder]="'key_chartTooltipFormat'|translate" [(ngModel)]="data.tooltipConfig.format"
+        [disabled]="!tooltipVisible.checked">
+    </mat-form-field>
+  </div>
+  <div fxFlex="auto" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
+    <mat-slide-toggle fxFlex="auto" [(ngModel)]="data.labelConfig.visible" #labelVisible>{{'key_chartLabel'|translate}}</mat-slide-toggle>
+    <mat-form-field fxFlex="auto">
+      <input matInput [placeholder]="'key_chartLabelFormat'|translate" [(ngModel)]="data.labelConfig.format" [disabled]="!labelVisible.checked">
+    </mat-form-field>
+  </div>
 </div>
 <div mat-dialog-actions flexLayout="row" flexLayoutAlign="end center">
   <button fxFlex mat-button mat-dialog-close="submit">{{'key_submit'|translate}}</button>
