@@ -14,5 +14,12 @@
   "key_submit": "Submit",
   "key_chartConfig": "Chart Configuration",
   "key_chartTitle": "Chart Title",
-  "key_chartType": "Chart Type"
+  "key_chartType": "Chart Type",
+  "key_chartLegend": "Legend",
+  "key_chartLegendPosition": "Legend Position",
+  "key_chartTooltip": "Tooltip",
+  "key_chartTooltipFormat": "Tooltip Format",
+  "key_chartLabel": "Label",
+  "key_chartLabelFormat": "Label Format",
+  "key_chartColors": "Colors"
 }

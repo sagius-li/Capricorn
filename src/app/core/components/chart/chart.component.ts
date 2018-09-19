@@ -34,7 +34,14 @@ export class ChartComponent implements OnInit, DcComponent {
   @Input()
   chartTitle: string;
   @Input()
-  seriesColor: string[];
+  seriesColor = [
+    '#3f51b5',
+    '#2196f3',
+    '#43a047',
+    '#ffc107',
+    '#ff5722',
+    '#e91E63'
+  ];
   @Input()
   legend: ChartLegend = { position: Position.bottom, visible: false };
   @Input()
@@ -51,7 +58,7 @@ export class ChartComponent implements OnInit, DcComponent {
   @Input()
   tooltipConfig: TooltipConfig = { format: '{0}: {1}', visible: false };
   @Input()
-  labelConfig: LabelConfig = { format: '{1}', visible: false };
+  labelConfig: LabelConfig = { format: '{1}', visible: false, color: 'black' };
 
   chartConfig: ChartConfig;
 

@@ -15,4 +15,15 @@ export class ChartConfigComponent implements OnInit {
   ) {}
 
   ngOnInit() {}
+
+  onCPClosed() {
+    this.data.tooltipConfig.visible = !this.data.tooltipConfig.visible;
+    setTimeout(() => {
+      this.data.tooltipConfig.visible = !this.data.tooltipConfig.visible;
+    }, 0);
+  }
+
+  trackByFn(index) {
+    return index;
+  }
 }

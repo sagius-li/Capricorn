@@ -14,5 +14,12 @@
   "key_submit": "提交",
   "key_chartConfig": "图表设置",
   "key_chartTitle": "图表标题",
-  "key_chartType": "图表类型"
+  "key_chartType": "图表类型",
+  "key_chartLegend": "图表图例",
+  "key_chartLegendPosition": "图例位置",
+  "key_chartTooltip": "提示信息",
+  "key_chartTooltipFormat": "提示格式",
+  "key_chartLabel": "图表标签",
+  "key_chartLabelFormat": "标签格式",
+  "key_chartColors": "图表颜色"
 }

@@ -14,7 +14,7 @@
     </mat-form-field>
   </div>
   <div fxFlex="auto" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
-    <mat-slide-toggle fxFlex="auto" [(ngModel)]="data.legend.visible" #legendVisible>{{'key_chartLegend'|translate}}</mat-slide-toggle>
+    <mat-slide-toggle fxFlex="none" [(ngModel)]="data.legend.visible" style="width: 120px;" #legendVisible>{{'key_chartLegend'|translate}}</mat-slide-toggle>
     <mat-form-field fxFlex="auto">
       <mat-select [placeholder]="'key_chartLegendPosition'|translate" [(ngModel)]="data.legend.position" [disabled]="!legendVisible.checked">
         <mat-option value="top">top</mat-option>
@@ -25,20 +25,32 @@
     </mat-form-field>
   </div>
   <div fxFlex="auto" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
-    <mat-slide-toggle fxFlex="auto" [(ngModel)]="data.tooltipConfig.visible" #tooltipVisible>{{'key_chartTooltip'|translate}}</mat-slide-toggle>
+    <mat-slide-toggle fxFlex="none" [(ngModel)]="data.tooltipConfig.visible" style="width: 120px;" #tooltipVisible>{{'key_chartTooltip'|translate}}</mat-slide-toggle>
     <mat-form-field fxFlex="auto">
       <input matInput [placeholder]="'key_chartTooltipFormat'|translate" [(ngModel)]="data.tooltipConfig.format"
         [disabled]="!tooltipVisible.checked">
     </mat-form-field>
   </div>
   <div fxFlex="auto" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
-    <mat-slide-toggle fxFlex="auto" [(ngModel)]="data.labelConfig.visible" #labelVisible>{{'key_chartLabel'|translate}}</mat-slide-toggle>
-    <mat-form-field fxFlex="auto">
-      <input matInput [placeholder]="'key_chartLabelFormat'|translate" [(ngModel)]="data.labelConfig.format" [disabled]="!labelVisible.checked">
-    </mat-form-field>
+    <mat-slide-toggle fxFlex="none" [(ngModel)]="data.labelConfig.visible" style="width: 120px;" #labelVisible>{{'key_chartLabel'|translate}}</mat-slide-toggle>
+    <div fxFlex="auto" fxLayout="row" fxLayoutAlign="start center">
+      <mat-form-field fxFlex="auto" style="margin-right: 10px;">
+        <input matInput [placeholder]="'key_chartLabelFormat'|translate" [(ngModel)]="data.labelConfig.format"
+          [disabled]="!labelVisible.checked">
+      </mat-form-field>
+      <div fxFlex="0 0 auto" [(colorPicker)]="data.labelConfig.color" cpPosition="top" [style.backgroundColor]="data.labelConfig.color"
+        style="height: 24px; width: 24px; cursor: pointer; border: solid darkgray" [cpDisabled]="!labelVisible.checked"></div>
+    </div>
+  </div>
+  <div fxFlex="auto" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
+    <div fxFlex="none" style="width: 120px; font-weight: 400; font-size: 14px;">{{'key_chartColors'|translate}}</div>
+    <div fxFlex="auto" style="display: flex;">
+      <div *ngFor="let color of data.seriesColor; let i = index; trackBy:trackByFn" [(colorPicker)]="data.seriesColor[i]"
+        (colorPickerClose)="onCPClosed()" cpPosition="top" [style.backgroundColor]="data.seriesColor[i]" style="height: 24px; width: 24px; cursor: pointer;margin-right: 10px; border: solid darkgray;"></div>
+    </div>
   </div>
 </div>
-<div mat-dialog-actions flexLayout="row" flexLayoutAlign="end center">
+<div mat-dialog-actions flexLayout="row" flexLayoutAlign="end center" style="margin-top: 20px;">
   <button fxFlex mat-button mat-dialog-close="submit">{{'key_submit'|translate}}</button>
   <button fxFlex mat-button mat-dialog-close="cancel">{{'key_cancel'|translate}}</button>
 </div>

@@ -14,5 +14,12 @@
   "key_submit": "bestätigen",
   "key_chartConfig": "Diagramm Konfiguration",
   "key_chartTitle": "Diagramm Titel",
-  "key_chartType": "Diagramm Typ"
+  "key_chartType": "Diagramm Typ",
+  "key_chartLegend": "Legende",
+  "key_chartLegendPosition": "Legende Position",
+  "key_chartTooltip": "Tooltip",
+  "key_chartTooltipFormat": "Tooltip Formation",
+  "key_chartLabel": "Label",
+  "key_chartLabelFormat": "Label Formation",
+  "key_chartColors": "Farben"
 }

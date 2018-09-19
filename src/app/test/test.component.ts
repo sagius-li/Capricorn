@@ -129,6 +129,18 @@ export class TestComponent implements OnInit, AfterViewInit {
     {
       type: 'Failed',
       value: 2
+    },
+    {
+      type: 'Pending',
+      value: 12
+    },
+    {
+      type: 'Processing',
+      value: 2
+    },
+    {
+      type: 'PP Error',
+      value: 10
     }
   ];
   // #endregion
