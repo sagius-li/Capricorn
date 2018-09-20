@@ -12,6 +12,8 @@
   "key_yes": "是",
   "key_no": "否",
   "key_submit": "提交",
+  "key_advancedSettings": "进阶设定",
+  "key_apply": "应用",
   "key_chartConfig": "图表设置",
   "key_chartTitle": "图表标题",
   "key_chartType": "图表类型",
@@ -21,5 +23,8 @@
   "key_chartTooltipFormat": "提示格式",
   "key_chartLabel": "图表标签",
   "key_chartLabelFormat": "标签格式",
-  "key_chartColors": "图表颜色"
+  "key_chartColors": "图表颜色",
+  "key_queryName": "查询名",
+  "key_queryMethod": "查询方法",
+  "key_query": "查询"
 }

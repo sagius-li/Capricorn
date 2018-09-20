@@ -12,6 +12,8 @@
   "key_yes": "Ja",
   "key_no": "Nein",
   "key_submit": "bestätigen",
+  "key_apply": "umsetzen",
+  "key_advancedSettings": "weitere Einstellungen",
   "key_chartConfig": "Diagramm Konfiguration",
   "key_chartTitle": "Diagramm Titel",
   "key_chartType": "Diagramm Typ",
@@ -21,5 +23,8 @@
   "key_chartTooltipFormat": "Tooltip Formation",
   "key_chartLabel": "Label",
   "key_chartLabelFormat": "Label Formation",
-  "key_chartColors": "Farben"
+  "key_chartColors": "Farben",
+  "key_queryName": "Abfrage-Name",
+  "key_queryMethod": "Abfrage-Methode",
+  "key_query": "Abfrage-Text"
 }

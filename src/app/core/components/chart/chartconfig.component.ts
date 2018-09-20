@@ -9,6 +9,8 @@ import { ChartConfig } from '../../models/chart.model';
   styleUrls: ['./chartconfig.component.css']
 })
 export class ChartConfigComponent implements OnInit {
+  advancedMode = false;
+
   constructor(
     public dialogRef: MatDialogRef<ChartConfigComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ChartConfig
