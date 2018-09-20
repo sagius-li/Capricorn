@@ -106,6 +106,21 @@ export class ChartComponent implements OnInit, DcComponent {
     }
 
     // overwrite series data with query fetching results
+    this.applyQueries();
+  }
+
+  resize(size: number[]) {}
+
+  configure() {
+    const dialogRef = this.dialog.open(ChartConfigComponent, {
+      minWidth: '500px',
+      data: { objectRef: this, objectConfig: this.chartConfig }
+    });
+
+    return null;
+  }
+
+  applyQueries() {
     this.chartConfig.seriesConfig.forEach(seriesConfig => {
       if (seriesConfig.queryConfig) {
         this.spinner.show();
@@ -140,17 +155,6 @@ export class ChartComponent implements OnInit, DcComponent {
         }, 1000);
       }
     });
-  }
-
-  resize(size: number[]) {}
-
-  configure() {
-    const dialogRef = this.dialog.open(ChartConfigComponent, {
-      minWidth: '500px',
-      data: this.chartConfig
-    });
-
-    return null;
   }
 
   public labelContent = (e: any) => {

@@ -3,7 +3,7 @@
   <!-- chart type and chart title -->
   <div fxFlex="auto" fxLayout="row" fxLayoutGap="20px">
     <mat-form-field fxFlex="auto" cdkFocusInitial>
-      <mat-select [placeholder]="'key_chartType'|translate" [(ngModel)]="data.seriesType">
+      <mat-select [placeholder]="'key_chartType'|translate" [(ngModel)]="data.objectConfig.seriesType">
         <mat-option value="pie">pie</mat-option>
         <mat-option value="donut">donut</mat-option>
         <mat-option value="column">column</mat-option>
@@ -11,11 +11,11 @@
       </mat-select>
     </mat-form-field>
     <mat-form-field fxFlex="auto">
-      <input matInput [placeholder]="'key_chartTitle'|translate" [(ngModel)]="data.chartTitle">
+      <input matInput [placeholder]="'key_chartTitle'|translate" [(ngModel)]="data.objectConfig.chartTitle">
     </mat-form-field>
   </div>
   <mat-accordion fxFlex="auto" style="padding-bottom: 5px;">
-    <mat-expansion-panel *ngFor="let serie of data.seriesConfig" style="max-height: 350px; overflow-y: auto;">
+    <mat-expansion-panel *ngFor="let serie of data.objectConfig.seriesConfig" style="max-height: 350px; overflow-y: auto;">
       <mat-expansion-panel-header style="margin-left: -12px;">{{serie.name}}</mat-expansion-panel-header>
       <ng-template matExpansionPanelContent>
         <mat-card *ngFor="let query of serie.queryConfig" style="border-left: solid darkseagreen 5px; margin-bottom: 10px; padding: 12px;">
@@ -35,10 +35,10 @@
         </mat-card>
       </ng-template>
       <mat-action-row>
-        <button mat-button color="primary">
+        <button mat-button color="primary" (click)="onApplySeries()">
           <mat-icon style="margin-right: 10px; font-size: 16px; height: 18px;">assignment_turned_in</mat-icon>{{'key_apply'|translate}}
         </button>
-        <button mat-button color="warn" [disabled]="data.seriesConfig.length===1">
+        <button mat-button color="warn" [disabled]="data.objectConfig.seriesConfig.length===1">
           <mat-icon style="margin-right: 10px; font-size: 16px; height: 18px;">delete</mat-icon>{{'key_delete'|translate}}
         </button>
       </mat-action-row>
@@ -48,9 +48,10 @@
       <div fxFlex="auto" fxLayout="column" fxLayoutGap="20px">
         <!-- chart legend -->
         <div fxFlex="auto" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
-          <mat-slide-toggle fxFlex="none" [(ngModel)]="data.legend.visible" style="width: 120px;" #legendVisible>{{'key_chartLegend'|translate}}</mat-slide-toggle>
+          <mat-slide-toggle fxFlex="none" [(ngModel)]="data.objectConfig.legend.visible" style="width: 120px;"
+            #legendVisible>{{'key_chartLegend'|translate}}</mat-slide-toggle>
           <mat-form-field fxFlex="auto">
-            <mat-select [placeholder]="'key_chartLegendPosition'|translate" [(ngModel)]="data.legend.position"
+            <mat-select [placeholder]="'key_chartLegendPosition'|translate" [(ngModel)]="data.objectConfig.legend.position"
               [disabled]="!legendVisible.checked">
               <mat-option value="top">top</mat-option>
               <mat-option value="bottom">bottom</mat-option>
@@ -61,31 +62,34 @@
         </div>
         <!-- chart tooltip -->
         <div fxFlex="auto" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
-          <mat-slide-toggle fxFlex="none" [(ngModel)]="data.tooltipConfig.visible" style="width: 120px;"
+          <mat-slide-toggle fxFlex="none" [(ngModel)]="data.objectConfig.tooltipConfig.visible" style="width: 120px;"
             #tooltipVisible>{{'key_chartTooltip'|translate}}</mat-slide-toggle>
           <mat-form-field fxFlex="auto">
-            <input matInput [placeholder]="'key_chartTooltipFormat'|translate" [(ngModel)]="data.tooltipConfig.format"
+            <input matInput [placeholder]="'key_chartTooltipFormat'|translate" [(ngModel)]="data.objectConfig.tooltipConfig.format"
               [disabled]="!tooltipVisible.checked">
           </mat-form-field>
         </div>
         <!-- chart label -->
         <div fxFlex="auto" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
-          <mat-slide-toggle fxFlex="none" [(ngModel)]="data.labelConfig.visible" style="width: 120px;" #labelVisible>{{'key_chartLabel'|translate}}</mat-slide-toggle>
+          <mat-slide-toggle fxFlex="none" [(ngModel)]="data.objectConfig.labelConfig.visible" style="width: 120px;"
+            #labelVisible>{{'key_chartLabel'|translate}}</mat-slide-toggle>
           <div fxFlex="auto" fxLayout="row" fxLayoutAlign="start center">
             <mat-form-field fxFlex="auto" style="margin-right: 10px;">
-              <input matInput [placeholder]="'key_chartLabelFormat'|translate" [(ngModel)]="data.labelConfig.format"
+              <input matInput [placeholder]="'key_chartLabelFormat'|translate" [(ngModel)]="data.objectConfig.labelConfig.format"
                 [disabled]="!labelVisible.checked">
             </mat-form-field>
-            <div fxFlex="0 0 auto" [(colorPicker)]="data.labelConfig.color" cpPosition="top" [style.backgroundColor]="data.labelConfig.color"
-              style="height: 24px; width: 24px; cursor: pointer; border: solid darkgray" [cpDisabled]="!labelVisible.checked"></div>
+            <div fxFlex="0 0 auto" [(colorPicker)]="data.objectConfig.labelConfig.color" cpPosition="top"
+              [style.backgroundColor]="data.objectConfig.labelConfig.color" style="height: 24px; width: 24px; cursor: pointer; border: solid darkgray"
+              [cpDisabled]="!labelVisible.checked"></div>
           </div>
         </div>
         <!-- chart colors -->
         <div fxFlex="auto" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
           <div fxFlex="none" style="width: 120px; font-weight: 400; font-size: 14px;">{{'key_chartColors'|translate}}</div>
           <div fxFlex="auto" style="display: flex;">
-            <div *ngFor="let color of data.seriesColor; let i = index; trackBy:trackByFn" [(colorPicker)]="data.seriesColor[i]"
-              (colorPickerClose)="onCPClosed()" cpPosition="top" [style.backgroundColor]="data.seriesColor[i]" style="height: 24px; width: 24px; cursor: pointer;margin-right: 10px; border: solid darkgray;"></div>
+            <div *ngFor="let color of data.objectConfig.seriesColor; let i = index; trackBy:trackByFn" [(colorPicker)]="data.objectConfig.seriesColor[i]"
+              (colorPickerClose)="onCPClosed()" cpPosition="top" [style.backgroundColor]="data.objectConfig.seriesColor[i]"
+              style="height: 24px; width: 24px; cursor: pointer;margin-right: 10px; border: solid darkgray;"></div>
           </div>
         </div>
       </div>

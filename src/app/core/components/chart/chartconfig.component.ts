@@ -1,7 +1,8 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, ComponentRef } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 import { ChartConfig } from '../../models/chart.model';
+import { ChartComponent } from '../chart/chart.component';
 
 @Component({
   selector: 'app-chartconfig',
@@ -13,16 +14,26 @@ export class ChartConfigComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<ChartConfigComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: ChartConfig
+    @Inject(MAT_DIALOG_DATA)
+    public data: {
+      objectRef: any;
+      objectConfig: ChartConfig;
+    }
   ) {}
 
   ngOnInit() {}
 
   onCPClosed() {
-    this.data.tooltipConfig.visible = !this.data.tooltipConfig.visible;
+    this.data.objectConfig.tooltipConfig.visible = !this.data.objectConfig
+      .tooltipConfig.visible;
     setTimeout(() => {
-      this.data.tooltipConfig.visible = !this.data.tooltipConfig.visible;
+      this.data.objectConfig.tooltipConfig.visible = !this.data.objectConfig
+        .tooltipConfig.visible;
     }, 0);
+  }
+
+  onApplySeries() {
+    this.data.objectRef.applyQueries();
   }
 
   trackByFn(index) {
