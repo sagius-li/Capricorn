@@ -1,8 +1,11 @@
 import { Component, OnInit, Inject, ComponentRef } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
-import { ChartConfig } from '../../models/chart.model';
-import { ChartComponent } from '../chart/chart.component';
+import {
+  ChartConfig,
+  SeriesConfig,
+  QueryConfig
+} from '../../models/chart.model';
 
 @Component({
   selector: 'app-chartconfig',
@@ -10,7 +13,19 @@ import { ChartComponent } from '../chart/chart.component';
   styleUrls: ['./chartconfig.component.css']
 })
 export class ChartConfigComponent implements OnInit {
-  advancedMode = false;
+  dummyQuery: QueryConfig = {
+    name: 'dummy',
+    method: 'resource/win/get/count',
+    // tslint:disable-next-line:quotemark
+    query: "/*[DisplayName='dummy']"
+  };
+
+  dummySerie: SeriesConfig = {
+    name: 'dummy',
+    categoryField: 'category',
+    valueField: 'value',
+    queryConfig: [this.dummyQuery]
+  };
 
   constructor(
     public dialogRef: MatDialogRef<ChartConfigComponent>,
@@ -34,6 +49,17 @@ export class ChartConfigComponent implements OnInit {
 
   onApplySeries() {
     this.data.objectRef.applyQueries();
+  }
+
+  onAddQuery(serie: SeriesConfig) {
+    serie.queryConfig.push(this.dummyQuery);
+  }
+
+  onDeleteQuery(serie: SeriesConfig, query: QueryConfig) {
+    const index = serie.queryConfig.findIndex(q => q.name === query.name);
+    if (index > -1) {
+      serie.queryConfig.splice(index, 1);
+    }
   }
 
   trackByFn(index) {
