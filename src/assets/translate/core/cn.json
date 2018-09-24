@@ -24,6 +24,7 @@
   "key_chartLabel": "图表标签",
   "key_chartLabelFormat": "标签格式",
   "key_chartColors": "图表颜色",
+  "key_seriesName": "序列名称",
   "key_queryName": "查询名",
   "key_queryMethod": "查询方法",
   "key_query": "查询"

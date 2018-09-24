@@ -24,6 +24,7 @@
   "key_chartLabel": "label",
   "key_chartLabelFormat": "label format",
   "key_chartColors": "colors",
+  "key_seriesName": "series name",
   "key_queryName": "query name",
   "key_queryMethod": "query method",
   "key_query": "query"

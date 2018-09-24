@@ -23,8 +23,7 @@ export class ChartConfigComponent implements OnInit {
   dummySerie: SeriesConfig = {
     name: 'dummy',
     categoryField: 'category',
-    valueField: 'value',
-    queryConfig: [this.dummyQuery]
+    valueField: 'value'
   };
 
   constructor(
@@ -47,12 +46,29 @@ export class ChartConfigComponent implements OnInit {
     }, 0);
   }
 
+  onAddSeries(seriesName: string) {
+    const seriesToCreate = Object.assign({}, this.dummySerie);
+    seriesToCreate.name = seriesName;
+    seriesToCreate.queryConfig = [Object.assign({}, this.dummyQuery)];
+    this.data.objectConfig.seriesConfig.push(seriesToCreate);
+  }
+
   onApplySeries() {
     this.data.objectRef.applyQueries();
   }
 
+  onDeleteSeries(serie: SeriesConfig) {
+    const index = this.data.objectConfig.seriesConfig.findIndex(
+      s => s.name === serie.name
+    );
+    if (index > -1) {
+      this.data.objectConfig.seriesConfig.splice(index, 1);
+    }
+  }
+
   onAddQuery(serie: SeriesConfig) {
-    serie.queryConfig.push(this.dummyQuery);
+    const queryToCreate = Object.assign({}, this.dummyQuery);
+    serie.queryConfig.push(queryToCreate);
   }
 
   onDeleteQuery(serie: SeriesConfig, query: QueryConfig) {

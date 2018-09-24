@@ -14,8 +14,20 @@
       <input matInput [placeholder]="'key_chartTitle'|translate" [(ngModel)]="data.objectConfig.chartTitle">
     </mat-form-field>
   </div>
+  <div fxFlex="auto" fxLayout="row">
+    <mat-form-field fxFlex="auto">
+      <input matInput [placeholder]="'key_seriesName'|translate" #seriesName>
+    </mat-form-field>
+    <div fxFlex="0 0 auto">
+      <button [disabled]="!seriesName.value" mat-button color="primary" matTooltip="{{'key_add'|translate}}" (click)="onAddSeries(seriesName.value); seriesName.value=''"
+        style="min-width: 24px; width: 24px; margin: 0; padding: 0; margin-top: 12px;">
+        <mat-icon>add_box</mat-icon>
+      </button>
+    </div>
+  </div>
   <mat-accordion fxFlex="auto" style="padding-bottom: 5px;">
-    <mat-expansion-panel *ngFor="let serie of data.objectConfig.seriesConfig" style="max-height: 350px; overflow-y: auto;">
+    <!-- series settings -->
+    <mat-expansion-panel *ngFor="let serie of data.objectConfig.seriesConfig" style="max-height: 200px; overflow-y: auto;">
       <mat-expansion-panel-header style="margin-left: -12px;">{{serie.name}}</mat-expansion-panel-header>
       <ng-template matExpansionPanelContent>
         <mat-card *ngFor="let query of serie.queryConfig" style="border-left: solid darkseagreen 5px; margin-bottom: 10px; padding: 12px;">
@@ -45,14 +57,15 @@
           <mat-icon style="margin-right: 10px; font-size: 16px; height: 18px;">assignment_turned_in</mat-icon>{{'key_apply'|translate}}
         </button>
         <button mat-button (click)="onAddQuery(serie)">
-          <mat-icon style="margin-right: 10px; font-size: 16px; height: 18px;">playlist_add</mat-icon>{{'key_apply'|translate}}
+          <mat-icon style="margin-right: 10px; font-size: 16px; height: 18px;">playlist_add</mat-icon>{{'key_add'|translate}}
         </button>
-        <button mat-button color="warn" [disabled]="data.objectConfig.seriesConfig.length===1">
+        <button mat-button color="warn" [disabled]="data.objectConfig.seriesConfig.length===1" (click)="onDeleteSeries(serie)">
           <mat-icon style="margin-right: 10px; font-size: 16px; height: 18px;">delete</mat-icon>{{'key_delete'|translate}}
         </button>
       </mat-action-row>
     </mat-expansion-panel>
-    <mat-expansion-panel [expanded]="true" style="max-height: 350px; overflow-y: auto;">
+    <!-- advanced settings -->
+    <mat-expansion-panel style="max-height: 200px; overflow-y: auto;">
       <mat-expansion-panel-header style="margin-left: -12px;">{{'key_advancedSettings'|translate}}</mat-expansion-panel-header>
       <div fxFlex="auto" fxLayout="column" fxLayoutGap="20px">
         <!-- chart legend -->

@@ -24,6 +24,7 @@
   "key_chartLabel": "Label",
   "key_chartLabelFormat": "Label Formation",
   "key_chartColors": "Farben",
+  "key_seriesName": "Ablaufname",
   "key_queryName": "Abfrage-Name",
   "key_queryMethod": "Abfrage-Methode",
   "key_query": "Abfrage-Text"
