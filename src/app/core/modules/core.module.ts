@@ -21,6 +21,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatCardModule } from '@angular/material/card';
+import { MatTabsModule } from '@angular/material/tabs';
 
 import { NgxSpinnerModule } from 'ngx-spinner';
 
@@ -68,6 +69,7 @@ export function startup(startupService: StartupService) {
     MatSlideToggleModule,
     MatExpansionModule,
     MatCardModule,
+    MatTabsModule,
     NgxSpinnerModule,
     ChartsModule,
     DialogsModule
@@ -101,6 +103,7 @@ export function startup(startupService: StartupService) {
     DndModule,
     MatIconModule,
     MatProgressSpinnerModule,
+    MatTabsModule,
     NgxSpinnerModule,
     ChartsModule,
 

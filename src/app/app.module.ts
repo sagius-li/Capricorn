@@ -18,7 +18,6 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { TestComponent } from './test/test.component';
 import { LoadingspinnerComponent } from './test/loadingspinner/loadingspinner.component';
 
-import { MatTabsModule } from '@angular/material/tabs';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
@@ -49,7 +48,6 @@ import 'hammerjs';
     CoreModule,
     AppRoutingModule,
 
-    MatTabsModule,
     MatTableModule,
     MatSortModule,
     MatPaginatorModule,
