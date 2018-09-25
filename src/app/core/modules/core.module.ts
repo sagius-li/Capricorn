@@ -22,6 +22,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatCardModule } from '@angular/material/card';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatDividerModule } from '@angular/material/divider';
 
 import { NgxSpinnerModule } from 'ngx-spinner';
 
@@ -70,6 +71,7 @@ export function startup(startupService: StartupService) {
     MatExpansionModule,
     MatCardModule,
     MatTabsModule,
+    MatDividerModule,
     NgxSpinnerModule,
     ChartsModule,
     DialogsModule

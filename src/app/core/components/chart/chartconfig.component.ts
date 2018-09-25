@@ -1,4 +1,10 @@
-import { Component, OnInit, Inject, ComponentRef } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Inject,
+  ViewChild,
+  AfterViewInit
+} from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 import {
@@ -12,7 +18,10 @@ import {
   templateUrl: './chartconfig.component.html',
   styleUrls: ['./chartconfig.component.css']
 })
-export class ChartConfigComponent implements OnInit {
+export class ChartConfigComponent implements OnInit, AfterViewInit {
+  @ViewChild('exampleChart')
+  exampleChart: any;
+
   dummyQuery: QueryConfig = {
     name: 'dummy',
     method: 'resource/win/get/count',
@@ -37,6 +46,10 @@ export class ChartConfigComponent implements OnInit {
 
   ngOnInit() {}
 
+  ngAfterViewInit() {
+    this.data.objectConfig = this.exampleChart.initChart();
+  }
+
   onCPClosed() {
     this.data.objectConfig.tooltipConfig.visible = !this.data.objectConfig
       .tooltipConfig.visible;
@@ -54,7 +67,8 @@ export class ChartConfigComponent implements OnInit {
   }
 
   onApplySeries() {
-    this.data.objectRef.applyQueries();
+    // this.data.objectRef.applyQueries();
+    this.exampleChart.applyQueries();
   }
 
   onDeleteSeries(serie: SeriesConfig) {

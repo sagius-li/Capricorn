@@ -243,15 +243,37 @@ export class TestComponent implements OnInit, AfterViewInit {
         },
         {
           "name": "Mock 2",
-          "type": "MockComponent",
+          "type": "ChartComponent",
           "description": "Mock 2",
           "position": "cell2",
           "colSpan": 2,
           "rowSpan": 1,
           "data": {
-            "content": "Mock 2",
-            "bgColor": "lightblue",
-            "image_1_1": "assets/img/mock/21users.PNG"
+            "seriesType": "line",
+            "seriesConfig": [
+              {
+                "name": "request",
+                "categoryField": "category",
+                "valueField": "value",
+                "queryConfig": [
+                  {
+                    "name": "completed",
+                    "method": "resource/win/get/count",
+                    "query": "/Request[RequestStatus='completed']"
+                  },
+                  {
+                    "name": "pending",
+                    "method": "resource/win/get/count",
+                    "query": "/Request[RequestStatus='pending']"
+                  },
+                  {
+                    "name": "failed",
+                    "method": "resource/win/get/count",
+                    "query": "/Request[RequestStatus!='completed' and RequestStatus!='pending']"
+                  }
+                ]
+              }
+            ]
           }
         },
         {

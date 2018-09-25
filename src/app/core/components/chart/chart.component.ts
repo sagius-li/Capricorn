@@ -19,6 +19,7 @@ import { MatDialog } from '@angular/material';
 import { DcComponent } from '../../models/dccomponent.interface';
 import { ResourceService } from '../../services/resource.service';
 import { ChartConfigComponent } from '../chart/chartconfig.component';
+import { UtilsService } from '../../services/utils.service';
 
 @Component({
   selector: 'app-chart',
@@ -65,10 +66,34 @@ export class ChartComponent implements OnInit, DcComponent {
   constructor(
     private svcResource: ResourceService,
     private spinner: NgxSpinnerService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private utils: UtilsService
   ) {}
 
   ngOnInit() {
+    this.initChart();
+  }
+
+  resize(size: number[]) {}
+
+  configure() {
+    const dialogRef = this.dialog.open(ChartConfigComponent, {
+      minWidth: '500px',
+      data: {
+        objectRef: this,
+        objectConfig: this.utils.DeepCopy(this.chartConfig)
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result && result !== 'cancel') {
+        this.data = result;
+        this.initChart();
+      }
+    });
+  }
+
+  initChart() {
     // init chartConfig using @input values
     this.chartConfig = {
       chartTitle: this.chartTitle,
@@ -107,23 +132,16 @@ export class ChartComponent implements OnInit, DcComponent {
 
     // overwrite series data with query fetching results
     this.applyQueries();
-  }
 
-  resize(size: number[]) {}
-
-  configure() {
-    const dialogRef = this.dialog.open(ChartConfigComponent, {
-      minWidth: '500px',
-      data: { objectRef: this, objectConfig: this.chartConfig }
-    });
-
-    return null;
+    return this.chartConfig;
   }
 
   applyQueries() {
     this.chartConfig.seriesConfig.forEach(seriesConfig => {
       if (seriesConfig.queryConfig) {
-        this.spinner.show();
+        setTimeout(() => {
+          this.spinner.show();
+        }, 0);
 
         setTimeout(() => {
           const observableBatch = [];
@@ -149,7 +167,9 @@ export class ChartComponent implements OnInit, DcComponent {
               });
               seriesConfig.data = chartData;
 
-              this.spinner.hide();
+              setTimeout(() => {
+                this.spinner.hide();
+              }, 0);
             });
           }
         }, 1000);
@@ -158,7 +178,7 @@ export class ChartComponent implements OnInit, DcComponent {
   }
 
   public labelContent = (e: any) => {
-    if (this.labelConfig && this.labelConfig.visible) {
+    if (this.labelConfig) {
       return this.labelConfig.format
         .replace(/\{0\}/g, e.category)
         .replace(/\{1\}/g, e.value);
@@ -168,12 +188,11 @@ export class ChartComponent implements OnInit, DcComponent {
   };
 
   tooltipContent(category: string, value: string): string {
-    if (this.tooltipConfig && this.tooltipConfig.visible) {
+    if (this.tooltipConfig) {
       return this.tooltipConfig.format
         .replace(/\{0\}/g, category)
         .replace(/\{1\}/g, value);
     }
-
     return undefined;
   }
 }
