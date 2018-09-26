@@ -2,9 +2,9 @@
   "dataServiceUrl": "//localhost:6867/api/",
   "loginUserAttributes": ["DisplayName", "AccountName", "ocgConfigurationXML"],
   "portalAdminGuid": "7fb2b853-24f0-4498-9534-4e10589723c4",
-  "datetimeFormat": "MM/d/yyyy hh:mm:ss tt",
+  "datetimeFormat": "M/D/YYYY hh:mm:ss tt",
   "datetimeDBFormat": "MMM d yyyy h:mmtt",
-  "datetimeDisplayFormat": "MM/d/yyyy",
+  "datetimeDisplayFormat": "M/D/YYYY",
   "supportedLanguages": [
     {
       "code": ["en-US", "en"],

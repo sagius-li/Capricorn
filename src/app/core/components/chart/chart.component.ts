@@ -4,8 +4,6 @@ import { NgxSpinnerService } from 'ngx-spinner';
 
 import { forkJoin } from 'rxjs';
 
-import * as moment from 'moment';
-
 import {
   ChartLegend,
   ChartConfig,
@@ -163,16 +161,9 @@ export class ChartComponent implements OnInit, DcComponent {
               const chartData = [];
               result.forEach((item, index) => {
                 const data = {};
-                const cat: string = names[index];
-                if (cat.startsWith('<') && cat.endsWith('>')) {
-                  const now = moment();
-                  // tslint:disable-next-line:no-eval
-                  data[seriesConfig.categoryField] = eval(
-                    cat.substring(1, cat.length - 1)
-                  );
-                } else {
-                  data[seriesConfig.categoryField] = names[index];
-                }
+                data[seriesConfig.categoryField] = this.utils.EvalScript(
+                  names[index]
+                );
                 data[seriesConfig.valueField] = item;
                 chartData.push(data);
               });
@@ -183,9 +174,13 @@ export class ChartComponent implements OnInit, DcComponent {
               }, 0);
             });
           }
-        }, 1000);
+        }, 500);
       }
     });
+  }
+
+  public getSeriesName(name: string) {
+    return this.utils.EvalScript(name);
   }
 
   public labelContent = (e: any) => {

@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 
+import { ConfigService } from './config.service';
+
 import * as cryptojs from 'crypto-js';
+import * as moment from 'moment';
 
 /**
  * Provide global functions
@@ -12,10 +15,13 @@ export class UtilsService {
   /** Initialization vector for encryption */
   private iv = '';
 
+  /** Default datetime format */
+  private datetimeFormat = 'YYYY-MM-DD';
+
   /**
    * @ignore
    */
-  constructor() {
+  constructor(private config: ConfigService) {
     this.iv = cryptojs.enc.Hex.parse('OCGMobileService');
   }
 
@@ -69,6 +75,10 @@ export class UtilsService {
     }).toString(cryptojs.enc.Utf8);
   }
 
+  /**
+   * Deep copy an object
+   * @param obj object to be copied
+   */
   public DeepCopy(obj) {
     let copy;
 
@@ -106,5 +116,43 @@ export class UtilsService {
 
     // tslint:disable-next-line:quotemark
     throw new Error("Unable to copy obj! Its type isn't supported.");
+  }
+
+  /**
+   * Evaluate text as script
+   * @param text text to be executed as script
+   */
+  public EvalScript(text: string) {
+    if (text.startsWith('<') && text.endsWith('>')) {
+      const script = text.substring(1, text.length - 1).replace(/ /g, '');
+      const scripts = script.split('()');
+      switch (scripts[0].toLowerCase()) {
+        case 'now':
+          const now = moment();
+          if (scripts.length === 1) {
+            return now.format(
+              this.config.getConfig(
+                'datetimeDisplayFormat',
+                this.datetimeFormat
+              )
+            );
+          } else if (scripts.length === 2) {
+            return now
+              .add(+scripts[1], 'd')
+              .format(
+                this.config.getConfig(
+                  'datetimeDisplayFormat',
+                  this.datetimeFormat
+                )
+              );
+          } else {
+            throw new Error(`cannot evaluate expression: ${script}`);
+          }
+        default:
+          throw new Error(`cannot evaluate expression: ${script}`);
+      }
+    } else {
+      return text;
+    }
   }
 }
