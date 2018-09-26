@@ -179,11 +179,14 @@ export class ChartComponent implements OnInit, DcComponent {
     });
   }
 
-  public getSeriesName(name: string) {
+  getSeriesName(name: string) {
     return this.utils.EvalScript(name);
   }
 
-  public labelContent = (e: any) => {
+  labelContent = (e: any) => {
+    if (this.data && this.data.labelConfig) {
+      this.labelConfig = this.data.labelConfig;
+    }
     if (this.labelConfig) {
       return this.labelConfig.format
         .replace(/\{0\}/g, e.category)
@@ -194,6 +197,9 @@ export class ChartComponent implements OnInit, DcComponent {
   };
 
   tooltipContent(category: string, value: string): string {
+    if (this.data && this.data.tooltipConfig) {
+      this.tooltipConfig = this.data.tooltipConfig;
+    }
     if (this.tooltipConfig) {
       return this.tooltipConfig.format
         .replace(/\{0\}/g, category)

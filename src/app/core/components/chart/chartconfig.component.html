@@ -9,6 +9,7 @@
           <mat-option value="donut">donut</mat-option>
           <mat-option value="column">column</mat-option>
           <mat-option value="line">line</mat-option>
+          <mat-option value="area">area</mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field fxFlex="auto">
@@ -30,7 +31,7 @@
     <mat-tab-group fxFlex="auto" style="height: 400px;">
       <!-- advanced settings -->
       <mat-tab [label]="'key_settings'|translate">
-        <div fxFlex="auto" fxLayout="column" fxLayoutGap="20px" style="margin-top: 10px;">
+        <div fxFlex="auto" fxLayout="column" fxLayoutGap="20px" style="margin-top: 20px;">
           <!-- chart label -->
           <div fxFlex="auto" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
             <mat-slide-toggle fxFlex="none" [(ngModel)]="data.objectConfig.labelConfig.visible" style="width: 120px;"
@@ -82,37 +83,46 @@
       <!-- series settings -->
       <mat-tab *ngFor="let serie of data.objectConfig.seriesConfig" [label]="serie.name">
         <ng-template matTabContent>
-          <mat-card *ngFor="let query of serie.queryConfig" style="border-left: solid darkseagreen 5px; margin-top: 10px; padding: 12px;">
-            <mat-card-header fxLayout="row" fxLayoutAlign="end center">
-              <button mat-button color="warn" [disabled]="serie.queryConfig.length === 1" matTooltip="{{'key_delete'|translate}}"
-                (click)="onDeleteQuery(serie, query)" style="width: 24px; min-width: 24px; padding: 0; margin: 0;">
-                <mat-icon>delete_forever</mat-icon>
+          <div fxLayout="column" style="height: 100%;">
+            <div fxFlex="auto" dragula="queries" [(dragulaModel)]="serie.queryConfig" style="overflow-y: auto;">
+              <mat-card *ngFor="let query of serie.queryConfig" style="border-left: solid darkseagreen 5px; margin-top: 10px; margin-right: 5px; padding: 12px;">
+                <mat-card-header fxLayout="row" fxLayoutAlign="start center">
+                  <div fxFlex="none" (click)="onToggleQueryDisplay(query)" style="width: 36px; margin-left: -20px; cursor: pointer; color: lightgray;">
+                    <mat-icon>menu</mat-icon>
+                  </div>
+                  <div fxFlex style="margin-top: -8px;">{{query.name}}</div>
+                  <button mat-button color="warn" [disabled]="serie.queryConfig.length === 1" matTooltip="{{'key_delete'|translate}}"
+                    (click)="onDeleteQuery(serie, query)" style="width: 24px; min-width: 24px; padding: 0; margin: 0; margin-top: -10px;">
+                    <mat-icon>delete_forever</mat-icon>
+                  </button>
+                </mat-card-header>
+                <mat-card-content *ngIf="query.display" fxLayout="column" fxLayoutGap="10px" style="margin-top: 10px;">
+                  <div fxFlex="auto" fxLayout="row" fxLayoutGap="10px">
+                    <mat-form-field fxFlex="auto">
+                      <input matInput [placeholder]="'key_queryName'|translate" [(ngModel)]="query.name">
+                    </mat-form-field>
+                    <mat-form-field fxFlex="auto">
+                      <input matInput [placeholder]="'key_queryMethod'|translate" [(ngModel)]="query.method">
+                    </mat-form-field>
+                  </div>
+                  <mat-form-field fxFlex="auto">
+                    <input matInput [placeholder]="'key_query'|translate" [(ngModel)]="query.query">
+                  </mat-form-field>
+                </mat-card-content>
+              </mat-card>
+            </div>
+            <div fxFlex></div>
+            <div fxFlex="none" fxLayout="row" style="margin-top: 20px;">
+              <button fxFlex mat-button color="primary" (click)="onApplySeries()">
+                <mat-icon style="margin-right: 10px; font-size: 16px; height: 18px;">assignment_turned_in</mat-icon>{{'key_apply'|translate}}
               </button>
-            </mat-card-header>
-            <mat-card-content fxLayout="column" fxLayoutGap="10px">
-              <div fxFlex="auto" fxLayout="row" fxLayoutGap="10px">
-                <mat-form-field fxFlex="auto">
-                  <input matInput [placeholder]="'key_queryName'|translate" [(ngModel)]="query.name">
-                </mat-form-field>
-                <mat-form-field fxFlex="auto">
-                  <input matInput [placeholder]="'key_queryMethod'|translate" [(ngModel)]="query.method">
-                </mat-form-field>
-              </div>
-              <mat-form-field fxFlex="auto">
-                <input matInput [placeholder]="'key_query'|translate" [(ngModel)]="query.query">
-              </mat-form-field>
-            </mat-card-content>
-          </mat-card>
-          <div fxLayout="row" style="margin-top: 20px;">
-            <button fxFlex mat-button color="primary" (click)="onApplySeries()">
-              <mat-icon style="margin-right: 10px; font-size: 16px; height: 18px;">assignment_turned_in</mat-icon>{{'key_apply'|translate}}
-            </button>
-            <button fxFlex mat-button (click)="onAddQuery(serie)">
-              <mat-icon style="margin-right: 10px; font-size: 16px; height: 18px;">playlist_add</mat-icon>{{'key_add'|translate}}
-            </button>
-            <button fxFlex mat-button color="warn" [disabled]="data.objectConfig.seriesConfig.length===1" (click)="onDeleteSeries(serie)">
-              <mat-icon style="margin-right: 10px; font-size: 16px; height: 18px;">delete</mat-icon>{{'key_delete'|translate}}
-            </button>
+              <button fxFlex mat-button (click)="onAddQuery(serie)">
+                <mat-icon style="margin-right: 10px; font-size: 16px; height: 18px;">playlist_add</mat-icon>{{'key_add'|translate}}
+              </button>
+              <button fxFlex mat-button color="warn" [disabled]="data.objectConfig.seriesConfig.length===1" (click)="onDeleteSeries(serie)">
+                <mat-icon style="margin-right: 10px; font-size: 16px; height: 18px;">delete</mat-icon>{{'key_delete'|translate}}
+              </button>
+            </div>
           </div>
         </ng-template>
       </mat-tab>

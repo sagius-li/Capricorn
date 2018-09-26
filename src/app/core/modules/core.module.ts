@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { DndModule } from 'ng2-dnd';
+import { DragulaModule } from 'ng2-dragula';
 import { ColorPickerModule } from 'ngx-color-picker';
 
 import { LocalizationModule } from '../modules/localization.module';
@@ -56,6 +57,7 @@ export function startup(startupService: StartupService) {
     HttpClientModule,
     FlexLayoutModule,
     DndModule,
+    DragulaModule,
     ColorPickerModule,
     LocalizationModule,
     MatMenuModule,

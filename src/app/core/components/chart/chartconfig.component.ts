@@ -67,8 +67,15 @@ export class ChartConfigComponent implements OnInit, AfterViewInit {
   }
 
   onApplySeries() {
-    // this.data.objectRef.applyQueries();
     this.exampleChart.applyQueries();
+  }
+
+  onToggleQueryDisplay(query: QueryConfig) {
+    if (query.display) {
+      query.display = !query.display;
+    } else {
+      query.display = true;
+    }
   }
 
   onDeleteSeries(serie: SeriesConfig) {

@@ -12,10 +12,12 @@ export class ChartLegend {
   position: Position;
 }
 
+/** Data model for query config */
 export class QueryConfig {
   name: string;
   method: string;
   query: string;
+  display?: boolean;
 }
 
 /** Data model for series config */
