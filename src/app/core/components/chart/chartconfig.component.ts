@@ -7,6 +7,8 @@ import {
 } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
+import { DragulaService } from 'ng2-dragula';
+
 import {
   ChartConfig,
   SeriesConfig,
@@ -41,8 +43,15 @@ export class ChartConfigComponent implements OnInit, AfterViewInit {
     public data: {
       objectRef: any;
       objectConfig: ChartConfig;
-    }
-  ) {}
+    },
+    private dragula: DragulaService
+  ) {
+    this.dragula.createGroup('QUERIES', {
+      // moves: (el, container, handle) => {
+      //   return handle.className === 'dragulahandle';
+      // }
+    });
+  }
 
   ngOnInit() {}
 

@@ -84,9 +84,9 @@
       <mat-tab *ngFor="let serie of data.objectConfig.seriesConfig" [label]="serie.name">
         <ng-template matTabContent>
           <div fxLayout="column" style="height: 100%;">
-            <div fxFlex="auto" dragula="queries" [(dragulaModel)]="serie.queryConfig" style="overflow-y: auto;">
+            <div fxFlex="auto" dragula="QUERIES" [(dragulaModel)]="serie.queryConfig" style="overflow-y: auto;">
               <mat-card *ngFor="let query of serie.queryConfig" style="border-left: solid darkseagreen 5px; margin-top: 10px; margin-right: 5px; padding: 12px;">
-                <mat-card-header fxLayout="row" fxLayoutAlign="start center">
+                <mat-card-header fxLayout="row" fxLayoutAlign="start center" class="dragulahandle">
                   <div fxFlex="none" (click)="onToggleQueryDisplay(query)" style="width: 36px; margin-left: -20px; cursor: pointer; color: lightgray;">
                     <mat-icon>menu</mat-icon>
                   </div>

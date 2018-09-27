@@ -10,7 +10,7 @@
           [type]="chartConfig.seriesType" [data]="config.data" [field]="config.valueField" [categoryField]="config.categoryField">
           <kendo-chart-series-item-tooltip [visible]="chartConfig.tooltipConfig && chartConfig.tooltipConfig.visible">
             <ng-template let-category="category" let-value="value">
-              {{tooltipContent(category, value)}}
+              {{tooltipContent(category, value, config)}}
             </ng-template>
           </kendo-chart-series-item-tooltip>
           <kendo-chart-series-item-labels [visible]="chartConfig.labelConfig && chartConfig.labelConfig.visible"

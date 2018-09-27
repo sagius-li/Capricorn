@@ -190,20 +190,26 @@ export class ChartComponent implements OnInit, DcComponent {
     if (this.labelConfig) {
       return this.labelConfig.format
         .replace(/\{0\}/g, e.category)
-        .replace(/\{1\}/g, e.value);
+        .replace(/\{1\}/g, e.value)
+        .replace(/\{2\}/g, e.series.name);
     }
     return undefined;
     // tslint:disable-next-line:semicolon
   };
 
-  tooltipContent(category: string, value: string): string {
+  tooltipContent(
+    category: string,
+    value: string,
+    config: SeriesConfig
+  ): string {
     if (this.data && this.data.tooltipConfig) {
       this.tooltipConfig = this.data.tooltipConfig;
     }
     if (this.tooltipConfig) {
       return this.tooltipConfig.format
         .replace(/\{0\}/g, category)
-        .replace(/\{1\}/g, value);
+        .replace(/\{1\}/g, value)
+        .replace(/\{2\}/g, config.name);
     }
     return undefined;
   }
