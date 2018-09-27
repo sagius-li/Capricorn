@@ -44,6 +44,9 @@ import 'core-js/es6/reflect';
 // Used for reflect-metadata in JIT. If you use AOT (and only Angular decorators), you can remove.
 import 'core-js/es7/reflect';
 
+/** IE 10 and IE11 requires the following for the Includes API */
+import 'core-js/es7/array';
+
 /**
  * Web Animations `@angular/platform-browser/animations`
  * Only required if AnimationBuilder is used within the application and using IE/Edge or Safari.
