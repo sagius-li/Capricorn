@@ -71,7 +71,7 @@ export class ChartComponent implements OnInit, DcComponent {
   ) {}
 
   ngOnInit() {
-    this.initChart();
+    this.initComponent();
   }
 
   resize(size: number[]) {}
@@ -88,12 +88,12 @@ export class ChartComponent implements OnInit, DcComponent {
     dialogRef.afterClosed().subscribe(result => {
       if (result && result !== 'cancel') {
         this.data = result;
-        this.initChart();
+        this.initComponent();
       }
     });
   }
 
-  initChart() {
+  initComponent() {
     // init chartConfig using @input values
     this.chartConfig = {
       chartTitle: this.chartTitle,

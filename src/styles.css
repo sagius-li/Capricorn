@@ -130,6 +130,10 @@ h6,
   width: 100%;
 }
 
+.height-5 {
+  height: calc(100% - 5px);
+}
+
 .splash {
   position: relative;
   top: 0;

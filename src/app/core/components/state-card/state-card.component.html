@@ -1,0 +1,14 @@
+<div fxLayout="row" fxLayoutAlign="start center" style="height: 100%; background: white; padding: 20px;">
+  <div fxFlex="none">
+    <mat-icon style="font-size: 52px; margin-top: 16px;" [style.color]="componentConfig.iconColor">{{componentConfig.iconText}}</mat-icon>
+  </div>
+  <div fxFlex></div>
+  <div fxFlex="none" fxLayout="column" fxLayoutAlign="start end">
+    <div fxFlex="none" style="margin-bottom: 2px; color: darkgray;">
+      {{componentConfig.title}}
+    </div>
+    <div fxFlex="none" style="margin-top: 2px; font-size: 28px;">
+      {{componentConfig.mainText}}
+    </div>
+  </div>
+</div>
