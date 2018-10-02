@@ -28,5 +28,9 @@
   "key_queryName": "query name",
   "key_queryMethod": "query method",
   "key_query": "query",
-  "key_updateNow": "update now"
+  "key_updateNow": "update now",
+  "key_stateCardConfig": "state card configuration",
+  "key_stateCardIconText": "icon text",
+  "key_stateCardTitle": "title",
+  "key_backgroundColor": "background color"
 }

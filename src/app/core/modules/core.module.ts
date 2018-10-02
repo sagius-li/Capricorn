@@ -45,6 +45,7 @@ import { ChartComponent } from '../components/chart/chart.component';
 import { ChartConfigComponent } from '../components/chart/chartconfig.component';
 import { PopupComponent } from '../components/popup/popup.component';
 import { StateCardComponent } from '../components/state-card/state-card.component';
+import { StateCardConfigComponent } from '../components/state-card/state-card-config.component';
 
 /** @ignore */
 export function startup(startupService: StartupService) {
@@ -87,14 +88,16 @@ export function startup(startupService: StartupService) {
     ChartComponent,
     ChartConfigComponent,
     PopupComponent,
-    StateCardComponent
+    StateCardComponent,
+    StateCardConfigComponent
   ],
   entryComponents: [
     MockComponent,
     ChartComponent,
     PopupComponent,
     ChartConfigComponent,
-    StateCardComponent
+    StateCardComponent,
+    StateCardConfigComponent
   ],
   providers: [
     ConfigService,

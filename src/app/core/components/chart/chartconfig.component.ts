@@ -42,13 +42,12 @@ export class ChartConfigComponent implements OnInit, AfterViewInit {
       objectRef: any;
       objectConfig: ChartConfig;
     }
-  ) {
-  }
+  ) {}
 
   ngOnInit() {}
 
   ngAfterViewInit() {
-    this.data.objectConfig = this.exampleChart.initChart();
+    this.data.objectConfig = this.exampleChart.initComponent();
   }
 
   onCPClosed() {

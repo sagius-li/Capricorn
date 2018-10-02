@@ -1,0 +1,41 @@
+<h3 mat-dialog-title>{{'key_stateCardConfig'|translate}}</h3>
+<div mat-dialog-content fxLayout="row">
+  <div fxFlex="auto" fxLayout="column" fxLayoutGap="20px" fxLayoutAlign="start stretch" style="height: 320px; width: 360px;">
+    <div fxFlex="none" fxLayout="row" fxLayoutAlign="start center">
+      <mat-form-field fxFlex="auto" style="margin-right: 10px;">
+        <input matInput [placeholder]="'key_stateCardIconText'|translate" [(ngModel)]="data.objectConfig.iconText">
+      </mat-form-field>
+      <div fxFlex="0 0 auto" [(colorPicker)]="data.objectConfig.iconColor" cpPosition="left" [style.backgroundColor]="data.objectConfig.iconColor"
+        style="height: 24px; width: 24px; cursor: pointer; border: solid darkgray"></div>
+    </div>
+    <div fxFlex="none" fxLayout="row" fxLayoutAlign="start center">
+      <mat-form-field fxFlex="auto" style="margin-right: 10px;">
+        <input matInput [placeholder]="'key_stateCardTitle'|translate" [(ngModel)]="data.objectConfig.title">
+      </mat-form-field>
+      <div fxFlex="0 0 auto" [(colorPicker)]="data.objectConfig.textColor" cpPosition="left" [style.backgroundColor]="data.objectConfig.textColor"
+        style="height: 24px; width: 24px; cursor: pointer; border: solid darkgray"></div>
+    </div>
+    <div fxFlex="none" fxLayout="row" fxLayoutAlign="start center">
+      <mat-form-field fxFlex="auto" style="margin-right: 10px;">
+        <input matInput [placeholder]="'key_query'|translate" [(ngModel)]="data.objectConfig.query">
+      </mat-form-field>
+      <div fxFlex="0 0 auto" [(colorPicker)]="data.objectConfig.mainTextColor" cpPosition="left"
+        [style.backgroundColor]="data.objectConfig.mainTextColor" style="height: 24px; width: 24px; cursor: pointer; border: solid darkgray"></div>
+    </div>
+    <div fxFlex="none" fxLayout="row" fxLayoutAlign="start center">
+      <div fxFlex="auto" style="margin-right: 10px;">
+        {{'key_backgroundColor'|translate}}
+      </div>
+      <div fxFlex="0 0 auto" [(colorPicker)]="data.objectConfig.backgroundColor" cpPosition="left"
+        [style.backgroundColor]="data.objectConfig.backgroundColor" style="height: 24px; width: 24px; cursor: pointer; border: solid darkgray"></div>
+    </div>
+  </div>
+  <mat-divider [vertical]="true" style="margin-left: 20px; margin-right: 0;"></mat-divider>
+  <div fxFlex="auto" fxLayout="column" fxLayoutAlign="center center" style="height: 300px; width: 300px; position: relative;">
+    <app-state-card #exampleStateCard fxFlex="0 0 200px" [data]="data.objectConfig"></app-state-card>
+  </div>
+</div>
+<div mat-dialog-actions fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px" style="margin-top: 20px;">
+  <button fxFlex="none" mat-button [mat-dialog-close]="data.objectConfig" style="width: 180px;">{{'key_submit'|translate}}</button>
+  <button fxFlex="none" mat-button mat-dialog-close="cancel" style="width: 180px;">{{'key_cancel'|translate}}</button>
+</div>

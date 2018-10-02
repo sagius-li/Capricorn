@@ -28,5 +28,9 @@
   "key_queryName": "Abfrage-Name",
   "key_queryMethod": "Abfrage-Methode",
   "key_query": "Abfrage-Text",
-  "key_updateNow": "aktualisieren"
+  "key_updateNow": "aktualisieren",
+  "key_stateCardConfig": "Statuskarte Konfiguration",
+  "key_stateCardIconText": "Symboltext",
+  "key_stateCardTitle": "Titel",
+  "key_backgroundColor": "Hintergrundfarbe"
 }

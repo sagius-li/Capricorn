@@ -4,6 +4,9 @@ import { DcComponent } from '../../models/dccomponent.interface';
 
 import { ResourceService } from '../../services/resource.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { MatDialog } from '@angular/material';
+import { StateCardConfigComponent } from './state-card-config.component';
+import { UtilsService } from '../../services/utils.service';
 
 export class StateCardConfig {
   iconText: string;
@@ -43,15 +46,17 @@ export class StateCardComponent implements OnInit, DcComponent {
   query: string = undefined;
 
   componentConfig: StateCardConfig;
+  mainTextValue: string;
 
   constructor(
     private svcResource: ResourceService,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private dialog: MatDialog,
+    private utils: UtilsService
   ) {}
 
   ngOnInit() {
     this.initComponent();
-    this.applyQuery();
   }
 
   initComponent() {
@@ -92,11 +97,30 @@ export class StateCardComponent implements OnInit, DcComponent {
         this.componentConfig.query = this.data.query;
       }
     }
+
+    this.applyQuery();
+
+    return this.componentConfig;
   }
 
   resize(size: number[]) {}
 
-  configure() {}
+  configure() {
+    const dialogRef = this.dialog.open(StateCardConfigComponent, {
+      minWidth: '500px',
+      data: {
+        objectRef: this,
+        objectConfig: this.utils.DeepCopy(this.componentConfig)
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result && result !== 'cancel') {
+        this.data = result;
+        this.initComponent();
+      }
+    });
+  }
 
   applyQuery() {
     if (this.componentConfig.query) {
@@ -105,18 +129,25 @@ export class StateCardComponent implements OnInit, DcComponent {
       }, 0);
 
       setTimeout(() => {
-        this.svcResource
-          .getResourceCount(this.componentConfig.query)
-          .subscribe(result => {
-            this.componentConfig.mainText = this.componentConfig.mainText.replace(
+        this.svcResource.getResourceCount(this.componentConfig.query).subscribe(
+          result => {
+            this.mainTextValue = this.componentConfig.mainText.replace(
               /\{0\}/g,
               result.toString()
             );
             setTimeout(() => {
               this.spinner.hide();
             }, 0);
-          });
+          },
+          err => {
+            setTimeout(() => {
+              this.spinner.hide();
+            }, 0);
+          }
+        );
       }, 500);
+    } else {
+      this.mainTextValue = this.componentConfig.mainText;
     }
   }
 

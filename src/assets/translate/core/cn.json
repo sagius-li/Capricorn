@@ -28,5 +28,9 @@
   "key_queryName": "查询名",
   "key_queryMethod": "查询方法",
   "key_query": "查询",
-  "key_updateNow": "现在更新"
+  "key_updateNow": "现在更新",
+  "key_stateCardConfig": "状态卡设置",
+  "key_stateCardIconText": "图标类型",
+  "key_stateCardTitle": "标题名",
+  "key_backgroundColor": "背景色"
 }
