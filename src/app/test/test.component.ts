@@ -249,6 +249,10 @@ export class TestComponent implements OnInit, AfterViewInit {
           "colSpan": 2,
           "rowSpan": 1,
           "data": {
+            "iconText": "person",
+            "title": "managed users",
+            "mainText": "{0}",
+            "query": "/Person[Manager=/Person[DisplayName='mimadmin']]"
           }
         },
         {

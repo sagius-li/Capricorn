@@ -1,14 +1,22 @@
-<div fxLayout="row" fxLayoutAlign="start center" style="height: 100%; background: white; padding: 20px;">
-  <div fxFlex="none">
-    <mat-icon style="font-size: 52px; margin-top: 16px;" [style.color]="componentConfig.iconColor">{{componentConfig.iconText}}</mat-icon>
-  </div>
-  <div fxFlex></div>
-  <div fxFlex="none" fxLayout="column" fxLayoutAlign="start end">
-    <div fxFlex="none" style="margin-bottom: 2px; color: darkgray;">
-      {{componentConfig.title}}
+<div fxLayout="column" [style.backgroundColor]="componentConfig.backgroundColor" style="height: 100%; width: 100%; padding: 20px;">
+  <ngx-spinner bdColor="rgba(51,51,51,0.4)" size="default" color="#fff" type="line-scale">
+  </ngx-spinner>
+  <div fxFlex fxLayout="row wrap" fxLayoutAlign="start center">
+    <div fxFlex="none">
+      <mat-icon style="font-size: 52px; margin-top: 16px;" [style.color]="componentConfig.iconColor">{{componentConfig.iconText}}</mat-icon>
     </div>
-    <div fxFlex="none" style="margin-top: 2px; font-size: 28px;">
-      {{componentConfig.mainText}}
+    <div fxFlex></div>
+    <div fxFlex="none" fxLayout="column" fxLayoutAlign="start end">
+      <div fxFlex="none" [style.color]="componentConfig.textColor" style="margin-bottom: 2px;">
+        {{componentConfig.title | translate}}
+      </div>
+      <div fxFlex="none" [style.color]="componentConfig.mainTextColor" style="margin-top: 2px; font-size: 28px;">
+        {{componentConfig.mainText | translate}}
+      </div>
     </div>
   </div>
+  <mat-divider></mat-divider>
+  <button mat-button [style.color]="componentConfig.textColor" (click)="onUpdateNow()" style="margin-top: 20px; text-align: left; font-size: 18px; font-weight: 300; padding-left: 2px;">
+    <mat-icon style="margin-right: 10px;">refresh</mat-icon> {{'key_updateNow' | translate}}
+  </button>
 </div>

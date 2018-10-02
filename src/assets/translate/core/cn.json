@@ -27,5 +27,6 @@
   "key_seriesName": "序列名称",
   "key_queryName": "查询名",
   "key_queryMethod": "查询方法",
-  "key_query": "查询"
+  "key_query": "查询",
+  "key_updateNow": "现在更新"
 }

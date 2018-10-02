@@ -27,5 +27,6 @@
   "key_seriesName": "series name",
   "key_queryName": "query name",
   "key_queryMethod": "query method",
-  "key_query": "query"
+  "key_query": "query",
+  "key_updateNow": "update now"
 }
