@@ -29,6 +29,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 
 import { ChartsModule } from '@progress/kendo-angular-charts';
 import { DialogsModule } from '@progress/kendo-angular-dialog';
+import { GridModule } from '@progress/kendo-angular-grid';
 
 import { ConfigService } from '../services/config.service';
 import { ResourceService } from '../services/resource.service';
@@ -78,7 +79,8 @@ export function startup(startupService: StartupService) {
     MatDividerModule,
     NgxSpinnerModule,
     ChartsModule,
-    DialogsModule
+    DialogsModule,
+    GridModule
   ],
   declarations: [
     DchostDirective,
@@ -116,6 +118,7 @@ export function startup(startupService: StartupService) {
     MatTabsModule,
     NgxSpinnerModule,
     ChartsModule,
+    GridModule,
 
     DchostDirective,
 

@@ -24,6 +24,8 @@ import { TranslateService } from '@ngx-translate/core';
 
 import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 
+import { State } from '@progress/kendo-data-query';
+
 import { ConfigService } from '../core/services/config.service';
 import { ResourceService } from '../core/services/resource.service';
 import { WidgetService } from '../core/services/widget.service';
@@ -180,7 +182,55 @@ export class TestComponent implements OnInit, AfterViewInit {
     legend: { position: Position.bottom, visible: true },
     labelConfig: { format: '{1}', visible: true, color: 'white' }
   };
-  //#endregion
+  // #endregion
+  // #region members for data grid
+  public gridState: State = {
+    skip: 0,
+    take: 5
+  };
+  gridData = [
+    {
+      CategoryID: 1,
+      CategoryName: 'Beverages',
+      Description: 'Soft drinks, coffees, teas, beers, and ales'
+    },
+    {
+      CategoryID: 2,
+      CategoryName: 'Condiments',
+      Description: 'Sweet and savory sauces, relishes, spreads, and seasonings'
+    },
+    {
+      CategoryID: 3,
+      CategoryName: 'Confections',
+      Description: 'Desserts, candies, and sweet breads'
+    },
+    {
+      CategoryID: 4,
+      CategoryName: 'Dairy Products',
+      Description: 'Cheeses'
+    },
+    {
+      CategoryID: 5,
+      CategoryName: 'Grains/Cereals',
+      Description: 'Breads, crackers, pasta, and cereal'
+    },
+    {
+      CategoryID: 6,
+      CategoryName: 'Meat/Poultry',
+      Description: 'Prepared meats'
+    },
+    {
+      CategoryID: 7,
+      CategoryName: 'Produce',
+      Description: 'Dried fruit and bean curd'
+    },
+    {
+      CategoryID: 8,
+      CategoryName: 'Seafood',
+      Description: 'Seaweed and fish'
+    }
+  ];
+  // #endregion
 
   constructor(
     private config: ConfigService,
