@@ -49,7 +49,7 @@
       <!-- kendo ui example -->
       <mat-tab label="Kendo UI Example">
         <div fxLayout="row wrap">
-          <div fxFlex="50">
+          <div fxFlex="50" *ngIf="false">
             <!-- password status -->
             <kendo-chart [seriesColors]="">
               <kendo-chart-legend position="bottom" orientation="horizontal"></kendo-chart-legend>
@@ -71,7 +71,7 @@
               </kendo-chart-category-axis>
             </kendo-chart>
           </div>
-          <div fxFlex="50">
+          <div fxFlex="50" *ngIf="false">
             <!-- request status -->
             <kendo-chart>
               <kendo-chart-legend position="bottom"></kendo-chart-legend>
@@ -89,13 +89,23 @@
               </kendo-chart-series>
             </kendo-chart>
           </div>
-          <div fxFlex="50">
-            <kendo-grid [data]="gridData" [loading]="false" [pageSize]="gridState.take" [skip]="gridState.skip" [sort]="gridState.sort"
-              [sortable]="true" [pageable]="true" [scrollable]="'none'">
-              <kendo-grid-column field="CategoryID" width="130"></kendo-grid-column>
-              <kendo-grid-column field="CategoryName" width="200"></kendo-grid-column>
-              <kendo-grid-column field="Description" [sortable]="false">
-              </kendo-grid-column>
+          <div fxFlex="100">
+            <kendo-grid [data]="gridResources | async" [loading]="gridLoading" [pageSize]="gridState.take" [skip]="gridState.skip"
+              [sort]="gridState.sort" [sortable]="{allowUnsort:allowUnsort,mode:'multiple'}" [pageable]="true" [filter]="gridState.filter"
+              [scrollable]="'none'" [selectable]="{checkboxOnly:false,mode:'multiple'}" (dataStateChange)="dataStateChange($event)"
+              filterable="menu">
+              <ng-template kendoGridToolbarTemplate>
+                <button kendoGridPDFCommand icon="file-pdf">Export to PDF</button>
+              </ng-template>
+              <kendo-grid-checkbox-column showSelectAll="true" width="10"></kendo-grid-checkbox-column>
+              <kendo-grid-column field="DisplayName" title="Display Name" width="120"></kendo-grid-column>
+              <kendo-grid-column field="Attributes.AccountName.Value" title="Account Name" width="120"></kendo-grid-column>
+              <kendo-grid-column field="Attributes.FirstName.Value" title="First Name" width="120"></kendo-grid-column>
+              <kendo-grid-column field="Attributes.LastName.Value" title="Last Name" width="120"></kendo-grid-column>
+              <kendo-grid-column field="ObjectType" title="Object Type" width="100"></kendo-grid-column>
+              <kendo-grid-pdf fileName="Products.pdf" [allPages]="true">
+                <kendo-grid-pdf-margin top="1cm" left="1cm" right="1cm" bottom="1cm"></kendo-grid-pdf-margin>
+              </kendo-grid-pdf>
             </kendo-grid>
           </div>
         </div>

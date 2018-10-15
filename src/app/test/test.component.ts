@@ -15,7 +15,8 @@ import {
   startWith,
   map,
   catchError,
-  delay
+  delay,
+  tap
 } from 'rxjs/operators';
 
 import * as moment from 'moment';
@@ -25,6 +26,10 @@ import { TranslateService } from '@ngx-translate/core';
 import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 
 import { State } from '@progress/kendo-data-query';
+import {
+  GridDataResult,
+  DataStateChangeEvent
+} from '@progress/kendo-angular-grid';
 
 import { ConfigService } from '../core/services/config.service';
 import { ResourceService } from '../core/services/resource.service';
@@ -184,10 +189,12 @@ export class TestComponent implements OnInit, AfterViewInit {
   };
   // #endregion
   // #region members for data grid
-  public gridState: State = {
+  gridState: State = {
     skip: 0,
     take: 5
   };
+  gridLoading = false;
+  gridResources: Observable<GridDataResult>;
   gridData = [
     {
       CategoryID: 1,
@@ -347,6 +354,18 @@ export class TestComponent implements OnInit, AfterViewInit {
       ]
     `;
     this.widgetConfig = this.widget.getWidgetConfig(configStr);
+
+    this.gridResources = this.resource
+      .getResourceByQuery(
+        '/Person',
+        ['DisplayName', 'AccountName', 'FirstName', 'LastName'],
+        false,
+        this.gridState.take,
+        this.gridState.skip
+      )
+      .pipe(
+        map(ro => <GridDataResult>{ data: ro.Resources, total: ro.TotalCount })
+      );
   }
 
   ngAfterViewInit() {
@@ -496,5 +515,75 @@ export class TestComponent implements OnInit, AfterViewInit {
 
   labelContent(e: any): string {
     return e.category;
+  }
+
+  public dataStateChange(state: DataStateChangeEvent): void {
+    this.gridState = state;
+
+    this.gridLoading = true;
+
+    let sortString: string[];
+    if (state.sort) {
+      sortString = state.sort
+        .filter(element => element.dir !== undefined)
+        .map(
+          item =>
+            `${item.field.replace('Attributes.', '').replace('.Value', '')}:${
+              item.dir
+            }`
+        );
+    }
+    if (sortString.length === 0) {
+      sortString = undefined;
+    }
+
+    // this.gridResources = this.resource
+    //   .getResourceByQuery(
+    //     '/Person',
+    //     ['DisplayName', 'AccountName', 'FirstName', 'LastName'],
+    //     false,
+    //     state.take,
+    //     state.skip,
+    //     undefined,
+    //     undefined,
+    //     undefined,
+    //     undefined,
+    //     sortString
+    //   )
+    //   .pipe(
+    //     map(ro => {
+    //       return <GridDataResult>{
+    //         data: ro.Resources,
+    //         total: ro.TotalCount
+    //       };
+    //     }),
+    //     tap(() => (this.gridLoading = false))
+    //   );
+
+    this.resource
+      .getResourceByQuery(
+        '/Person',
+        ['DisplayName', 'AccountName', 'FirstName', 'LastName'],
+        false,
+        state.take,
+        state.skip,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        sortString
+      )
+      .subscribe(
+        (result: DSResourceSet) => {
+          this.gridResources = of({
+            data: result.Resources,
+            total: result.TotalCount
+          } as GridDataResult);
+          this.gridLoading = false;
+        },
+        error => {
+          this.gridLoading = false;
+        }
+      );
   }
 }
