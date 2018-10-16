@@ -195,48 +195,48 @@ export class TestComponent implements OnInit, AfterViewInit {
   };
   gridLoading = false;
   gridResources: Observable<GridDataResult>;
-  gridData = [
+  gridData = of([
     {
-      CategoryID: 1,
-      CategoryName: 'Beverages',
-      Description: 'Soft drinks, coffees, teas, beers, and ales'
+      ObjectType: 1,
+      DisplayName: 'Beverages',
+      AccountName: 'Soft drinks, coffees, teas, beers, and ales'
     },
     {
-      CategoryID: 2,
-      CategoryName: 'Condiments',
-      Description: 'Sweet and savory sauces, relishes, spreads, and seasonings'
+      ObjectType: 2,
+      DisplayName: 'Condiments',
+      AccountName: 'Sweet and savory sauces, relishes, spreads, and seasonings'
     },
     {
-      CategoryID: 3,
-      CategoryName: 'Confections',
-      Description: 'Desserts, candies, and sweet breads'
+      ObjectType: 3,
+      DisplayName: 'Confections',
+      AccountName: 'Desserts, candies, and sweet breads'
     },
     {
-      CategoryID: 4,
-      CategoryName: 'Dairy Products',
-      Description: 'Cheeses'
+      ObjectType: 4,
+      DisplayName: 'Dairy Products',
+      AccountName: 'Cheeses'
     },
     {
-      CategoryID: 5,
-      CategoryName: 'Grains/Cereals',
-      Description: 'Breads, crackers, pasta, and cereal'
+      ObjectType: 5,
+      DisplayName: 'Grains/Cereals',
+      AccountName: 'Breads, crackers, pasta, and cereal'
     },
     {
-      CategoryID: 6,
-      CategoryName: 'Meat/Poultry',
-      Description: 'Prepared meats'
+      ObjectType: 6,
+      DisplayName: 'Meat/Poultry',
+      AccountName: 'Prepared meats'
     },
     {
-      CategoryID: 7,
-      CategoryName: 'Produce',
-      Description: 'Dried fruit and bean curd'
+      ObjectType: 7,
+      DisplayName: 'Produce',
+      AccountName: 'Dried fruit and bean curd'
     },
     {
-      CategoryID: 8,
-      CategoryName: 'Seafood',
-      Description: 'Seaweed and fish'
+      ObjectType: 8,
+      DisplayName: 'Seafood',
+      AccountName: 'Seaweed and fish'
     }
-  ];
+  ]);
   // #endregion
 
   constructor(

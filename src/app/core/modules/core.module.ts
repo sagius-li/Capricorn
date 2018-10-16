@@ -47,6 +47,7 @@ import { ChartConfigComponent } from '../components/chart/chartconfig.component'
 import { PopupComponent } from '../components/popup/popup.component';
 import { StateCardComponent } from '../components/state-card/state-card.component';
 import { StateCardConfigComponent } from '../components/state-card/state-card-config.component';
+import { ResourceTableComponent } from '../components/resource-table/resource-table.component';
 
 /** @ignore */
 export function startup(startupService: StartupService) {
@@ -92,15 +93,17 @@ export function startup(startupService: StartupService) {
     ChartConfigComponent,
     PopupComponent,
     StateCardComponent,
-    StateCardConfigComponent
+    StateCardConfigComponent,
+    ResourceTableComponent
   ],
   entryComponents: [
     MockComponent,
-    ChartComponent,
     PopupComponent,
+    ChartComponent,
     ChartConfigComponent,
     StateCardComponent,
-    StateCardConfigComponent
+    StateCardConfigComponent,
+    ResourceTableComponent
   ],
   providers: [
     ConfigService,
@@ -128,7 +131,8 @@ export function startup(startupService: StartupService) {
     EditbarComponent,
     MockComponent,
     ChartComponent,
-    StateCardComponent
+    StateCardComponent,
+    ResourceTableComponent
   ]
 })
 export class CoreModule {}

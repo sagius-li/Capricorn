@@ -1,0 +1,18 @@
+<div fxLayout="column" style="height: 100%; width: 100%;">
+  <div fxFlex="0 0 auto" *ngIf="componentConfig.title" class="table-title">{{componentConfig.title|translate}}</div>
+  <div fxFlex>
+    <kendo-grid [data]="gridResources | async" [loading]="gridLoading" [pageSize]="gridState.take" [skip]="gridState.skip"
+      [filter]="gridState.filter" [pageable]="true" [sortable]="gridSort" [selectable]="gridSelect" [filterable]="gridFilter"
+      [resizable]="componentConfig.resizable" (dataStateChange)="dataStateChange($event)">
+      <ng-template kendoGridToolbarTemplate *ngIf="componentConfig.exportToPDF||componentConfig.exportToExcel">
+        <button kendoGridPDFCommand icon="file-pdf" *ngIf="componentConfig.exportToPDF">Export to PDF</button>
+      </ng-template>
+      <kendo-grid-checkbox-column *ngIf="componentConfig.selectable" showSelectAll="true" width="10"></kendo-grid-checkbox-column>
+      <kendo-grid-column *ngFor="let col of componentConfig.columns" [field]="col.field" [title]="col.title" [sortable]="col.sortable"
+        [filterable]="col.filterable" [filter]="col.filter"></kendo-grid-column>
+      <kendo-grid-pdf *ngIf="componentConfig.exportToPDF" fileName="export.pdf" [allPages]="componentConfig.exportAllPages">
+        <kendo-grid-pdf-margin top="1cm" left="1cm" right="1cm" bottom="1cm"></kendo-grid-pdf-margin>
+      </kendo-grid-pdf>
+    </kendo-grid>
+  </div>
+</div>

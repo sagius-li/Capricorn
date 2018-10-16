@@ -91,9 +91,9 @@
           </div>
           <div fxFlex="100">
             <kendo-grid [data]="gridResources | async" [loading]="gridLoading" [pageSize]="gridState.take" [skip]="gridState.skip"
-              [sort]="gridState.sort" [sortable]="{allowUnsort:allowUnsort,mode:'multiple'}" [pageable]="true" [filter]="gridState.filter"
+              [sort]="gridState.sort" [sortable]="{allowUnsort:true,mode:'multiple'}" [pageable]="true" [filter]="gridState.filter"
               [scrollable]="'none'" [selectable]="{checkboxOnly:false,mode:'multiple'}" (dataStateChange)="dataStateChange($event)"
-              filterable="menu">
+              [resizable]="true" [filterable]="'menu'">
               <ng-template kendoGridToolbarTemplate>
                 <button kendoGridPDFCommand icon="file-pdf">Export to PDF</button>
               </ng-template>
@@ -102,7 +102,7 @@
               <kendo-grid-column field="Attributes.AccountName.Value" title="Account Name" width="120"></kendo-grid-column>
               <kendo-grid-column field="Attributes.FirstName.Value" title="First Name" width="120"></kendo-grid-column>
               <kendo-grid-column field="Attributes.LastName.Value" title="Last Name" width="120"></kendo-grid-column>
-              <kendo-grid-column field="ObjectType" title="Object Type" width="100"></kendo-grid-column>
+              <kendo-grid-column field="ObjectType" title="Object Type" width="100" [sortable]="false"></kendo-grid-column>
               <kendo-grid-pdf fileName="Products.pdf" [allPages]="true">
                 <kendo-grid-pdf-margin top="1cm" left="1cm" right="1cm" bottom="1cm"></kendo-grid-pdf-margin>
               </kendo-grid-pdf>
@@ -113,15 +113,26 @@
 
       <!-- components -->
       <mat-tab label="Components">
-        <div fxLayout="row" style="height: 400px;">
-          <div fxFlex="1 1 auto" style="position: relative;">
-            <app-chart [data]="chartData" [labelConfig]="chartData.labelConfig"></app-chart>
+        <div fxFlex fxLayout="row wrap">
+          <div fxFlex="35">
+            <div style="position: relative;">
+              <app-chart [data]="chartData" [labelConfig]="chartData.labelConfig"></app-chart>
+            </div>
           </div>
-          <div fxFlex="1 1 auto" style="overflow: hidden;">
-            <app-editbar></app-editbar>
+          <div fxFlex="30">
+            <div style="position: relative; overflow: hidden;">
+              <app-editbar></app-editbar>
+            </div>
           </div>
-          <div fxFlex="1 1 auto" style="position: relative;">
-            <app-state-card></app-state-card>
+          <div fxFlex="35">
+            <div style="position: relative; height: 100%">
+              <app-state-card></app-state-card>
+            </div>
+          </div>
+          <div fxFlex="50">
+            <div style="position: relative; height: 400px;">
+              <app-resource-table></app-resource-table>
+            </div>
           </div>
         </div>
       </mat-tab>
