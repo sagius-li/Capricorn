@@ -26,6 +26,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { LayoutModule } from '@progress/kendo-angular-layout';
 
 import 'hammerjs';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import 'hammerjs';
     DashboardComponent,
     TestComponent,
     SidebarComponent,
-    LoadingspinnerComponent
+    LoadingspinnerComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
