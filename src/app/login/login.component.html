@@ -4,8 +4,14 @@
 <div class="login-form" [class.mat-elevation-z8]="true">
   <div class="login-header" [class.mat-elevation-z8]="true" fxLayout="row wrap" fxLayoutAlign="center start">
     <div fxFlex="1 1 100" class="login-brand">Login</div>
-    <div fxFlex="auto" class="login-icon"><i class="fa fa-windows"></i></div>
-    <div fxFlex="auto" class="login-icon"><i class="fa fa-user"></i></div>
-    <div fxFlex="auto" class="login-icon"><i class="fa fa-cloud"></i></div>
+    <div fxFlex="auto" class="login-icon">
+      <fa-icon [icon]="faWindows"></fa-icon>
+    </div>
+    <div fxFlex="auto" class="login-icon">
+      <fa-icon [icon]="faUserAlt"></fa-icon>
+    </div>
+    <div fxFlex="auto" class="login-icon">
+      <fa-icon [icon]="faCloud"></fa-icon>
+    </div>
   </div>
 </div>

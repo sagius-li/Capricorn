@@ -5,6 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DragulaModule } from 'ng2-dragula';
 import { DndModule } from 'ng2-dnd';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { CoreModule } from './core/modules/core.module';
 import { AppRoutingModule } from './app-routing.module';
@@ -46,6 +47,7 @@ import { LoginComponent } from './login/login.component';
     DragulaModule.forRoot(),
     DndModule.forRoot(),
     FlexLayoutModule,
+    FontAwesomeModule,
 
     CoreModule,
     AppRoutingModule,
