@@ -105,21 +105,16 @@ export function startup(startupService: StartupService) {
     StateCardConfigComponent,
     ResourceTableComponent
   ],
-  providers: [
-    ConfigService,
-    ResourceService,
-    StartupService,
-    WidgetService,
-    SwapService
-  ],
+  providers: [ConfigService, ResourceService, StartupService, WidgetService, SwapService],
   exports: [
     FormsModule,
 
-    LocalizationModule,
-    DndModule,
     MatIconModule,
     MatProgressSpinnerModule,
     MatTabsModule,
+
+    LocalizationModule,
+    DndModule,
     NgxSpinnerModule,
     ChartsModule,
     GridModule,

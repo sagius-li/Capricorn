@@ -15,6 +15,7 @@ import { SplashComponent } from './splash/splash.component';
 import { HomeComponent } from './home/home.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { LoginComponent } from './login/login.component';
 
 import { TestComponent } from './test/test.component';
 import { LoadingspinnerComponent } from './test/loadingspinner/loadingspinner.component';
@@ -23,11 +24,11 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatInputModule, MatFormFieldModule, MatButtonModule } from '@angular/material';
 
 import { LayoutModule } from '@progress/kendo-angular-layout';
 
 import 'hammerjs';
-import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -56,6 +57,9 @@ import { LoginComponent } from './login/login.component';
     MatSortModule,
     MatPaginatorModule,
     MatGridListModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatButtonModule,
 
     LayoutModule
   ],
