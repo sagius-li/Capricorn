@@ -1,6 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 
-import { trigger, state, style, transition, animate } from '@angular/animations';
+import {
+  trigger,
+  state,
+  style,
+  transition,
+  animate,
+  group,
+  animateChild,
+  query
+} from '@angular/animations';
 
 import { faWindows } from '@fortawesome/free-brands-svg-icons';
 import { faCloud, faUserAlt, faUserCircle, faUnlockAlt } from '@fortawesome/free-solid-svg-icons';
@@ -40,13 +49,21 @@ import { faCloud, faUserAlt, faUserCircle, faUnlockAlt } from '@fortawesome/free
           height: '360px'
         })
       ),
-      transition('collapsed <=> expanded', animate(200))
+      transition('collapsed => expanded', [
+        style({ height: '180px' }),
+        group([animate(200, style({ height: '360px' })), query('@loginForm', [animateChild()])])
+      ]),
+      transition('expanded => collapsed', animate(200))
+    ]),
+    trigger('loginForm', [
+      transition(':enter', [style({ opacity: 0 }), animate('500ms 100ms', style({ opacity: 1 }))])
     ])
   ]
 })
 export class LoginComponent implements OnInit {
   flyIn = 'out';
   classicLogin = 'collapsed';
+  loginForm = 'hide';
 
   faWindows = faWindows;
   faCloud = faCloud;
@@ -67,5 +84,6 @@ export class LoginComponent implements OnInit {
 
   onClassicLogin() {
     this.classicLogin = this.classicLogin === 'collapsed' ? 'expanded' : 'collapsed';
+    this.loginForm = this.loginForm === 'hide' ? 'show' : 'hide';
   }
 }

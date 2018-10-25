@@ -14,7 +14,7 @@
       <fa-icon [icon]="faCloud"></fa-icon>
     </div>
   </div>
-  <div *ngIf="classicLogin==='expanded'" class="login-input" fxLayout="column">
+  <div @loginForm *ngIf="classicLogin==='expanded'" class="login-input" fxLayout="column">
     <div fxFlex="none" fxLayout="row" fxLayoutAlign="start center">
       <fa-icon fxFlex="0 0 auto" class="login-input-icon" [icon]="faUserCircle"></fa-icon>
       <mat-form-field fxFlex="auto">
