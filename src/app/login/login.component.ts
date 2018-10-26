@@ -14,6 +14,8 @@ import {
 import { faWindows } from '@fortawesome/free-brands-svg-icons';
 import { faCloud, faUserAlt, faUserCircle, faUnlockAlt } from '@fortawesome/free-solid-svg-icons';
 
+import { StartupService } from '../core/services/startup.service';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -74,12 +76,14 @@ export class LoginComponent implements OnInit {
   userName: string;
   password: string;
 
-  constructor() {}
+  constructor(private startup: StartupService) {}
 
   ngOnInit() {
-    setTimeout(() => {
-      this.flyIn = 'in';
-    }, 800);
+    this.startup.startBase().subscribe(() => {
+      setTimeout(() => {
+        this.flyIn = 'in';
+      }, 500);
+    });
   }
 
   onClassicLogin() {
