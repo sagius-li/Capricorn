@@ -31,6 +31,7 @@ import { ChartsModule } from '@progress/kendo-angular-charts';
 import { DialogsModule } from '@progress/kendo-angular-dialog';
 import { GridModule, PDFModule } from '@progress/kendo-angular-grid';
 
+import { AuthService } from '../services/auth.service';
 import { ConfigService } from '../services/config.service';
 import { ResourceService } from '../services/resource.service';
 import { StartupService } from '../services/startup.service';
@@ -105,7 +106,14 @@ export function startup(startupService: StartupService) {
     StateCardConfigComponent,
     ResourceTableComponent
   ],
-  providers: [ConfigService, ResourceService, StartupService, WidgetService, SwapService],
+  providers: [
+    AuthService,
+    ConfigService,
+    ResourceService,
+    StartupService,
+    WidgetService,
+    SwapService
+  ],
   exports: [
     FormsModule,
 

@@ -19,7 +19,7 @@ xdescribe('ConfigService', () => {
     inject([ConfigService], (service: ConfigService) => {
       service.load().subscribe(
         () => {
-          expect(service.isLoaded()).toBe(true);
+          expect(service.isLoaded).toBe(true);
           done();
         },
         err => {

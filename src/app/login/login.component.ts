@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import {
   trigger,
@@ -15,6 +16,7 @@ import { faWindows } from '@fortawesome/free-brands-svg-icons';
 import { faCloud, faUserAlt, faUserCircle, faUnlockAlt } from '@fortawesome/free-solid-svg-icons';
 
 import { StartupService } from '../core/services/startup.service';
+import { AuthService, AuthMode } from '../core/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -76,7 +78,9 @@ export class LoginComponent implements OnInit {
   userName: string;
   password: string;
 
-  constructor(private startup: StartupService) {}
+  hidePwd = true;
+
+  constructor(private startup: StartupService, private auth: AuthService, private router: Router) {}
 
   ngOnInit() {
     this.startup.startBase().subscribe(() => {
@@ -89,5 +93,17 @@ export class LoginComponent implements OnInit {
   onClassicLogin() {
     this.classicLogin = this.classicLogin === 'collapsed' ? 'expanded' : 'collapsed';
     this.loginForm = this.loginForm === 'hide' ? 'show' : 'hide';
+  }
+
+  onWindowsLogin() {
+    this.auth.login(AuthMode.windows).subscribe(
+      () => {
+        this.router.navigate(['/splash']);
+        console.log(this.auth.loginUser);
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 }

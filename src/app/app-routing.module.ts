@@ -13,6 +13,11 @@ const routes: Routes = [
     component: LoginComponent,
     children: []
   },
+  {
+    path: 'splash',
+    component: SplashComponent,
+    children: []
+  },
   // {
   //   path: '',
   //   component: SplashComponent,

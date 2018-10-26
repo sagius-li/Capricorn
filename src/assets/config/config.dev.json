@@ -1,5 +1,6 @@
 {
   "dataServiceUrl": "http://contosomim.westeurope.cloudapp.azure.com:6867/api/",
+  "domain": "contoso",
   "loginUserAttributes": ["DisplayName", "AccountName", "ocgConfigurationXML"],
   "portalAdminGuid": "7fb2b853-24f0-4498-9534-4e10589723c4",
   "datetimeFormat": "M/D/YYYY hh:mm:ss tt",

@@ -1,5 +1,6 @@
 {
   "dataServiceUrl": "//localhost:6867/api/",
+  "domain": "contoso",
   "loginUserAttributes": ["DisplayName", "AccountName", "ocgConfigurationXML"],
   "portalAdminGuid": "7fb2b853-24f0-4498-9534-4e10589723c4",
   "datetimeFormat": "MM/d/yyyy hh:mm:ss tt",

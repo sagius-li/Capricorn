@@ -47,6 +47,12 @@ export class UtilsService {
     return key;
   }
 
+  public buildDataServiceUrl(baseUrl: string, controllerName: string, methodName: string) {
+    return baseUrl.endsWith('/')
+      ? `${baseUrl}${controllerName}/${methodName}`
+      : `${baseUrl}/${controllerName}/${methodName}`;
+  }
+
   /**
    * Encrypt message
    * @param message Message to encrypt
@@ -130,21 +136,11 @@ export class UtilsService {
         case 'now':
           const now = moment();
           if (scripts.length === 1) {
-            return now.format(
-              this.config.getConfig(
-                'datetimeDisplayFormat',
-                this.datetimeFormat
-              )
-            );
+            return now.format(this.config.getConfig('datetimeDisplayFormat', this.datetimeFormat));
           } else if (scripts.length === 2) {
             return now
               .add(+scripts[1], 'd')
-              .format(
-                this.config.getConfig(
-                  'datetimeDisplayFormat',
-                  this.datetimeFormat
-                )
-              );
+              .format(this.config.getConfig('datetimeDisplayFormat', this.datetimeFormat));
           } else {
             throw new Error(`cannot evaluate expression: ${script}`);
           }

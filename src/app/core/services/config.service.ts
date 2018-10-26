@@ -37,6 +37,9 @@ export class ConfigService {
    * Loaded indicator
    */
   private loaded = false;
+  get isLoaded() {
+    return this.loaded;
+  }
 
   /**
    * Load the configuration in cache, according to the given environment setting
@@ -62,14 +65,6 @@ export class ConfigService {
         );
       })
     );
-  }
-
-  /**
-   * Indicate if the configuration is loaded
-   * @returns Boolean to indicate if the configuration is loaded
-   */
-  public isLoaded(): boolean {
-    return this.loaded;
   }
 
   /**
