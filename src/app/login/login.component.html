@@ -18,19 +18,21 @@
     <div fxFlex="none" fxLayout="row" fxLayoutAlign="start center">
       <fa-icon fxFlex="0 0 auto" class="login-input-icon" [icon]="faUserCircle"></fa-icon>
       <mat-form-field fxFlex="auto">
-        <input matInput [placeholder]="'key_userName'|translate" [(ngModel)]="userName">
+        <input #txtUserName matInput [placeholder]="'key_userName'|translate" [(ngModel)]="userName" (input)="onInputChange()">
       </mat-form-field>
     </div>
     <div fxFlex="none" fxLayout="row" fxLayoutAlign="start center">
       <fa-icon fxFlex="0 0 auto" class="login-input-icon" [icon]="faLock"></fa-icon>
       <mat-form-field fxFlex="auto">
-        <input matInput [placeholder]="'key_password'|translate" [(ngModel)]="password" [type]="hidePwd ? 'password' : 'text'">
+        <input matInput [placeholder]="'key_password'|translate" [(ngModel)]="password" [type]="hidePwd ? 'password' : 'text'"
+          (input)="onInputChange()">
         <mat-icon matSuffix (click)="hidePwd = !hidePwd" style="cursor: pointer;">{{hidePwd ? 'visibility_off' :
           'visibility'}}</mat-icon>
       </mat-form-field>
     </div>
+    <div class="login-error" *ngIf="invalidUser">{{'key_invalidUser'|translate}}</div>
     <div fxFlex="none" fxLayout="row" fxLayoutAlign="center center">
-      <button class="login-button" mat-button>{{'key_submit'|translate}}</button>
+      <button class="login-button" mat-button (click)="onBasicLogin()" [disabled]="!userName || !password">{{'key_submit'|translate}}</button>
     </div>
   </div>
 </div>

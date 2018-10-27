@@ -72,7 +72,14 @@
 }
 
 .login-button {
-  margin-top: 20px;
+  margin-top: 30px;
   color: #009ade;
   font-size: 18px;
+}
+
+.login-error {
+  color: indianred;
+  position: absolute;
+  top: 260px;
+  font-size: 14px;
 }

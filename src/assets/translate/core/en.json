@@ -17,6 +17,7 @@
   "key_login": "Login",
   "key_userName": "User Name",
   "key_password": "Password",
+  "key_invalidUser": "invalid user name or password",
   "key_chartConfig": "chart configuration",
   "key_chartTitle": "chart title",
   "key_chartType": "chart type",

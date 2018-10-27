@@ -17,6 +17,7 @@
   "key_login": "Anmelden",
   "key_userName": "Benutzername",
   "key_password": "Kennwort",
+  "key_invalidUser": "Benutzername oder Passwort ist ungültig",
   "key_chartConfig": "Diagramm Konfiguration",
   "key_chartTitle": "Diagramm Titel",
   "key_chartType": "Diagramm Typ",

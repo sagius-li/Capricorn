@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 
 import {
@@ -65,6 +65,9 @@ import { AuthService, AuthMode } from '../core/services/auth.service';
   ]
 })
 export class LoginComponent implements OnInit {
+  @ViewChild('txtUserName')
+  txtUserName: ElementRef;
+
   flyIn = 'out';
   classicLogin = 'collapsed';
   loginForm = 'hide';
@@ -79,6 +82,7 @@ export class LoginComponent implements OnInit {
   password: string;
 
   hidePwd = true;
+  invalidUser = false;
 
   constructor(private startup: StartupService, private auth: AuthService, private router: Router) {}
 
@@ -93,16 +97,35 @@ export class LoginComponent implements OnInit {
   onClassicLogin() {
     this.classicLogin = this.classicLogin === 'collapsed' ? 'expanded' : 'collapsed';
     this.loginForm = this.loginForm === 'hide' ? 'show' : 'hide';
+    setTimeout(() => {
+      if (this.txtUserName) {
+        this.txtUserName.nativeElement.focus();
+      }
+    }, 0);
+  }
+
+  onInputChange() {
+    this.invalidUser = false;
   }
 
   onWindowsLogin() {
     this.auth.login(AuthMode.windows).subscribe(
       () => {
         this.router.navigate(['/splash']);
-        console.log(this.auth.loginUser);
       },
       error => {
         console.log(error);
+      }
+    );
+  }
+
+  onBasicLogin() {
+    this.auth.login(AuthMode.basic, this.userName, this.password).subscribe(
+      () => {
+        this.router.navigate(['/splash']);
+      },
+      () => {
+        this.invalidUser = true;
       }
     );
   }
