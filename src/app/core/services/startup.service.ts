@@ -5,6 +5,7 @@ import { tap, switchMap, delay } from 'rxjs/operators';
 
 import { ResourceService } from './resource.service';
 import { ConfigService } from './config.service';
+import { UtilsService } from './utils.service';
 
 /**
  * Bootstrap core services and modules and prepare for the first start
@@ -40,54 +41,66 @@ export class StartupService {
   constructor(
     private config: ConfigService,
     private resource: ResourceService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private utils: UtilsService
   ) {}
 
   /**
    * Start the bootstrap process
-   * @param conn Connection string includes base address, user name, domain and password
    */
-  public start(conn?: string) {
-    // init configuration service
-    return this.config.load().pipe(
-      // init resource service
-      switchMap(() => {
-        return this.resource.load(conn);
-      }),
-      // init translation service
-      switchMap(() => {
-        const supportedLanguages: any[] = this.config.getConfig('supportedLanguages', [
-          {
-            code: ['en-US', 'en'],
-            label: 'English',
-            route: 'en'
-          }
-        ]);
-        const languages: string[] = [];
-        let currentLanguage = '';
-        supportedLanguages.forEach(language => {
-          languages.push(language.route);
-          if (language.code.indexOf(this.resource.getLanguage()) >= 0) {
-            currentLanguage = language.route;
-          }
-        });
-        this.translate.addLangs(languages);
-        this.translate.setDefaultLang('en');
-        return this.translate.use(currentLanguage).pipe(
-          tap(() => {
-            this.baseItemLoaded = true;
-            this.dataServiceLoaded = true;
-            this.allLoaded = true;
-          })
-        );
-      })
-    );
+  public start() {
+    const token: string = localStorage.getItem(this.utils.localStorageLoginToken);
+    // called from login component
+    if (this.isBaseItemLoaded) {
+      return this.resource.load(token).pipe(
+        tap(() => {
+          this.dataServiceLoaded = true;
+          this.allLoaded = true;
+        })
+      );
+      // directly called if user refresh the page
+    } else {
+      // init configuration service
+      return this.config.load().pipe(
+        // init resource service
+        switchMap(() => {
+          return this.resource.load(token);
+        }),
+        // init translation service
+        switchMap(() => {
+          const supportedLanguages: any[] = this.config.getConfig('supportedLanguages', [
+            {
+              code: ['en-US', 'en'],
+              label: 'English',
+              route: 'en'
+            }
+          ]);
+          const languages: string[] = [];
+          let currentLanguage = '';
+          supportedLanguages.forEach(language => {
+            languages.push(language.route);
+            if (language.code.indexOf(this.resource.getLanguage()) >= 0) {
+              currentLanguage = language.route;
+            }
+          });
+          this.translate.addLangs(languages);
+          this.translate.setDefaultLang('en');
+          return this.translate.use(currentLanguage).pipe(
+            tap(() => {
+              this.baseItemLoaded = true;
+              this.dataServiceLoaded = true;
+              this.allLoaded = true;
+            })
+          );
+        })
+      );
+    }
   }
 
   /**
    * Start the bootstrap process without data service
    */
-  public startBase() {
+  public init() {
     // init configuration service
     return this.config.load().pipe(
       // init translation service

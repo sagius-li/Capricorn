@@ -87,7 +87,7 @@ export class LoginComponent implements OnInit {
   constructor(private startup: StartupService, private auth: AuthService, private router: Router) {}
 
   ngOnInit() {
-    this.startup.startBase().subscribe(() => {
+    this.startup.init().subscribe(() => {
       setTimeout(() => {
         this.flyIn = 'in';
       }, 500);

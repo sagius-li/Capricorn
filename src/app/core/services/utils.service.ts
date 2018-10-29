@@ -18,6 +18,10 @@ export class UtilsService {
   /** Default datetime format */
   private datetimeFormat = 'YYYY-MM-DD';
 
+  public localStorageLoginMode = 'Key_LS_LoginMode';
+  public localStorageLoginUser = 'Key_LS_LoginUser';
+  public localStorageLoginToken = 'Key_LS_LoginToken';
+
   /**
    * @ignore
    */
@@ -47,6 +51,12 @@ export class UtilsService {
     return key;
   }
 
+  /**
+   * Build data service url
+   * @param baseUrl Base url of the web api
+   * @param controllerName Controller name of the web api
+   * @param methodName Method name of the web api
+   */
   public buildDataServiceUrl(baseUrl: string, controllerName: string, methodName: string) {
     return baseUrl.endsWith('/')
       ? `${baseUrl}${controllerName}/${methodName}`

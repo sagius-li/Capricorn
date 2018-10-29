@@ -50,14 +50,20 @@ export class AuthService {
           'get/currentuser'
         );
         let paramWindowsUser: HttpParams = new HttpParams();
-        userAttributes.forEach(attribute => {
-          paramWindowsUser = paramWindowsUser.append('attributesToGet', attribute);
-        });
+        paramWindowsUser = paramWindowsUser.append('attributesToGet', 'DisplayName');
+        paramWindowsUser = paramWindowsUser.append('attributesToGet', 'AccountName');
         return this.http
           .get(urlGetWindowsUser, { params: paramWindowsUser, withCredentials: true })
           .pipe(
             tap((user: DSResource) => {
               this._loginUser = user;
+
+              localStorage.clear();
+              localStorage.setItem(this.utils.localStorageLoginMode, mode);
+              localStorage.setItem(
+                this.utils.localStorageLoginUser,
+                JSON.stringify(this._loginUser)
+              );
             })
           );
       case AuthMode.basic:
@@ -85,15 +91,23 @@ export class AuthService {
                 query: `/Person[AccountName='${userName}']`
               }
             });
-            userAttributes.forEach(attribute => {
-              paramBasicUser = paramBasicUser.append('attributesToGet', attribute);
-            });
+            paramBasicUser = paramBasicUser.append('attributesToGet', 'DisplayName');
+            paramBasicUser = paramBasicUser.append('attributesToGet', 'AccountName');
             return this.http.get(urlGetBasicUser, { params: paramBasicUser }).pipe(
               map((users: DSResourceSet) => {
                 if (users.TotalCount !== 1) {
                   throw new Error('failed to get portal user');
                 } else {
                   this._loginUser = users.Resources[0];
+
+                  localStorage.clear();
+                  localStorage.setItem(this.utils.localStorageLoginMode, mode);
+                  localStorage.setItem(this.utils.localStorageLoginToken, basicToken);
+                  localStorage.setItem(
+                    this.utils.localStorageLoginUser,
+                    JSON.stringify(this._loginUser)
+                  );
+
                   return users.Resources[0];
                 }
               })

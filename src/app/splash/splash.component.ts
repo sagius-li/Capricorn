@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { Subscription } from 'rxjs';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { map, switchMap, tap, delay } from 'rxjs/operators';
 
 import { StartupService } from '../core/services/startup.service';
 import { ConfigService } from '../core/services/config.service';
@@ -26,14 +26,12 @@ export class SplashComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.sub = this.route.queryParams
       .pipe(
+        delay(2000),
         map(params => params['path']),
         switchMap((path: string) => {
           return this.startup.start().pipe(
             tap(() => {
-              if (
-                String(this.config.getEnv('testPageOnly', '')).toLowerCase() ===
-                'true'
-              ) {
+              if (String(this.config.getEnv('testPageOnly', '')).toLowerCase() === 'true') {
                 this.router.navigate(['/test']);
               } else {
                 if (!path || path === '/test') {

@@ -9,15 +9,8 @@ import {
 } from '@angular/core';
 
 import { Observable, Observer, of } from 'rxjs';
-import {
-  merge,
-  switchMap,
-  startWith,
-  map,
-  catchError,
-  delay,
-  tap
-} from 'rxjs/operators';
+import { merge, switchMap, startWith, map, catchError, delay, tap } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 import * as moment from 'moment';
 
@@ -26,10 +19,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 
 import { State } from '@progress/kendo-data-query';
-import {
-  GridDataResult,
-  DataStateChangeEvent
-} from '@progress/kendo-angular-grid';
+import { GridDataResult, DataStateChangeEvent } from '@progress/kendo-angular-grid';
 
 import { ConfigService } from '../core/services/config.service';
 import { ResourceService } from '../core/services/resource.service';
@@ -43,12 +33,7 @@ import { DynamicContentService } from './dynamiccontent.service';
 
 import { LoadingspinnerComponent } from './loadingspinner/loadingspinner.component';
 
-import {
-  SeriesConfig,
-  QueryConfig,
-  ChartConfig,
-  Position
-} from '../core/models/chart.model';
+import { SeriesConfig, QueryConfig, ChartConfig, Position } from '../core/models/chart.model';
 
 @Component({
   selector: 'app-test',
@@ -245,7 +230,8 @@ export class TestComponent implements OnInit, AfterViewInit {
     private translate: TranslateService,
     private cfr: ComponentFactoryResolver,
     private dcontent: DynamicContentService,
-    private widget: WidgetService
+    private widget: WidgetService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -363,9 +349,7 @@ export class TestComponent implements OnInit, AfterViewInit {
         this.gridState.take,
         this.gridState.skip
       )
-      .pipe(
-        map(ro => <GridDataResult>{ data: ro.Resources, total: ro.TotalCount })
-      );
+      .pipe(map(ro => <GridDataResult>{ data: ro.Resources, total: ro.TotalCount }));
   }
 
   ngAfterViewInit() {
@@ -416,9 +400,7 @@ export class TestComponent implements OnInit, AfterViewInit {
         if (host) {
           const viewContainerRef = host.viewContainerRef;
           viewContainerRef.clear();
-          const componentRef = viewContainerRef.createComponent(
-            componentFactory
-          );
+          const componentRef = viewContainerRef.createComponent(componentFactory);
           widget.componentRef = componentRef;
           (<DcComponent>componentRef.instance).data = widget.data;
         }
@@ -429,6 +411,11 @@ export class TestComponent implements OnInit, AfterViewInit {
   onChangeLanguage(language: string) {
     this.currentLanguage = language;
     this.translate.use(language);
+  }
+
+  onLogout() {
+    localStorage.clear();
+    this.router.navigate(['/login']);
   }
 
   onFetchUsers() {
@@ -456,9 +443,7 @@ export class TestComponent implements OnInit, AfterViewInit {
   }
 
   onLoadWithDirective() {
-    const componentFactory = this.cfr.resolveComponentFactory(
-      LoadingspinnerComponent
-    );
+    const componentFactory = this.cfr.resolveComponentFactory(LoadingspinnerComponent);
     const host = this.dcHosts.find(h => h.hostName === 'host1');
     if (host) {
       const viewContainerRef = host.viewContainerRef;
@@ -474,12 +459,8 @@ export class TestComponent implements OnInit, AfterViewInit {
     const sourceConfig = $event.dragData;
     const targetConfig = target;
 
-    const sourceIndex = this.widgetConfig.findIndex(
-      w => w.position === sourceConfig.position
-    );
-    const targetIndex = this.widgetConfig.findIndex(
-      w => w.position === targetConfig.position
-    );
+    const sourceIndex = this.widgetConfig.findIndex(w => w.position === sourceConfig.position);
+    const targetIndex = this.widgetConfig.findIndex(w => w.position === targetConfig.position);
 
     this.widgetConfig[sourceIndex] = targetConfig;
     this.widgetConfig[targetIndex] = sourceConfig;
@@ -497,9 +478,7 @@ export class TestComponent implements OnInit, AfterViewInit {
   }
 
   onDelete(config) {
-    const index = this.widgetConfig.findIndex(
-      w => w.position === config.position
-    );
+    const index = this.widgetConfig.findIndex(w => w.position === config.position);
     if (index > -1) {
       this.widgetConfig.splice(index, 1);
     }
@@ -526,12 +505,7 @@ export class TestComponent implements OnInit, AfterViewInit {
     if (state.sort) {
       sortString = state.sort
         .filter(element => element.dir !== undefined)
-        .map(
-          item =>
-            `${item.field.replace('Attributes.', '').replace('.Value', '')}:${
-              item.dir
-            }`
-        );
+        .map(item => `${item.field.replace('Attributes.', '').replace('.Value', '')}:${item.dir}`);
     }
     if (sortString.length === 0) {
       sortString = undefined;

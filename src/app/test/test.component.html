@@ -13,16 +13,20 @@
       <!-- general information -->
       <mat-tab label="{{'i18n_generalInfo'|translate}}">
         <div fxFlex fxLayout="column" fxLayoutAlign="space-evenly start" fxLayoutGap="20px" class="first-tab-element">
-          <div fxLayout>Data Service Version: {{dsVersion}}</div>
-          <div fxLayout>Current used Language: {{currentLanguage}}</div>
+          <div fxFlex>Data Service Version: {{dsVersion}}</div>
+          <div fxFlex>Current used Language: {{currentLanguage}}</div>
           <!-- localization example (ngx) -->
-          <div fxLayout class="first-tab-element">
+          <div fxFlex class="first-tab-element">
             <ng-template ngFor let-language [ngForOf]="languages">
               <span *ngIf="language.code.indexOf(currentLanguage)<0" style="margin-right: 10px;">
                 <a [routerLink]="" (click)="onChangeLanguage(language.route)">{{language.label}}</a>
               </span>
               <span *ngIf="language.code.indexOf(currentLanguage)>=0">{{language.label}} </span>
             </ng-template>
+          </div>
+          <!-- log out -->
+          <div fxFlex>
+            <button (click)="onLogout()">log out</button>
           </div>
           <!-- data service example -->
           <div fxLayout="column" class="first-tab-element">
