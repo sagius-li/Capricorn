@@ -6,6 +6,7 @@ import { TestComponent } from './test/test.component';
 import { HomeComponent } from './home/home.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './login/login.component';
+import { AdalGuard } from 'adal-angular4';
 
 const routes: Routes = [
   {

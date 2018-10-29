@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
-
 import {
   trigger,
   state,
@@ -11,6 +10,8 @@ import {
   animateChild,
   query
 } from '@angular/animations';
+
+import { AdalService } from 'adal-angular4';
 
 import { faWindows } from '@fortawesome/free-brands-svg-icons';
 import { faCloud, faUserAlt, faUserCircle, faUnlockAlt } from '@fortawesome/free-solid-svg-icons';
@@ -84,7 +85,12 @@ export class LoginComponent implements OnInit {
   hidePwd = true;
   invalidUser = false;
 
-  constructor(private startup: StartupService, private auth: AuthService, private router: Router) {}
+  constructor(
+    private startup: StartupService,
+    private auth: AuthService,
+    private router: Router,
+    private adal: AdalService
+  ) {}
 
   ngOnInit() {
     this.startup.init().subscribe(() => {
@@ -128,5 +134,13 @@ export class LoginComponent implements OnInit {
         this.invalidUser = true;
       }
     );
+  }
+
+  onAzureLogin() {
+    this.auth.login(AuthMode.azure);
+
+    if (!this.adal.userInfo.authenticated) {
+      this.adal.login();
+    }
   }
 }

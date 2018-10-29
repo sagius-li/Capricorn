@@ -28,6 +28,15 @@ export class AuthService {
     return this._loginUser;
   }
 
+  private adalConfig = {
+    tenant: 'selectedat.onmicrosoft.com',
+    clientId: '705c2d51-0345-4fff-a483-0bdf39bcc673',
+    redirectUri: 'http://localhost:4200',
+    endpoints: {
+      'https://idcloudeditionservice2.azurewebsites.net': '426bafb3-9244-4000-bb89-461908fe0a35'
+    }
+  };
+
   constructor(
     private http: HttpClient,
     private config: ConfigService,
@@ -40,7 +49,6 @@ export class AuthService {
     }
 
     const baseUrl = this.config.getConfig('dataServiceUrl', '//localhost:6867/api/');
-    const userAttributes = this.config.getConfig('loginUserAttributes', ['DisplayName']);
 
     switch (mode) {
       case AuthMode.windows:
@@ -115,6 +123,8 @@ export class AuthService {
           })
         );
       case AuthMode.azure:
+        localStorage.clear();
+        localStorage.setItem(this.utils.localStorageLoginMode, mode);
         break;
       default:
         break;

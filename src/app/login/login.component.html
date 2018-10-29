@@ -11,7 +11,7 @@
       <fa-icon [icon]="faUserAlt" (click)="onClassicLogin()"></fa-icon>
     </div>
     <div fxFlex="auto" class="login-icon">
-      <fa-icon [icon]="faCloud"></fa-icon>
+      <fa-icon [icon]="faCloud" (click)="onAzureLogin()"></fa-icon>
     </div>
   </div>
   <div @loginForm *ngIf="classicLogin==='expanded'" class="login-input" fxLayout="column">

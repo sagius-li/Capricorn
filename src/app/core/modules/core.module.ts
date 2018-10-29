@@ -52,7 +52,7 @@ import { ResourceTableComponent } from '../components/resource-table/resource-ta
 
 /** @ignore */
 export function startup(startupService: StartupService) {
-  return (conn?: string) => startupService.start(conn);
+  return () => startupService.start();
 }
 
 @NgModule({

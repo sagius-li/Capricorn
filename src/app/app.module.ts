@@ -10,6 +10,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CoreModule } from './core/modules/core.module';
 import { AppRoutingModule } from './app-routing.module';
 
+import { AdalService, AdalGuard, AdalInterceptor } from 'adal-angular4';
+
 import { AppComponent } from './app.component';
 import { SplashComponent } from './splash/splash.component';
 import { HomeComponent } from './home/home.component';
@@ -64,7 +66,15 @@ import 'hammerjs';
     LayoutModule
   ],
   entryComponents: [LoadingspinnerComponent],
-  providers: [],
+  providers: [
+    AdalService,
+    AdalGuard
+    // {
+    //   provide: HTTP_INTERCEPTORS,
+    //   useClass: AdalInterceptor,
+    //   multi: true
+    // }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

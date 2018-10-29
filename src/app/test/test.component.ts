@@ -34,6 +34,7 @@ import { DynamicContentService } from './dynamiccontent.service';
 import { LoadingspinnerComponent } from './loadingspinner/loadingspinner.component';
 
 import { SeriesConfig, QueryConfig, ChartConfig, Position } from '../core/models/chart.model';
+import { AdalService } from 'adal-angular4';
 
 @Component({
   selector: 'app-test',
@@ -231,7 +232,8 @@ export class TestComponent implements OnInit, AfterViewInit {
     private cfr: ComponentFactoryResolver,
     private dcontent: DynamicContentService,
     private widget: WidgetService,
-    private router: Router
+    private router: Router,
+    private adal: AdalService
   ) {}
 
   ngOnInit() {
@@ -415,6 +417,9 @@ export class TestComponent implements OnInit, AfterViewInit {
 
   onLogout() {
     localStorage.clear();
+    if (this.adal.userInfo.authenticated) {
+      this.adal.logOut();
+    }
     this.router.navigate(['/login']);
   }
 
