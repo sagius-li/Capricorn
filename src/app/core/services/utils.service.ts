@@ -20,7 +20,6 @@ export class UtilsService {
 
   public localStorageLoginMode = 'Key_LS_LoginMode';
   public localStorageLoginUser = 'Key_LS_LoginUser';
-  public localStorageLoginToken = 'Key_LS_LoginToken';
 
   /**
    * @ignore

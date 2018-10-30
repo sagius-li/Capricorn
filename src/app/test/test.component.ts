@@ -10,11 +10,10 @@ import {
 
 import { Observable, Observer, of } from 'rxjs';
 import { merge, switchMap, startWith, map, catchError, delay, tap } from 'rxjs/operators';
-import { Router } from '@angular/router';
 
 import * as moment from 'moment';
-
 import { TranslateService } from '@ngx-translate/core';
+import { AdalService } from 'adal-angular4';
 
 import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 
@@ -34,7 +33,7 @@ import { DynamicContentService } from './dynamiccontent.service';
 import { LoadingspinnerComponent } from './loadingspinner/loadingspinner.component';
 
 import { SeriesConfig, QueryConfig, ChartConfig, Position } from '../core/models/chart.model';
-import { AdalService } from 'adal-angular4';
+import { AuthService } from '../core/services/auth.service';
 
 @Component({
   selector: 'app-test',
@@ -232,8 +231,7 @@ export class TestComponent implements OnInit, AfterViewInit {
     private cfr: ComponentFactoryResolver,
     private dcontent: DynamicContentService,
     private widget: WidgetService,
-    private router: Router,
-    private adal: AdalService
+    private auth: AuthService
   ) {}
 
   ngOnInit() {
@@ -416,11 +414,7 @@ export class TestComponent implements OnInit, AfterViewInit {
   }
 
   onLogout() {
-    localStorage.clear();
-    if (this.adal.userInfo.authenticated) {
-      this.adal.logOut();
-    }
-    this.router.navigate(['/login']);
+    this.auth.logout();
   }
 
   onFetchUsers() {

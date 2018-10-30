@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
+import { Router } from '@angular/router';
 
-import { throwError } from 'rxjs';
+import { throwError, empty } from 'rxjs';
 import { tap, switchMap, map } from 'rxjs/operators';
+import { AdalService } from 'adal-angular4';
 
 import { DSResource, DSResourceSet } from '../models/resource.model';
 import { ConfigService } from './config.service';
@@ -14,6 +16,13 @@ export enum AuthMode {
   azure = 'azure'
 }
 
+export class LoginUser {
+  DisplayName?: string;
+  ObjectID?: string;
+  AccountName?: string;
+  Token?: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -23,7 +32,7 @@ export class AuthService {
     return this._authMode;
   }
 
-  _loginUser: DSResource;
+  _loginUser: LoginUser;
   get loginUser() {
     return this._loginUser;
   }
@@ -32,6 +41,7 @@ export class AuthService {
     tenant: 'selectedat.onmicrosoft.com',
     clientId: '705c2d51-0345-4fff-a483-0bdf39bcc673',
     redirectUri: 'http://localhost:4200',
+    // postLogoutRedirectUri: 'http://localhost:4200/login',
     endpoints: {
       'https://idcloudeditionservice2.azurewebsites.net': '426bafb3-9244-4000-bb89-461908fe0a35'
     }
@@ -39,21 +49,40 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
+    private router: Router,
     private config: ConfigService,
-    private utils: UtilsService
-  ) {}
+    private utils: UtilsService,
+    private adal: AdalService
+  ) {
+    // if (this.config.isLoaded) {
+    //   this.adalConfig = JSON.parse(this.config.getConfig('adalConfig', ''));
+    // }
+    this.adal.init(this.adalConfig);
+  }
+
+  public init() {
+    this.adal.handleWindowCallback();
+
+    if (localStorage.getItem(this.utils.localStorageLoginMode)) {
+      this._authMode = AuthMode[localStorage.getItem(this.utils.localStorageLoginMode)];
+    }
+    if (localStorage.getItem(this.utils.localStorageLoginUser)) {
+      this._loginUser = JSON.parse(localStorage.getItem(this.utils.localStorageLoginUser));
+    }
+  }
 
   public login(mode: AuthMode, userName?: string, pwd?: string) {
-    if (!this.config.isLoaded) {
-      return throwError(new Error('config service is not yet ready'));
-    }
-
-    const baseUrl = this.config.getConfig('dataServiceUrl', '//localhost:6867/api/');
-
     switch (mode) {
       case AuthMode.windows:
+        if (this._loginUser) {
+          return empty();
+        }
+        if (!this.config.isLoaded) {
+          return throwError(new Error('config service is not yet ready'));
+        }
+        const urlWindowsUser = this.config.getConfig('dataServiceUrl', '//localhost:6867/api/');
         const urlGetWindowsUser = this.utils.buildDataServiceUrl(
-          baseUrl,
+          urlWindowsUser,
           'resource/win',
           'get/currentuser'
         );
@@ -64,7 +93,12 @@ export class AuthService {
           .get(urlGetWindowsUser, { params: paramWindowsUser, withCredentials: true })
           .pipe(
             tap((user: DSResource) => {
-              this._loginUser = user;
+              this._loginUser = {
+                DisplayName: user.DisplayName,
+                ObjectID: user.ObjectID,
+                AccountName: user.Attributes['AccountName'].Value
+              };
+              this._authMode = AuthMode[mode];
 
               localStorage.clear();
               localStorage.setItem(this.utils.localStorageLoginMode, mode);
@@ -72,11 +106,20 @@ export class AuthService {
                 this.utils.localStorageLoginUser,
                 JSON.stringify(this._loginUser)
               );
+
+              this.router.navigate(['/splash']);
             })
           );
       case AuthMode.basic:
+        if (this._loginUser) {
+          return empty();
+        }
+        if (!this.config.isLoaded) {
+          return throwError(new Error('config service is not yet ready'));
+        }
+        const urlBasicUser = this.config.getConfig('dataServiceUrl', '//localhost:6867/api/');
         const urlGetEncryptionKey = this.utils.buildDataServiceUrl(
-          baseUrl,
+          urlBasicUser,
           'generic',
           'encryptionKey'
         );
@@ -84,12 +127,12 @@ export class AuthService {
           switchMap((key: string) => {
             const domain = this.config.getConfig('domain', '');
             const keyDecrypted = this.utils.Decrypt(key, '');
-            const basicToken = `baseaddress:${baseUrl};domain:${domain};username:${userName};password:${this.utils.Encrypt(
+            const basicToken = `baseaddress:${urlBasicUser};domain:${domain};username:${userName};password:${this.utils.Encrypt(
               pwd,
               keyDecrypted
             )}`;
             const urlGetBasicUser = this.utils.buildDataServiceUrl(
-              baseUrl,
+              urlBasicUser,
               'resource/basic',
               'get/query'
             );
@@ -106,15 +149,22 @@ export class AuthService {
                 if (users.TotalCount !== 1) {
                   throw new Error('failed to get portal user');
                 } else {
-                  this._loginUser = users.Resources[0];
+                  this._loginUser = {
+                    DisplayName: users.Resources[0].DisplayName,
+                    ObjectID: users.Resources[0].ObjectID,
+                    AccountName: users.Resources[0].Attributes['AccountName'].Value,
+                    Token: basicToken
+                  };
+                  this._authMode = AuthMode[mode];
 
                   localStorage.clear();
                   localStorage.setItem(this.utils.localStorageLoginMode, mode);
-                  localStorage.setItem(this.utils.localStorageLoginToken, basicToken);
                   localStorage.setItem(
                     this.utils.localStorageLoginUser,
                     JSON.stringify(this._loginUser)
                   );
+
+                  this.router.navigate(['/splash']);
 
                   return users.Resources[0];
                 }
@@ -123,11 +173,36 @@ export class AuthService {
           })
         );
       case AuthMode.azure:
+        this._authMode = AuthMode[mode];
         localStorage.clear();
         localStorage.setItem(this.utils.localStorageLoginMode, mode);
-        break;
+        if (!this.adal.userInfo.authenticated) {
+          this.adal.login();
+        }
+        return empty();
       default:
-        break;
+        return empty();
     }
+  }
+
+  public logout() {
+    localStorage.clear();
+    this._authMode = undefined;
+    this._loginUser = undefined;
+
+    if (this.adal.userInfo.authenticated) {
+      this.adal.logOut();
+    }
+    this.router.navigate(['/login']);
+  }
+
+  public setAzureLoginUser() {
+    this._loginUser = {
+      DisplayName: this.adal.userInfo.userName,
+      AccountName: this.adal.userInfo.userName,
+      Token: this.adal.userInfo.token
+    };
+    localStorage.setItem(this.utils.localStorageLoginUser, JSON.stringify(this._loginUser));
+    return this._loginUser;
   }
 }

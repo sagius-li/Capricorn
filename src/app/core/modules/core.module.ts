@@ -7,8 +7,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { DndModule } from 'ng2-dnd';
 import { DragulaModule } from 'ng2-dragula';
 import { ColorPickerModule } from 'ngx-color-picker';
-
 import { LocalizationModule } from '../modules/localization.module';
+import { AdalService, AdalGuard } from 'adal-angular4';
 
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
@@ -112,7 +112,14 @@ export function startup(startupService: StartupService) {
     ResourceService,
     StartupService,
     WidgetService,
-    SwapService
+    SwapService,
+    AdalService,
+    AdalGuard
+    // {
+    //   provide: HTTP_INTERCEPTORS,
+    //   useClass: AdalInterceptor,
+    //   multi: true
+    // }
   ],
   exports: [
     FormsModule,

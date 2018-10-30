@@ -6,6 +6,7 @@ import { tap, switchMap, delay } from 'rxjs/operators';
 import { ResourceService } from './resource.service';
 import { ConfigService } from './config.service';
 import { UtilsService } from './utils.service';
+import { AuthService, AuthMode } from './auth.service';
 
 /**
  * Bootstrap core services and modules and prepare for the first start
@@ -42,14 +43,18 @@ export class StartupService {
     private config: ConfigService,
     private resource: ResourceService,
     private translate: TranslateService,
-    private utils: UtilsService
+    private utils: UtilsService,
+    private auth: AuthService
   ) {}
 
   /**
    * Start the bootstrap process
    */
   public start() {
-    const token: string = localStorage.getItem(this.utils.localStorageLoginToken);
+    let token: string;
+    if (this.auth.authMode === AuthMode.basic) {
+      token = this.auth.loginUser.Token;
+    }
     // called from login component
     if (this.isBaseItemLoaded) {
       return this.resource.load(token).pipe(

@@ -11,8 +11,6 @@ import {
   query
 } from '@angular/animations';
 
-import { AdalService } from 'adal-angular4';
-
 import { faWindows } from '@fortawesome/free-brands-svg-icons';
 import { faCloud, faUserAlt, faUserCircle, faUnlockAlt } from '@fortawesome/free-solid-svg-icons';
 
@@ -85,12 +83,7 @@ export class LoginComponent implements OnInit {
   hidePwd = true;
   invalidUser = false;
 
-  constructor(
-    private startup: StartupService,
-    private auth: AuthService,
-    private router: Router,
-    private adal: AdalService
-  ) {}
+  constructor(private startup: StartupService, private auth: AuthService, private router: Router) {}
 
   ngOnInit() {
     this.startup.init().subscribe(() => {
@@ -115,14 +108,7 @@ export class LoginComponent implements OnInit {
   }
 
   onWindowsLogin() {
-    this.auth.login(AuthMode.windows).subscribe(
-      () => {
-        this.router.navigate(['/splash']);
-      },
-      error => {
-        console.log(error);
-      }
-    );
+    this.auth.login(AuthMode.windows).subscribe();
   }
 
   onBasicLogin() {
@@ -138,9 +124,5 @@ export class LoginComponent implements OnInit {
 
   onAzureLogin() {
     this.auth.login(AuthMode.azure);
-
-    if (!this.adal.userInfo.authenticated) {
-      this.adal.login();
-    }
   }
 }

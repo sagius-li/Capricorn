@@ -25,7 +25,7 @@
       <fa-icon fxFlex="0 0 auto" class="login-input-icon" [icon]="faLock"></fa-icon>
       <mat-form-field fxFlex="auto">
         <input matInput [placeholder]="'key_password'|translate" [(ngModel)]="password" [type]="hidePwd ? 'password' : 'text'"
-          (input)="onInputChange()">
+          (input)="onInputChange()" (keyup.enter)="onBasicLogin()">
         <mat-icon matSuffix (click)="hidePwd = !hidePwd" style="cursor: pointer;">{{hidePwd ? 'visibility_off' :
           'visibility'}}</mat-icon>
       </mat-form-field>
