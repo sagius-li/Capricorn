@@ -100,7 +100,6 @@ export class AuthService {
               };
               this._authMode = AuthMode[mode];
 
-              localStorage.clear();
               localStorage.setItem(this.utils.localStorageLoginMode, mode);
               localStorage.setItem(
                 this.utils.localStorageLoginUser,
@@ -157,7 +156,6 @@ export class AuthService {
                   };
                   this._authMode = AuthMode[mode];
 
-                  localStorage.clear();
                   localStorage.setItem(this.utils.localStorageLoginMode, mode);
                   localStorage.setItem(
                     this.utils.localStorageLoginUser,
@@ -174,7 +172,6 @@ export class AuthService {
         );
       case AuthMode.azure:
         this._authMode = AuthMode[mode];
-        localStorage.clear();
         localStorage.setItem(this.utils.localStorageLoginMode, mode);
         if (!this.adal.userInfo.authenticated) {
           this.adal.login();
