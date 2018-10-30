@@ -37,15 +37,16 @@ export class AuthService {
     return this._loginUser;
   }
 
-  private adalConfig = {
-    tenant: 'selectedat.onmicrosoft.com',
-    clientId: '705c2d51-0345-4fff-a483-0bdf39bcc673',
-    redirectUri: 'http://localhost:4200',
-    // postLogoutRedirectUri: 'http://localhost:4200/login',
-    endpoints: {
-      'https://idcloudeditionservice2.azurewebsites.net': '426bafb3-9244-4000-bb89-461908fe0a35'
-    }
-  };
+  private adalConfig: any;
+  // private adalConfig = {
+  //   tenant: 'selectedat.onmicrosoft.com',
+  //   clientId: '705c2d51-0345-4fff-a483-0bdf39bcc673',
+  //   redirectUri: 'http://localhost:4200',
+  //   // postLogoutRedirectUri: 'http://localhost:4200/login',
+  //   endpoints: {
+  //     'https://idcloudeditionservice2.azurewebsites.net': '426bafb3-9244-4000-bb89-461908fe0a35'
+  //   }
+  // };
 
   constructor(
     private http: HttpClient,
@@ -53,14 +54,13 @@ export class AuthService {
     private config: ConfigService,
     private utils: UtilsService,
     private adal: AdalService
-  ) {
-    // if (this.config.isLoaded) {
-    //   this.adalConfig = JSON.parse(this.config.getConfig('adalConfig', ''));
-    // }
-    this.adal.init(this.adalConfig);
-  }
+  ) {}
 
   public init() {
+    this.adalConfig = this.config.getConfig('adalConfig', '');
+    this.adalConfig.redirectUri = this.adalConfig.baseUri;
+    this.adal.init(this.adalConfig);
+
     this.adal.handleWindowCallback();
 
     if (localStorage.getItem(this.utils.localStorageLoginMode)) {
@@ -106,7 +106,7 @@ export class AuthService {
                 JSON.stringify(this._loginUser)
               );
 
-              this.router.navigate(['/splash']);
+              this.router.navigate([this.adalConfig.redirectPath]);
             })
           );
       case AuthMode.basic:
@@ -162,7 +162,7 @@ export class AuthService {
                     JSON.stringify(this._loginUser)
                   );
 
-                  this.router.navigate(['/splash']);
+                  this.router.navigate([this.adalConfig.redirectPath]);
 
                   return users.Resources[0];
                 }
@@ -173,9 +173,11 @@ export class AuthService {
       case AuthMode.azure:
         this._authMode = AuthMode[mode];
         localStorage.setItem(this.utils.localStorageLoginMode, mode);
+
         if (!this.adal.userInfo.authenticated) {
           this.adal.login();
         }
+
         return empty();
       default:
         return empty();
@@ -190,7 +192,7 @@ export class AuthService {
     if (this.adal.userInfo.authenticated) {
       this.adal.logOut();
     }
-    this.router.navigate(['/login']);
+    this.router.navigate([this.adalConfig.logoutRedirectPath]);
   }
 
   public setAzureLoginUser() {

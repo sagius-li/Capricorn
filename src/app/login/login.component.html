@@ -5,15 +5,16 @@
   <div class="login-header" [class.mat-elevation-z8]="true" fxLayout="row wrap" fxLayoutAlign="center start">
     <div fxFlex="1 1 100" class="login-brand">{{'key_login'|translate}}</div>
     <div fxFlex="auto" class="login-icon">
-      <fa-icon [icon]="faWindows" (click)="onWindowsLogin()"></fa-icon>
+      <fa-icon [icon]="faWindows" matTooltip="{{'key_windowsLogin'|translate}}" (click)="onWindowsLogin()"></fa-icon>
     </div>
     <div fxFlex="auto" class="login-icon">
-      <fa-icon [icon]="faUserAlt" (click)="onClassicLogin()"></fa-icon>
+      <fa-icon [icon]="faUserAlt" matTooltip="{{'key_basicLogin'|translate}}" (click)="onClassicLogin()"></fa-icon>
     </div>
     <div fxFlex="auto" class="login-icon">
-      <fa-icon [icon]="faCloud" (click)="onAzureLogin()"></fa-icon>
+      <fa-icon [icon]="faCloud" matTooltip="{{'key_azureLogin'|translate}}" (click)="onAzureLogin()"></fa-icon>
     </div>
   </div>
+  <div *ngIf="classicLogin==='collapsed'" class="login-footer">{{version}}</div>
   <div @loginForm *ngIf="classicLogin==='expanded'" class="login-input" fxLayout="column">
     <div fxFlex="none" fxLayout="row" fxLayoutAlign="start center">
       <fa-icon fxFlex="0 0 auto" class="login-input-icon" [icon]="faUserCircle"></fa-icon>

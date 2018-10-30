@@ -127,6 +127,10 @@ export function startup(startupService: StartupService) {
     MatIconModule,
     MatProgressSpinnerModule,
     MatTabsModule,
+    MatTooltipModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatButtonModule,
 
     LocalizationModule,
     DndModule,

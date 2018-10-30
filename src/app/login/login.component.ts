@@ -14,8 +14,8 @@ import {
 import { faWindows } from '@fortawesome/free-brands-svg-icons';
 import { faCloud, faUserAlt, faUserCircle, faUnlockAlt } from '@fortawesome/free-solid-svg-icons';
 
-import { StartupService } from '../core/services/startup.service';
 import { AuthService, AuthMode } from '../core/services/auth.service';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -67,6 +67,8 @@ export class LoginComponent implements OnInit {
   @ViewChild('txtUserName')
   txtUserName: ElementRef;
 
+  version = environment.version;
+
   flyIn = 'out';
   classicLogin = 'collapsed';
   loginForm = 'hide';
@@ -83,14 +85,12 @@ export class LoginComponent implements OnInit {
   hidePwd = true;
   invalidUser = false;
 
-  constructor(private startup: StartupService, private auth: AuthService, private router: Router) {}
+  constructor(private auth: AuthService, private router: Router) {}
 
   ngOnInit() {
-    this.startup.init().subscribe(() => {
-      setTimeout(() => {
-        this.flyIn = 'in';
-      }, 500);
-    });
+    setTimeout(() => {
+      this.flyIn = 'in';
+    }, 500);
   }
 
   onClassicLogin() {

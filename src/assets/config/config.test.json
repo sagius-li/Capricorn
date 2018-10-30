@@ -23,6 +23,16 @@
       "route": "cn"
     }
   ],
+  "adalConfig": {
+    "tenant": "selectedat.onmicrosoft.com",
+    "clientId": "705c2d51-0345-4fff-a483-0bdf39bcc673",
+    "baseUri": "http://localhost:4200",
+    "redirectPath": "/splash",
+    "logoutRedirectPath": "/login",
+    "endpoints": {
+      "https://idcloudeditionservice2.azurewebsites.net": "426bafb3-9244-4000-bb89-461908fe0a35"
+    }
+  },
   "sidebarItems": [
     {
       "path": "home",

@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { SwapService } from './core/services/swap.service';
 import { UtilsService } from './core/services/utils.service';
 import { AuthService, AuthMode } from './core/services/auth.service';
-import { AdalService } from 'adal-angular4';
+import { StartupService } from './core/services/startup.service';
 
 @Component({
   selector: 'app-root',
@@ -14,18 +14,7 @@ import { AdalService } from 'adal-angular4';
 export class AppComponent implements OnInit {
   title = 'Capricorn';
 
-  constructor(
-    private router: Router,
-    private swap: SwapService,
-    private utils: UtilsService,
-    private auth: AuthService
-  ) {
-    window.onresize = e => {
-      this.swap.verifyWindowSize();
-    };
-  }
-
-  ngOnInit() {
+  private init() {
     this.auth.init();
 
     const loginMode = localStorage.getItem(this.utils.localStorageLoginMode);
@@ -47,6 +36,28 @@ export class AppComponent implements OnInit {
       }
     } else {
       this.router.navigate(['/login']);
+    }
+  }
+
+  constructor(
+    private router: Router,
+    private swap: SwapService,
+    private utils: UtilsService,
+    private auth: AuthService,
+    private startup: StartupService
+  ) {
+    window.onresize = e => {
+      this.swap.verifyWindowSize();
+    };
+  }
+
+  ngOnInit() {
+    if (!this.startup.isBaseItemLoaded) {
+      this.startup.init().subscribe(() => {
+        this.init();
+      });
+    } else {
+      this.init();
     }
   }
 }

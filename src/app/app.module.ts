@@ -24,7 +24,6 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatGridListModule } from '@angular/material/grid-list';
-import { MatInputModule, MatFormFieldModule, MatButtonModule } from '@angular/material';
 
 import { LayoutModule } from '@progress/kendo-angular-layout';
 
@@ -57,9 +56,6 @@ import 'hammerjs';
     MatSortModule,
     MatPaginatorModule,
     MatGridListModule,
-    MatInputModule,
-    MatFormFieldModule,
-    MatButtonModule,
 
     LayoutModule
   ],
