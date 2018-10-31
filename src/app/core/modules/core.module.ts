@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { DndModule } from 'ng2-dnd';
 import { DragulaModule } from 'ng2-dragula';
 import { ColorPickerModule } from 'ngx-color-picker';
@@ -49,6 +50,7 @@ import { PopupComponent } from '../components/popup/popup.component';
 import { StateCardComponent } from '../components/state-card/state-card.component';
 import { StateCardConfigComponent } from '../components/state-card/state-card-config.component';
 import { ResourceTableComponent } from '../components/resource-table/resource-table.component';
+import { SigninComponent } from '../components/signin/signin.component';
 
 /** @ignore */
 export function startup(startupService: StartupService) {
@@ -61,6 +63,7 @@ export function startup(startupService: StartupService) {
     FormsModule,
     HttpClientModule,
     FlexLayoutModule,
+    FontAwesomeModule,
     DndModule,
     DragulaModule,
     ColorPickerModule,
@@ -90,6 +93,7 @@ export function startup(startupService: StartupService) {
     DragComponent,
     EditbarComponent,
     MockComponent,
+    SigninComponent,
     ChartComponent,
     ChartConfigComponent,
     PopupComponent,
@@ -134,6 +138,8 @@ export function startup(startupService: StartupService) {
 
     LocalizationModule,
     DndModule,
+    FlexLayoutModule,
+    FontAwesomeModule,
     NgxSpinnerModule,
     ChartsModule,
     GridModule,
@@ -143,6 +149,7 @@ export function startup(startupService: StartupService) {
 
     DragComponent,
     EditbarComponent,
+    SigninComponent,
     MockComponent,
     ChartComponent,
     StateCardComponent,
