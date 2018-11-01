@@ -160,4 +160,19 @@ export class UtilsService {
       return text;
     }
   }
+
+  /**
+   * Copy source object properties to target object
+   * @param source source object copied to target object
+   * @param target target object takes properties from source object
+   */
+  public CopyInto(source: any, target: any) {
+    if (source && target) {
+      Object.keys(source).forEach(key => {
+        if (source[key]) {
+          target[key] = source[key];
+        }
+      });
+    }
+  }
 }
