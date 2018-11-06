@@ -9,9 +9,10 @@
       <ng-template kendoGridToolbarTemplate *ngIf="componentConfig.exportToPDF||componentConfig.exportToExcel">
         <button kendoGridPDFCommand icon="file-pdf" *ngIf="componentConfig.exportToPDF">Export to PDF</button>
       </ng-template>
-      <kendo-grid-checkbox-column *ngIf="componentConfig.selectable" showSelectAll="true" width="10"></kendo-grid-checkbox-column>
+      <kendo-grid-checkbox-column *ngIf="componentConfig.selectable" [showSelectAll]="componentConfig.selectMode==='multiple'"
+        [width]="componentConfig.selectBoxWidth"></kendo-grid-checkbox-column>
       <kendo-grid-column *ngFor="let col of componentConfig.columns" [field]="col.field" [title]="col.title" [sortable]="col.sortable"
-        [filterable]="col.filterable" [filter]="col.filter" [width]="col.width"></kendo-grid-column>
+        [filterable]="col.filterable" [filter]="col.filter" [width]="col.width" [locked]="col.locked"></kendo-grid-column>
       <kendo-grid-pdf *ngIf="componentConfig.exportToPDF" fileName="export.pdf" [allPages]="componentConfig.exportAllPages">
         <kendo-grid-pdf-margin top="1cm" left="1cm" right="1cm" bottom="1cm"></kendo-grid-pdf-margin>
       </kendo-grid-pdf>

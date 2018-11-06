@@ -15,10 +15,12 @@ import { TranslateService } from '@ngx-translate/core';
 export class ResourceColumnConfig {
   field: string;
   title: string;
+  attribute?: string;
   width?: number;
   sortable?: boolean;
   filterable?: boolean;
   filter?: string;
+  locked?: boolean;
 }
 
 export class ResourceTableConfig {
@@ -34,6 +36,7 @@ export class ResourceTableConfig {
   filterable?: boolean;
   filterMode?: string;
   selectable?: boolean;
+  selectBoxWidth?: number;
   selectMode?: string;
   checkboxSelectOnly?: boolean;
   resizable?: boolean;
@@ -82,6 +85,7 @@ export class ResourceTableComponent implements OnInit, DcComponent {
       allowUnsort: true,
       filterMode: 'menu',
       selectable: false,
+      selectBoxWidth: 10,
       selectMode: 'single',
       checkboxSelectOnly: false,
       resizable: false,
@@ -93,10 +97,12 @@ export class ResourceTableComponent implements OnInit, DcComponent {
         {
           field: 'DisplayName',
           title: 'Display Name',
-          width: 80,
+          attribute: 'DisplayName',
+          width: 100,
           filterable: false,
           filter: 'text',
-          sortable: false
+          sortable: false,
+          locked: false
         }
       ]
     };
@@ -116,7 +122,7 @@ export class ResourceTableComponent implements OnInit, DcComponent {
       : false;
 
     if (this.componentConfig.query) {
-      const attributesToLoad = this.componentConfig.columns.map(c => c.field);
+      const attributesToLoad = this.componentConfig.columns.map(c => c.attribute);
       this.gridResources = this.resource
         .getResourceByQuery(
           this.componentConfig.query,
@@ -161,7 +167,7 @@ export class ResourceTableComponent implements OnInit, DcComponent {
         sortString = undefined;
       }
 
-      const attributesToLoad = this.componentConfig.columns.map(c => c.field);
+      const attributesToLoad = this.componentConfig.columns.map(c => c.attribute);
       this.resource
         .getResourceByQuery(
           this.componentConfig.query,
