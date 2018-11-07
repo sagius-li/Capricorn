@@ -1,10 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { DcComponent } from '../../models/dccomponent.interface';
-
-import { ResourceService } from '../../services/resource.service';
-import { NgxSpinnerService } from 'ngx-spinner';
 import { MatDialog } from '@angular/material';
+import { NgxSpinnerService } from 'ngx-spinner';
+
+import { DcComponent } from '../../models/dccomponent.interface';
+import { ResourceService } from '../../services/resource.service';
 import { StateCardConfigComponent } from './state-card-config.component';
 import { UtilsService } from '../../services/utils.service';
 
@@ -98,7 +98,7 @@ export class StateCardComponent implements OnInit, DcComponent {
       }
     }
 
-    this.applyQuery();
+    this.updateDataSource();
 
     return this.componentConfig;
   }
@@ -122,7 +122,7 @@ export class StateCardComponent implements OnInit, DcComponent {
     });
   }
 
-  applyQuery() {
+  updateDataSource() {
     if (this.componentConfig.query) {
       setTimeout(() => {
         this.spinner.show();
@@ -131,10 +131,7 @@ export class StateCardComponent implements OnInit, DcComponent {
       setTimeout(() => {
         this.svcResource.getResourceCount(this.componentConfig.query).subscribe(
           result => {
-            this.mainTextValue = this.componentConfig.mainText.replace(
-              /\{0\}/g,
-              result.toString()
-            );
+            this.mainTextValue = this.componentConfig.mainText.replace(/\{0\}/g, result.toString());
             setTimeout(() => {
               this.spinner.hide();
             }, 0);
@@ -152,6 +149,6 @@ export class StateCardComponent implements OnInit, DcComponent {
   }
 
   onUpdateNow() {
-    this.applyQuery();
+    this.updateDataSource();
   }
 }

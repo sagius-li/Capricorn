@@ -13,7 +13,6 @@ import { merge, switchMap, startWith, map, catchError, delay, tap } from 'rxjs/o
 
 import * as moment from 'moment';
 import { TranslateService } from '@ngx-translate/core';
-import { AdalService } from 'adal-angular4';
 
 import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 
@@ -32,7 +31,7 @@ import { DynamicContentService } from './dynamiccontent.service';
 
 import { LoadingspinnerComponent } from './loadingspinner/loadingspinner.component';
 
-import { SeriesConfig, QueryConfig, ChartConfig, Position } from '../core/models/chart.model';
+import { SeriesConfig, ChartConfig, Position } from '../core/models/chart.model';
 import { AuthService } from '../core/services/auth.service';
 
 @Component({
@@ -300,15 +299,37 @@ export class TestComponent implements OnInit, AfterViewInit {
         },
         {
           "name": "Mock 3",
-          "type": "MockComponent",
+          "type": "ResourceTableComponent",
           "description": "Mock 3",
           "position": "cell3",
           "colSpan": 3,
-          "rowSpan": 3,
+          "rowSpan": 2,
           "data": {
-            "content": "Mock 3",
-            "bgColor": "lightyellow",
-            "image_1_1": "assets/img/mock/22myrequest.PNG"
+            "title": "All Users",
+            "query": "/Person",
+            "pageSize": 5,
+            "columns": [
+              {
+                "field": "DisplayName",
+                "title": "Display Name",
+                "attribute": "DisplayName",
+                "width": 100,
+                "filterable": false,
+                "filter": "text",
+                "sortable": true,
+                "locked": false
+              },
+              {
+                "field": "Attributes.AccountName.Value",
+                "title": "Account Name",
+                "attribute": "AccountName",
+                "width": 100,
+                "filterable": false,
+                "filter": "text",
+                "sortable": true,
+                "locked": false
+              }
+            ]
           }
         },
         {

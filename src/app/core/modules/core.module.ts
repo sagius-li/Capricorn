@@ -50,6 +50,7 @@ import { PopupComponent } from '../components/popup/popup.component';
 import { StateCardComponent } from '../components/state-card/state-card.component';
 import { StateCardConfigComponent } from '../components/state-card/state-card-config.component';
 import { ResourceTableComponent } from '../components/resource-table/resource-table.component';
+import { ResourceTableConfigComponent } from '../components/resource-table/resource-table-config.component';
 import { SigninComponent } from '../components/signin/signin.component';
 
 /** @ignore */
@@ -99,7 +100,8 @@ export function startup(startupService: StartupService) {
     PopupComponent,
     StateCardComponent,
     StateCardConfigComponent,
-    ResourceTableComponent
+    ResourceTableComponent,
+    ResourceTableConfigComponent
   ],
   entryComponents: [
     MockComponent,
@@ -108,7 +110,8 @@ export function startup(startupService: StartupService) {
     ChartConfigComponent,
     StateCardComponent,
     StateCardConfigComponent,
-    ResourceTableComponent
+    ResourceTableComponent,
+    ResourceTableConfigComponent
   ],
   providers: [
     AuthService,

@@ -1,17 +1,8 @@
-import {
-  Component,
-  OnInit,
-  Inject,
-  ViewChild,
-  AfterViewInit
-} from '@angular/core';
+import { Component, OnInit, Inject, ViewChild, AfterViewInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
-import {
-  ChartConfig,
-  SeriesConfig,
-  QueryConfig
-} from '../../models/chart.model';
+import { ChartConfig, SeriesConfig, QueryConfig } from '../../models/chart.model';
+import { DcComponent } from '../../models/dccomponent.interface';
 
 @Component({
   selector: 'app-chartconfig',
@@ -20,7 +11,7 @@ import {
 })
 export class ChartConfigComponent implements OnInit, AfterViewInit {
   @ViewChild('exampleChart')
-  exampleChart: any;
+  exampleChart: DcComponent;
 
   dummyQuery: QueryConfig = {
     name: 'dummy',
@@ -51,11 +42,9 @@ export class ChartConfigComponent implements OnInit, AfterViewInit {
   }
 
   onCPClosed() {
-    this.data.objectConfig.tooltipConfig.visible = !this.data.objectConfig
-      .tooltipConfig.visible;
+    this.data.objectConfig.tooltipConfig.visible = !this.data.objectConfig.tooltipConfig.visible;
     setTimeout(() => {
-      this.data.objectConfig.tooltipConfig.visible = !this.data.objectConfig
-        .tooltipConfig.visible;
+      this.data.objectConfig.tooltipConfig.visible = !this.data.objectConfig.tooltipConfig.visible;
     }, 0);
   }
 
@@ -67,7 +56,7 @@ export class ChartConfigComponent implements OnInit, AfterViewInit {
   }
 
   onApplySeries() {
-    this.exampleChart.applyQueries();
+    this.exampleChart.updateDataSource();
   }
 
   onToggleQueryDisplay(query: QueryConfig) {
@@ -79,9 +68,7 @@ export class ChartConfigComponent implements OnInit, AfterViewInit {
   }
 
   onDeleteSeries(serie: SeriesConfig) {
-    const index = this.data.objectConfig.seriesConfig.findIndex(
-      s => s.name === serie.name
-    );
+    const index = this.data.objectConfig.seriesConfig.findIndex(s => s.name === serie.name);
     if (index > -1) {
       this.data.objectConfig.seriesConfig.splice(index, 1);
     }

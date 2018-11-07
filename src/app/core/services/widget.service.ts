@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { MockComponent } from '../components/mock/mock.component';
 import { ChartComponent } from '../components/chart/chart.component';
 import { StateCardComponent } from '../components/state-card/state-card.component';
+import { ResourceTableComponent } from '../components/resource-table/resource-table.component';
 
 /**
  * Service for dynamic component creation
@@ -17,7 +18,8 @@ export class WidgetService {
   widgetIndex = {
     MockComponent: MockComponent,
     ChartComponent: ChartComponent,
-    StateCardComponent: StateCardComponent
+    StateCardComponent: StateCardComponent,
+    ResourceTableComponent: ResourceTableComponent
   };
 
   /** @ignore */

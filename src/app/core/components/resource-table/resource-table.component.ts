@@ -1,8 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 import { Observable, of } from 'rxjs';
-import { skip, take, map, tap, audit, repeat } from 'rxjs/operators';
+import { skip, take, map } from 'rxjs/operators';
 
+import { MatDialog } from '@angular/material';
 import { State } from '@progress/kendo-data-query';
 import { GridDataResult, DataStateChangeEvent } from '@progress/kendo-angular-grid';
 
@@ -11,6 +12,7 @@ import { ResourceService } from '../../services/resource.service';
 import { UtilsService } from '../../services/utils.service';
 import { DSResourceSet } from '../../models/resource.model';
 import { TranslateService } from '@ngx-translate/core';
+import { ResourceTableConfigComponent } from './resource-table-config.component';
 
 export class ResourceColumnConfig {
   field: string;
@@ -25,6 +27,7 @@ export class ResourceColumnConfig {
 
 export class ResourceTableConfig {
   title?: string;
+  fontSize?: number;
   pageSize?: number;
   pageCountNumber?: number;
   pageInfo?: boolean;
@@ -67,7 +70,8 @@ export class ResourceTableComponent implements OnInit, DcComponent {
   constructor(
     private resource: ResourceService,
     private utils: UtilsService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -76,6 +80,7 @@ export class ResourceTableComponent implements OnInit, DcComponent {
 
   initComponent() {
     this.componentConfig = {
+      fontSize: 14,
       pageSize: 10,
       pageCountNumber: 5,
       pageInfo: true,
@@ -144,11 +149,30 @@ export class ResourceTableComponent implements OnInit, DcComponent {
         )
       );
     }
+
+    return this.componentConfig;
   }
+
+  updateDataSource() {}
 
   resize(size: number[]) {}
 
-  configure() {}
+  configure() {
+    const dialogRef = this.dialog.open(ResourceTableConfigComponent, {
+      minWidth: '500px',
+      data: {
+        objectRef: this,
+        objectConfig: this.utils.DeepCopy(this.componentConfig)
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result && result !== 'cancel') {
+        this.data = result;
+        this.initComponent();
+      }
+    });
+  }
 
   public dataStateChange(state: DataStateChangeEvent): void {
     this.gridState = state;

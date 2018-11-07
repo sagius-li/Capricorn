@@ -1,0 +1,8 @@
+<h3 mat-dialog-title>{{'key_resourceTableConfig'|translate}}</h3>
+<div mat-dialog-content fxLayout="row">
+  <app-resource-table #exampleResourceTable fxFlex="0 0 200px" [data]="data.objectConfig"></app-resource-table>
+</div>
+<div mat-dialog-actions fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px" style="margin-top: 20px;">
+  <button fxFlex="none" mat-button [mat-dialog-close]="data.objectConfig" style="width: 180px;">{{'key_submit'|translate}}</button>
+  <button fxFlex="none" mat-button mat-dialog-close="cancel" style="width: 180px;">{{'key_cancel'|translate}}</button>
+</div>

@@ -35,14 +35,7 @@ export class ChartComponent implements OnInit, DcComponent {
   @Input()
   chartTitle: string;
   @Input()
-  seriesColor = [
-    '#3f51b5',
-    '#2196f3',
-    '#43a047',
-    '#ffc107',
-    '#ff5722',
-    '#e91E63'
-  ];
+  seriesColor = ['#3f51b5', '#2196f3', '#43a047', '#ffc107', '#ff5722', '#e91E63'];
   @Input()
   legend: ChartLegend = { position: Position.bottom, visible: false };
   @Input()
@@ -131,12 +124,12 @@ export class ChartComponent implements OnInit, DcComponent {
     }
 
     // overwrite series data with query fetching results
-    this.applyQueries();
+    this.updateDataSource();
 
     return this.chartConfig;
   }
 
-  applyQueries() {
+  updateDataSource() {
     this.chartConfig.seriesConfig.forEach(seriesConfig => {
       if (seriesConfig.queryConfig) {
         setTimeout(() => {
@@ -161,9 +154,7 @@ export class ChartComponent implements OnInit, DcComponent {
               const chartData = [];
               result.forEach((item, index) => {
                 const data = {};
-                data[seriesConfig.categoryField] = this.utils.EvalScript(
-                  names[index]
-                );
+                data[seriesConfig.categoryField] = this.utils.EvalScript(names[index]);
                 data[seriesConfig.valueField] = item;
                 chartData.push(data);
               });
@@ -197,11 +188,7 @@ export class ChartComponent implements OnInit, DcComponent {
     // tslint:disable-next-line:semicolon
   };
 
-  tooltipContent(
-    category: string,
-    value: string,
-    config: SeriesConfig
-  ): string {
+  tooltipContent(category: string, value: string, config: SeriesConfig): string {
     if (this.data && this.data.tooltipConfig) {
       this.tooltipConfig = this.data.tooltipConfig;
     }

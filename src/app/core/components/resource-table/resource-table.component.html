@@ -1,7 +1,7 @@
 <div fxLayout="column" style="height: 100%; width: 100%;">
   <div fxFlex="0 0 auto" *ngIf="componentConfig.title" class="table-title">{{componentConfig.title|translate}}</div>
   <div fxFlex>
-    <kendo-grid [style.height.%]="100" [data]="gridResources | async" [loading]="gridLoading" [pageSize]="componentConfig.pageSize"
+    <kendo-grid [style.height.%]="100" [style.fontSize.px]="componentConfig.fontSize" [data]="gridResources | async" [loading]="gridLoading" [pageSize]="componentConfig.pageSize"
       [skip]="gridState.skip" [pageable]="{buttonCount:componentConfig.pageCountNumber,info:componentConfig.pageInfo,type:componentConfig.pageType,pageSize:componentConfig.pageSize,previousNext:componentConfig.pageButton}"
       [filter]="gridState.filter" [sort]="gridState.sort" [sortable]="{allowUnsort:componentConfig.allowUnsort,mode:componentConfig.sortMode}"
       [selectable]="gridSelect" [filterable]="componentConfig.filterMode" [resizable]="componentConfig.resizable"
@@ -12,7 +12,7 @@
       <kendo-grid-checkbox-column *ngIf="componentConfig.selectable" [showSelectAll]="componentConfig.selectMode==='multiple'"
         [width]="componentConfig.selectBoxWidth"></kendo-grid-checkbox-column>
       <kendo-grid-column *ngFor="let col of componentConfig.columns" [field]="col.field" [title]="col.title" [sortable]="col.sortable"
-        [filterable]="col.filterable" [filter]="col.filter" [width]="col.width" [locked]="col.locked"></kendo-grid-column>
+        [filterable]="col.filterable" [filter]="col.filter" [width]="col.width" [locked]="col.locked" class="no-padding"></kendo-grid-column>
       <kendo-grid-pdf *ngIf="componentConfig.exportToPDF" fileName="export.pdf" [allPages]="componentConfig.exportAllPages">
         <kendo-grid-pdf-margin top="1cm" left="1cm" right="1cm" bottom="1cm"></kendo-grid-pdf-margin>
       </kendo-grid-pdf>

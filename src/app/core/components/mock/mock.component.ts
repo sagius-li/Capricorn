@@ -24,6 +24,12 @@ export class MockComponent implements OnInit, DcComponent {
   /** @ignore */
   ngOnInit() {}
 
+  /** Initialize component */
+  initComponent() {}
+
+  /** Update data source */
+  updateDataSource() {}
+
   /**
    * Set componentSize property to decide which image should be loaded
    * @param size Component size (ex. [3, 1], colSpan=, rowSpan=1)

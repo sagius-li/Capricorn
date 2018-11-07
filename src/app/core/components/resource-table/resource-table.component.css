@@ -19,3 +19,7 @@
   border-bottom: none;
   font-weight: 400;
 }
+
+.k-grid .no-padding {
+  padding: 0;
+}

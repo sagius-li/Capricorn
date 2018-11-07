@@ -1,11 +1,8 @@
-import {
-  Component,
-  OnInit,
-  Inject,
-  ViewChild,
-  AfterViewInit
-} from '@angular/core';
+import { Component, OnInit, Inject, ViewChild, AfterViewInit } from '@angular/core';
+
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+
+import { DcComponent } from '../../models/dccomponent.interface';
 import { StateCardConfig } from './state-card.component';
 
 @Component({
@@ -15,7 +12,7 @@ import { StateCardConfig } from './state-card.component';
 })
 export class StateCardConfigComponent implements OnInit, AfterViewInit {
   @ViewChild('exampleStateCard')
-  exampleStateCard: any;
+  exampleStateCard: DcComponent;
 
   constructor(
     public dialogRef: MatDialogRef<StateCardConfigComponent>,
