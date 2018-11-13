@@ -20,6 +20,10 @@
   font-weight: 400;
 }
 
-.k-grid .no-padding {
-  padding: 0;
+.withTitle {
+  height: calc(100% - 50px);
+}
+
+.withoutTitle {
+  height: 100%;
 }

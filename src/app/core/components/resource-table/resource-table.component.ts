@@ -1,11 +1,14 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ElementRef } from '@angular/core';
 
 import { Observable, of } from 'rxjs';
 import { skip, take, map } from 'rxjs/operators';
 
 import { MatDialog } from '@angular/material';
 import { State } from '@progress/kendo-data-query';
-import { GridDataResult, DataStateChangeEvent } from '@progress/kendo-angular-grid';
+import {
+  GridDataResult,
+  DataStateChangeEvent
+} from '@progress/kendo-angular-grid';
 
 import { DcComponent } from '../../models/dccomponent.interface';
 import { ResourceService } from '../../services/resource.service';
@@ -17,7 +20,6 @@ import { ResourceTableConfigComponent } from './resource-table-config.component'
 export class ResourceColumnConfig {
   field: string;
   title: string;
-  attribute?: string;
   width?: number;
   sortable?: boolean;
   filterable?: boolean;
@@ -28,6 +30,7 @@ export class ResourceColumnConfig {
 export class ResourceTableConfig {
   title?: string;
   fontSize?: number;
+  cellPadding?: number;
   pageSize?: number;
   pageCountNumber?: number;
   pageInfo?: boolean;
@@ -71,7 +74,8 @@ export class ResourceTableComponent implements OnInit, DcComponent {
     private resource: ResourceService,
     private utils: UtilsService,
     private translate: TranslateService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private el: ElementRef
   ) {}
 
   ngOnInit() {
@@ -82,6 +86,7 @@ export class ResourceTableComponent implements OnInit, DcComponent {
     this.componentConfig = {
       fontSize: 14,
       pageSize: 10,
+      cellPadding: 10,
       pageCountNumber: 5,
       pageInfo: true,
       pageType: 'numeric',
@@ -102,7 +107,6 @@ export class ResourceTableComponent implements OnInit, DcComponent {
         {
           field: 'DisplayName',
           title: 'Display Name',
-          attribute: 'DisplayName',
           width: 100,
           filterable: false,
           filter: 'text',
@@ -127,7 +131,7 @@ export class ResourceTableComponent implements OnInit, DcComponent {
       : false;
 
     if (this.componentConfig.query) {
-      const attributesToLoad = this.componentConfig.columns.map(c => c.attribute);
+      const attributesToLoad = this.componentConfig.columns.map(c => c.field);
       this.gridResources = this.resource
         .getResourceByQuery(
           this.componentConfig.query,
@@ -135,7 +139,11 @@ export class ResourceTableComponent implements OnInit, DcComponent {
           false,
           this.componentConfig.pageSize
         )
-        .pipe(map(ro => <GridDataResult>{ data: ro.Resources, total: ro.TotalCount }));
+        .pipe(
+          map(
+            ro => <GridDataResult>{ data: ro.Resources, total: ro.TotalCount }
+          )
+        );
     } else if (this.componentConfig.resources) {
       this.gridResources = of(this.componentConfig.resources).pipe(
         skip(this.gridState.skip),
@@ -155,7 +163,9 @@ export class ResourceTableComponent implements OnInit, DcComponent {
 
   updateDataSource() {}
 
-  resize(size: number[]) {}
+  resize(size: number[]) {
+    console.log(this.el.nativeElement);
+  }
 
   configure() {
     const dialogRef = this.dialog.open(ResourceTableConfigComponent, {
@@ -184,14 +194,17 @@ export class ResourceTableComponent implements OnInit, DcComponent {
         sortString = state.sort
           .filter(element => element.dir !== undefined)
           .map(
-            item => `${item.field.replace('Attributes.', '').replace('.Value', '')}:${item.dir}`
+            item =>
+              `${item.field.replace('Attributes.', '').replace('.Value', '')}:${
+                item.dir
+              }`
           );
       }
       if (sortString.length === 0) {
         sortString = undefined;
       }
 
-      const attributesToLoad = this.componentConfig.columns.map(c => c.attribute);
+      const attributesToLoad = this.componentConfig.columns.map(c => c.field);
       this.resource
         .getResourceByQuery(
           this.componentConfig.query,
