@@ -1,14 +1,11 @@
 import { Component, OnInit, Input, ElementRef } from '@angular/core';
 
 import { Observable, of } from 'rxjs';
-import { skip, take, map } from 'rxjs/operators';
+import { skip, take, map, tap } from 'rxjs/operators';
 
 import { MatDialog } from '@angular/material';
 import { State } from '@progress/kendo-data-query';
-import {
-  GridDataResult,
-  DataStateChangeEvent
-} from '@progress/kendo-angular-grid';
+import { GridDataResult, DataStateChangeEvent } from '@progress/kendo-angular-grid';
 
 import { DcComponent } from '../../models/dccomponent.interface';
 import { ResourceService } from '../../services/resource.service';
@@ -16,6 +13,7 @@ import { UtilsService } from '../../services/utils.service';
 import { DSResourceSet } from '../../models/resource.model';
 import { TranslateService } from '@ngx-translate/core';
 import { ResourceTableConfigComponent } from './resource-table-config.component';
+import { ExcelExportData } from '@progress/kendo-angular-excel-export';
 
 export class ResourceColumnConfig {
   field: string;
@@ -78,6 +76,87 @@ export class ResourceTableComponent implements OnInit, DcComponent {
     private el: ElementRef
   ) {}
 
+  private fetchDataDic() {
+    if (this.componentConfig.query) {
+      this.gridLoading = true;
+      let sortString: string[];
+      if (this.gridState) {
+        if (this.gridState.sort) {
+          sortString = this.gridState.sort
+            .filter(element => element.dir !== undefined)
+            .map(
+              item => `${item.field.replace('Attributes.', '').replace('.Value', '')}:${item.dir}`
+            );
+        }
+      }
+
+      const attributesToLoad = this.componentConfig.columns.map(c => c.field);
+      this.resource
+        .getResourceByQuery(
+          this.componentConfig.query,
+          attributesToLoad,
+          false,
+          this.gridState ? this.gridState.take : undefined,
+          this.gridState ? this.gridState.skip : undefined,
+          Number[this.translate.instant('key_languageKey')],
+          true,
+          false,
+          undefined,
+          sortString
+        )
+        .subscribe((result: DSResourceSet) => {
+          this.gridResources = of({
+            data: result.Resources,
+            total: result.TotalCount
+          } as GridDataResult);
+          this.gridLoading = false;
+        });
+    } else if (this.componentConfig.resources) {
+      this.gridResources = of(this.componentConfig.resources).pipe(
+        skip(this.gridState.skip),
+        take(this.gridState.take),
+        map(ro => <GridDataResult>{ data: ro, total: this.componentConfig.resources.length })
+      );
+    }
+  }
+
+  private fetchData() {
+    if (this.componentConfig.query) {
+      this.gridLoading = true;
+      let sortString: string[];
+      if (this.gridState) {
+        if (this.gridState.sort) {
+          sortString = this.gridState.sort
+            .filter(element => element.dir !== undefined)
+            .map(
+              item => `${item.field.replace('Attributes.', '').replace('.Value', '')}:${item.dir}`
+            );
+        }
+      }
+
+      const attributesToLoad = this.componentConfig.columns.map(c => c.field);
+      this.resource
+        .getResourceByQuery(
+          this.componentConfig.query,
+          attributesToLoad,
+          false,
+          undefined,
+          undefined,
+          Number[this.translate.instant('key_languageKey')],
+          true,
+          false,
+          undefined,
+          sortString
+        )
+        .subscribe((result: DSResourceSet) => {
+          this.gridLoading = false;
+          return of(result.Resources);
+        });
+    } else if (this.componentConfig.resources) {
+      return of(this.componentConfig.resources);
+    }
+  }
+
   ngOnInit() {
     this.initComponent();
   }
@@ -130,33 +209,7 @@ export class ResourceTableComponent implements OnInit, DcComponent {
         }
       : false;
 
-    if (this.componentConfig.query) {
-      const attributesToLoad = this.componentConfig.columns.map(c => c.field);
-      this.gridResources = this.resource
-        .getResourceByQuery(
-          this.componentConfig.query,
-          attributesToLoad,
-          false,
-          this.componentConfig.pageSize
-        )
-        .pipe(
-          map(
-            ro => <GridDataResult>{ data: ro.Resources, total: ro.TotalCount }
-          )
-        );
-    } else if (this.componentConfig.resources) {
-      this.gridResources = of(this.componentConfig.resources).pipe(
-        skip(this.gridState.skip),
-        take(this.gridState.take),
-        map(
-          ro =>
-            <GridDataResult>{
-              data: ro,
-              total: this.componentConfig.resources.length
-            }
-        )
-      );
-    }
+    this.fetchDataDic();
 
     return this.componentConfig;
   }
@@ -184,59 +237,25 @@ export class ResourceTableComponent implements OnInit, DcComponent {
     });
   }
 
-  public dataStateChange(state: DataStateChangeEvent): void {
+  dataStateChange(state: DataStateChangeEvent): void {
     this.gridState = state;
 
-    if (this.componentConfig.query) {
-      this.gridLoading = true;
-      let sortString: string[];
-      if (state.sort) {
-        sortString = state.sort
-          .filter(element => element.dir !== undefined)
-          .map(
-            item =>
-              `${item.field.replace('Attributes.', '').replace('.Value', '')}:${
-                item.dir
-              }`
-          );
-      }
-      if (sortString.length === 0) {
-        sortString = undefined;
-      }
+    this.fetchDataDic();
+  }
 
-      const attributesToLoad = this.componentConfig.columns.map(c => c.field);
-      this.resource
-        .getResourceByQuery(
-          this.componentConfig.query,
-          attributesToLoad,
-          false,
-          this.gridState.take,
-          this.gridState.skip,
-          Number[this.translate.instant('key_languageKey')],
-          true,
-          false,
-          undefined,
-          sortString
-        )
-        .subscribe((result: DSResourceSet) => {
-          this.gridResources = of({
-            data: result.Resources,
-            total: result.TotalCount
-          } as GridDataResult);
-          this.gridLoading = false;
-        });
-    } else if (this.componentConfig.resources) {
-      this.gridResources = of(this.componentConfig.resources).pipe(
-        skip(this.gridState.skip),
-        take(this.gridState.take),
-        map(
-          ro =>
-            <GridDataResult>{
-              data: ro,
-              total: this.componentConfig.resources.length
-            }
-        )
-      );
-    }
+  allData(): Observable<any> {
+    const attributesToLoad = this.componentConfig.columns.map(c => c.field);
+    return this.resource.getResourceByQuery(
+      this.componentConfig.query,
+      attributesToLoad,
+      false,
+      undefined,
+      undefined,
+      Number[this.translate.instant('key_languageKey')],
+      true,
+      false,
+      undefined,
+      undefined
+    );
   }
 }

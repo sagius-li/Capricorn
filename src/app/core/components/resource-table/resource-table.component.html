@@ -32,12 +32,11 @@
         kendoGridToolbarTemplate
         *ngIf="componentConfig.exportToPDF || componentConfig.exportToExcel"
       >
-        <button
-          kendoGridPDFCommand
-          icon="file-pdf"
-          *ngIf="componentConfig.exportToPDF"
-        >
+        <button kendoGridPDFCommand icon="file-pdf" *ngIf="componentConfig.exportToPDF">
           Export to PDF
+        </button>
+        <button kendoGridExcelCommand icon="file-excel" *ngIf="componentConfig.exportToExcel">
+          Export to Excel
         </button>
       </ng-template>
       <kendo-grid-checkbox-column
@@ -75,6 +74,17 @@
           bottom="1cm"
         ></kendo-grid-pdf-margin>
       </kendo-grid-pdf>
+      <kendo-grid-excel
+        *ngIf="componentConfig.exportToExcel"
+        fileName="export.xlsx"
+        [fetchData]="allData"
+      >
+        <kendo-excelexport-column
+          *ngFor="let col of componentConfig.columns"
+          [title]="col.title"
+          [field]="'Attributes.' + col.field + '.Value'"
+        ></kendo-excelexport-column>
+      </kendo-grid-excel>
     </kendo-grid>
   </div>
 </div>

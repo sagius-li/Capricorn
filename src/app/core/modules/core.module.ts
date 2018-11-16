@@ -30,7 +30,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 
 import { ChartsModule } from '@progress/kendo-angular-charts';
 import { DialogsModule } from '@progress/kendo-angular-dialog';
-import { GridModule, PDFModule } from '@progress/kendo-angular-grid';
+import { GridModule, PDFModule, ExcelModule } from '@progress/kendo-angular-grid';
 
 import { AuthService } from '../services/auth.service';
 import { ConfigService } from '../services/config.service';
@@ -87,7 +87,8 @@ export function startup(startupService: StartupService) {
     ChartsModule,
     DialogsModule,
     GridModule,
-    PDFModule
+    PDFModule,
+    ExcelModule
   ],
   declarations: [
     DchostDirective,
@@ -147,6 +148,7 @@ export function startup(startupService: StartupService) {
     ChartsModule,
     GridModule,
     PDFModule,
+    ExcelModule,
 
     DchostDirective,
 
