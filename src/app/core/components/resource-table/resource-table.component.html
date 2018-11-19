@@ -1,7 +1,9 @@
 <div fxLayout="column" style="height: 100%; width: 100%;">
-  <div fxFlex="0 0 50px" *ngIf="componentConfig.title" class="table-title">
-    {{ componentConfig.title | translate }}
-  </div>
+  <!--
+    <div fxFlex="0 0 40px" *ngIf="componentConfig.title" class="table-title">
+      {{ componentConfig.title | translate }}
+    </div>
+  -->
   <div fxFlex [ngClass]="componentConfig.title ? 'withTitle' : 'withoutTitle'">
     <kendo-grid
       [style.height.%]="100"
@@ -30,14 +32,31 @@
     >
       <ng-template
         kendoGridToolbarTemplate
-        *ngIf="componentConfig.exportToPDF || componentConfig.exportToExcel"
+        *ngIf="
+          componentConfig.title || componentConfig.exportToPDF || componentConfig.exportToExcel
+        "
       >
-        <button kendoGridPDFCommand icon="file-pdf" *ngIf="componentConfig.exportToPDF">
-          Export to PDF
-        </button>
-        <button kendoGridExcelCommand icon="file-excel" *ngIf="componentConfig.exportToExcel">
-          Export to Excel
-        </button>
+        <div fxLayout="row" fxLayoutAlign="end center">
+          <div fxFlex="1 1 auto" class="table-title">{{ componentConfig.title | translate }}</div>
+          <button
+            fxFlex="0 0 auto"
+            class="export-button"
+            kendoGridPDFCommand
+            icon="file-pdf"
+            *ngIf="componentConfig.exportToPDF"
+          >
+            {{ 'key_exportToPDF' | translate }}
+          </button>
+          <button
+            fxFlex="0 0 auto"
+            class="export-button"
+            kendoGridExcelCommand
+            icon="file-excel"
+            *ngIf="componentConfig.exportToExcel"
+          >
+            {{ 'key_exportToExcel' | translate }}
+          </button>
+        </div>
       </ng-template>
       <kendo-grid-checkbox-column
         *ngIf="componentConfig.selectable"

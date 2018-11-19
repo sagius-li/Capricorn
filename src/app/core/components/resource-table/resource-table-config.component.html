@@ -1,8 +1,85 @@
-<h3 mat-dialog-title>{{'key_resourceTableConfig'|translate}}</h3>
-<div mat-dialog-content fxLayout="row">
-  <app-resource-table #exampleResourceTable fxFlex="0 0 200px" [data]="data.objectConfig"></app-resource-table>
+<h3 mat-dialog-title>{{ 'key_resourceTableConfig' | translate }}</h3>
+<div mat-dialog-content fxLayout="column" style="height: 800px; width: 800px;">
+  <mat-tab-group fxFlex="0 1 350px">
+    <mat-tab [label]="'key_general' | translate">
+      <div fxFlex fxLayout="column" fxLayoutGap="10px" style="padding-top: 20px;">
+        <div fxFlex="1 1 auto" fxLayout="row" fxLayoutGap="20px">
+          <mat-form-field fxFlex="auto">
+            <input
+              matInput
+              [placeholder]="'key_title' | translate"
+              [(ngModel)]="data.objectConfig.title"
+            />
+          </mat-form-field>
+          <mat-form-field fxFlex="auto">
+            <input
+              matInput
+              type="number"
+              min="10"
+              max="20"
+              [placeholder]="'key_fontSize' | translate"
+              [(ngModel)]="data.objectConfig.fontSize"
+            />
+          </mat-form-field>
+          <mat-form-field fxFlex="auto">
+            <input
+              matInput
+              type="number"
+              min="0"
+              max="20"
+              [placeholder]="'key_padding' | translate"
+              [(ngModel)]="data.objectConfig.cellPadding"
+            />
+          </mat-form-field>
+        </div>
+        <div fxFlex="1 1 auto">
+          <mat-form-field fxFlex="auto">
+            <input
+              matInput
+              [placeholder]="'key_query' | translate"
+              [(ngModel)]="data.objectConfig.query"
+            />
+          </mat-form-field>
+        </div>
+        <div fxFlex="1 1 auto" fxLayout="row" fxLayoutGap="20px">
+          <mat-slide-toggle
+            fxFlex="auto"
+            [(ngModel)]="data.objectConfig.exportToPDF"
+            style="width: 120px;"
+            >{{ 'key_exportToPDF' | translate }}</mat-slide-toggle
+          >
+          <mat-slide-toggle
+            fxFlex="auto"
+            [(ngModel)]="data.objectConfig.exportToExcel"
+            style="width: 120px;"
+            >{{ 'key_exportToExcel' | translate }}</mat-slide-toggle
+          >
+          <mat-slide-toggle
+            fxFlex="auto"
+            [(ngModel)]="data.objectConfig.exportAllPages"
+            style="width: 120px;"
+            >{{ 'key_exportAllPages' | translate }}</mat-slide-toggle
+          >
+        </div>
+      </div>
+    </mat-tab>
+    <mat-tab [label]="'key_settings' | translate"></mat-tab>
+  </mat-tab-group>
+  <div fxFlex="0 0 260px">
+    <app-resource-table #exampleResourceTable [data]="data.objectConfig"></app-resource-table>
+  </div>
 </div>
-<div mat-dialog-actions fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px" style="margin-top: 20px;">
-  <button fxFlex="none" mat-button [mat-dialog-close]="data.objectConfig" style="width: 180px;">{{'key_submit'|translate}}</button>
-  <button fxFlex="none" mat-button mat-dialog-close="cancel" style="width: 180px;">{{'key_cancel'|translate}}</button>
+<div
+  mat-dialog-actions
+  fxLayout="row"
+  fxLayoutAlign="start center"
+  fxLayoutGap="20px"
+  style="margin-top: 20px;"
+>
+  <button fxFlex="none" mat-button [mat-dialog-close]="data.objectConfig" style="width: 180px;">
+    {{ 'key_submit' | translate }}
+  </button>
+  <button fxFlex="none" mat-button mat-dialog-close="cancel" style="width: 180px;">
+    {{ 'key_cancel' | translate }}
+  </button>
 </div>

@@ -222,7 +222,6 @@ export class ResourceTableComponent implements OnInit, DcComponent {
 
   configure() {
     const dialogRef = this.dialog.open(ResourceTableConfigComponent, {
-      minWidth: '500px',
       data: {
         objectRef: this,
         objectConfig: this.utils.DeepCopy(this.componentConfig)

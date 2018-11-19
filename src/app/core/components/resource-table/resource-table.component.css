@@ -9,15 +9,15 @@
 }
 
 .table-title {
-  background-color: white;
-  border: lightgray solid 1px;
-  padding-top: 15px;
-  height: 50px;
-  width: 100%;
-  text-align: center;
-  vertical-align: middle;
-  border-bottom: none;
   font-weight: 400;
+  padding-left: 15px;
+  font-size: 16px;
+}
+
+.export-button {
+  font-size: 8px;
+  margin-bottom: -20px;
+  color: rgba(0, 0, 0, 0.54);
 }
 
 .withTitle {
