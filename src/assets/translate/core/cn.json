@@ -46,5 +46,19 @@
   "key_exportToExcel": "导出Excel",
   "key_fontSize": "字体大小",
   "key_padding": "填充大小",
-  "key_exportAllPages": "导出所有页"
+  "key_exportAllPages": "导出所有页",
+  "key_pagingAndSort": "分页&排序",
+  "key_showPageInfo": "显示分页信息",
+  "key_showPageButton": "显示分页按钮",
+  "key_maxCounterNumber": "最大显示页数",
+  "key_pageSize": "每页显示项目数",
+  "key_sortable": "可排序",
+  "key_sortMode": "排序模式",
+  "key_allowUnsort": "允许取消排序",
+  "key_selectAndResize": "选定&列宽",
+  "key_selectable": "可选定行",
+  "key_checkboxSelectionOnly": "只通过复选框选定",
+  "key_selectionMode": "选定模式",
+  "key_resizable": "可调整列宽",
+  "key_selectBoxWidth": "复选框大小"
 }

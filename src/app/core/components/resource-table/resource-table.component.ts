@@ -174,7 +174,7 @@ export class ResourceTableComponent implements OnInit, DcComponent {
       allowUnsort: true,
       filterMode: 'menu',
       selectable: false,
-      selectBoxWidth: 10,
+      selectBoxWidth: 18,
       selectMode: 'single',
       checkboxSelectOnly: false,
       resizable: false,

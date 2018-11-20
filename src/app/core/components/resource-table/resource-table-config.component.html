@@ -158,6 +158,52 @@
         </div>
       </div>
     </mat-tab>
+    <mat-tab [label]="'key_selectAndResize' | translate">
+      <div fxFlex fxLayout="column" fxLayoutGap="10px" style="padding-top: 20px;">
+        <div fxFlex="1 1 auto" fxLayout="row" fxLayoutGap="20px">
+          <div fxFlex="33" style="padding-top: 20px;">
+            <mat-slide-toggle [(ngModel)]="data.objectConfig.selectable">{{
+              'key_selectable' | translate
+            }}</mat-slide-toggle>
+          </div>
+          <div fxFlex="33" style="padding-top: 20px;">
+            <mat-slide-toggle
+              [disabled]="!data.objectConfig.selectable"
+              [(ngModel)]="data.objectConfig.checkboxSelectOnly"
+              >{{ 'key_checkboxSelectionOnly' | translate }}</mat-slide-toggle
+            >
+          </div>
+          <mat-form-field fxFlex="33">
+            <mat-select
+              [disabled]="!data.objectConfig.selectable"
+              [placeholder]="'key_selectionMode' | translate"
+              [(ngModel)]="data.objectConfig.selectMode"
+            >
+              <mat-option value="single">single</mat-option>
+              <mat-option value="multiple">multiple</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div fxFlex="1 1 auto" fxLayout="row" fxLayoutGap="20px">
+          <div fxFlex="33" style="padding-top: 20px;">
+            <mat-slide-toggle [(ngModel)]="data.objectConfig.resizable">{{
+              'key_resizable' | translate
+            }}</mat-slide-toggle>
+          </div>
+          <mat-form-field fxFlex="33">
+            <input
+              [disabled]="!data.objectConfig.selectable"
+              matInput
+              type="number"
+              min="10"
+              max="100"
+              [placeholder]="'key_selectBoxWidth' | translate"
+              [(ngModel)]="data.objectConfig.selectBoxWidth"
+            />
+          </mat-form-field>
+        </div>
+      </div>
+    </mat-tab>
   </mat-tab-group>
   <div fxFlex="0 0 260px">
     <app-resource-table #exampleResourceTable [data]="data.objectConfig"></app-resource-table>

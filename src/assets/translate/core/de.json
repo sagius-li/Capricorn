@@ -46,5 +46,19 @@
   "key_exportToExcel": "Excel exportieren",
   "key_fontSize": "Schrittgröße",
   "key_padding": "Padding",
-  "key_exportAllPages": "alle Seite exportieren"
+  "key_exportAllPages": "alle Seite exportieren",
+  "key_pagingAndSort": "Paging & Sortieren",
+  "key_showPageInfo": "Seiten Info anzeigen",
+  "key_showPageButton": "Seiten Tasten anzeigen",
+  "key_maxCounterNumber": "max. Seitennummer",
+  "key_pageSize": "Anzahl pro Seite",
+  "key_sortable": "sortierbar",
+  "key_sortMode": "Sortierungsmode",
+  "key_allowUnsort": "ohne Sortierung möglich",
+  "key_selectAndResize": "Auswählen & Anpassen",
+  "key_selectable": "Zeile wählbar",
+  "key_checkboxSelectionOnly": "Ankreutfeld wählen",
+  "key_selectionMode": "Auswahlmode",
+  "key_resizable": "größeanpassbar",
+  "key_selectBoxWidth": "Ankreuzfeldgröße"
 }

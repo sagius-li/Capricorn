@@ -46,5 +46,19 @@
   "key_exportToExcel": "export to excel",
   "key_fontSize": "font size",
   "key_padding": "padding",
-  "key_exportAllPages": "export all pages"
+  "key_exportAllPages": "export all pages",
+  "key_pagingAndSort": "paging & sort",
+  "key_showPageInfo": "show page info",
+  "key_showPageButton": "show page button",
+  "key_maxCounterNumber": "max. counter number",
+  "key_pageSize": "page size",
+  "key_sortable": "sortable",
+  "key_sortMode": "sort mode",
+  "key_allowUnsort": "allow unsort",
+  "key_selectAndResize": "select & resize",
+  "key_selectable": "selectable",
+  "key_checkboxSelectionOnly": "select only by checkbox",
+  "key_selectionMode": "selection mode",
+  "key_resizable": "resizable",
+  "key_selectBoxWidth": "checkbox width"
 }
