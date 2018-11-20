@@ -214,11 +214,12 @@ export class ResourceTableComponent implements OnInit, DcComponent {
     return this.componentConfig;
   }
 
-  updateDataSource() {}
-
-  resize(size: number[]) {
-    console.log(this.el.nativeElement);
+  updateDataSource() {
+    this.gridState = { take: this.componentConfig.pageSize, skip: 0 };
+    this.fetchDataDic();
   }
+
+  resize(size: number[]) {}
 
   configure() {
     const dialogRef = this.dialog.open(ResourceTableConfigComponent, {

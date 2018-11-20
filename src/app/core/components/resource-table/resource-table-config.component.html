@@ -32,14 +32,25 @@
             />
           </mat-form-field>
         </div>
-        <div fxFlex="1 1 auto">
-          <mat-form-field fxFlex="auto">
+        <div fxFlex="1 1 auto" fxLayout="row" fxLayoutGap="20px">
+          <mat-form-field fxFlex="1 1 auto">
             <input
               matInput
               [placeholder]="'key_query' | translate"
               [(ngModel)]="data.objectConfig.query"
             />
           </mat-form-field>
+          <div fxFlex="0 0 auto" style="padding-top: 10px;">
+            <button
+              mat-button
+              color="primary"
+              (click)="onApplyQuery()"
+              style="height: 38px; width: 120px;"
+            >
+              <mat-icon style="margin-right: 10px;">assignment_turned_in</mat-icon
+              >{{ 'key_apply' | translate }}
+            </button>
+          </div>
         </div>
         <div fxFlex="1 1 auto" fxLayout="row" fxLayoutGap="20px">
           <mat-slide-toggle
@@ -63,7 +74,90 @@
         </div>
       </div>
     </mat-tab>
-    <mat-tab [label]="'key_settings' | translate"></mat-tab>
+    <mat-tab [label]="'key_pagingAndSort' | translate">
+      <div fxFlex fxLayout="column" fxLayoutGap="10px" style="padding-top: 20px;">
+        <div fxFlex="1 1 auto" fxLayout="row" fxLayoutGap="20px">
+          <mat-form-field fxFlex="auto">
+            <mat-select
+              [placeholder]="'key_type' | translate"
+              [(ngModel)]="data.objectConfig.pageType"
+            >
+              <mat-option value="numeric">numeric</mat-option>
+              <mat-option value="input">input</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <div fxFlex="auto" style="padding-top: 20px;">
+            <mat-slide-toggle [(ngModel)]="data.objectConfig.pageInfo">{{
+              'key_showPageInfo' | translate
+            }}</mat-slide-toggle>
+          </div>
+          <div fxFlex="auto" style="padding-top: 20px;">
+            <mat-slide-toggle [(ngModel)]="data.objectConfig.pageButton">{{
+              'key_showPageButton' | translate
+            }}</mat-slide-toggle>
+          </div>
+        </div>
+        <div fxFlex="1 1 auto" fxLayout="row" fxLayoutGap="20px">
+          <mat-form-field fxFlex="33">
+            <input
+              matInput
+              type="number"
+              min="1"
+              max="10"
+              [placeholder]="'key_maxCounterNumber' | translate"
+              [(ngModel)]="data.objectConfig.pageCountNumber"
+            />
+          </mat-form-field>
+          <div fxFlex="66" fxLayout="row" fxLayoutGap="20px">
+            <mat-form-field fxFlex="1 1 auto">
+              <input
+                matInput
+                type="number"
+                min="1"
+                max="100"
+                [placeholder]="'key_pageSize' | translate"
+                [(ngModel)]="tmpPageSize"
+              />
+            </mat-form-field>
+            <div fxFlex="0 0 auto" style="padding-top: 10px;">
+              <button
+                mat-button
+                color="primary"
+                (click)="onApplyPageSize()"
+                style="height: 38px; width: 120px;"
+              >
+                <mat-icon style="margin-right: 10px;">assignment_turned_in</mat-icon
+                >{{ 'key_apply' | translate }}
+              </button>
+            </div>
+          </div>
+        </div>
+        <div fxFlex="1 1 auto" fxLayout="row" fxLayoutGap="20px">
+          <div fxFlex="33" style="padding-top: 20px;">
+            <mat-slide-toggle [(ngModel)]="data.objectConfig.sortable">{{
+              'key_sortable' | translate
+            }}</mat-slide-toggle>
+          </div>
+          <mat-form-field fxFlex="33">
+            <mat-select
+              [disabled]="!data.objectConfig.sortable"
+              [placeholder]="'key_sortMode' | translate"
+              [(ngModel)]="data.objectConfig.sortMode"
+            >
+              <mat-option value="single">single</mat-option>
+              <mat-option value="multiple">multiple</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <div fxFlex="33" style="padding-top: 20px;">
+            <mat-slide-toggle
+              [disabled]="!data.objectConfig.sortable"
+              [(ngModel)]="data.objectConfig.allowUnsort"
+              >{{ 'key_allowUnsort' | translate }}</mat-slide-toggle
+            >
+          </div>
+        </div>
+      </div>
+    </mat-tab>
   </mat-tab-group>
   <div fxFlex="0 0 260px">
     <app-resource-table #exampleResourceTable [data]="data.objectConfig"></app-resource-table>

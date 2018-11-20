@@ -43,5 +43,8 @@
   "key_resourceTableConfig": "资源表设置",
   "key_general": "通用",
   "key_exportToPDF": "导出PDF",
-  "key_exportToExcel": "导出Excel"
+  "key_exportToExcel": "导出Excel",
+  "key_fontSize": "字体大小",
+  "key_padding": "填充大小",
+  "key_exportAllPages": "导出所有页"
 }

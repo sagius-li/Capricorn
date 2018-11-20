@@ -42,6 +42,9 @@
   "key_backgroundColor": "background color",
   "key_resourceTableConfig": "resource table config",
   "key_general": "general",
-  "key_exportToPDF": "Export to PDF",
-  "key_exportToExcel": "Export to Excel"
+  "key_exportToPDF": "export to pdf",
+  "key_exportToExcel": "export to excel",
+  "key_fontSize": "font size",
+  "key_padding": "padding",
+  "key_exportAllPages": "export all pages"
 }

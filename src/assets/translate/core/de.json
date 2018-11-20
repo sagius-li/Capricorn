@@ -41,7 +41,10 @@
   "key_stateCardTitle": "Titel",
   "key_backgroundColor": "Hintergrundfarbe",
   "key_resourceTableConfig": "Ressourcen-Tabelle Konfiguration",
-  "key_general": "allgemein",
-  "key_exportToPDF": "PDF Exportieren",
-  "key_exportToExcel": "Excel Exportieren"
+  "key_general": "Allgemein",
+  "key_exportToPDF": "PDF exportieren",
+  "key_exportToExcel": "Excel exportieren",
+  "key_fontSize": "Schrittgröße",
+  "key_padding": "Padding",
+  "key_exportAllPages": "alle Seite exportieren"
 }
