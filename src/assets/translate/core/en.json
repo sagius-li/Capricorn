@@ -60,5 +60,13 @@
   "key_checkboxSelectionOnly": "select only by checkbox",
   "key_selectionMode": "selection mode",
   "key_resizable": "resizable",
-  "key_selectBoxWidth": "checkbox width"
+  "key_selectBoxWidth": "checkbox width",
+  "key_columns": "columns",
+  "key_expendAll": "expand all",
+  "key_collapseAll": "collapse all",
+  "key_field": "field",
+  "key_filterable": "filterable",
+  "key_filterType": "filter type",
+  "key_locked": "locked",
+  "key_columnWidth": "column width"
 }

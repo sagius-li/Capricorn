@@ -23,6 +23,7 @@ export class ResourceColumnConfig {
   filterable?: boolean;
   filter?: string;
   locked?: boolean;
+  display?: boolean;
 }
 
 export class ResourceTableConfig {

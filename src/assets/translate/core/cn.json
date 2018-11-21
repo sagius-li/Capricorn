@@ -60,5 +60,13 @@
   "key_checkboxSelectionOnly": "只通过复选框选定",
   "key_selectionMode": "选定模式",
   "key_resizable": "可调整列宽",
-  "key_selectBoxWidth": "复选框大小"
+  "key_selectBoxWidth": "复选框大小",
+  "key_columns": "列设定",
+  "key_expendAll": "展开所有",
+  "key_collapseAll": "合拢所有",
+  "key_field": "属性",
+  "key_filterable": "可筛选",
+  "key_filterType": "筛选类型",
+  "key_locked": "固定列",
+  "key_columnWidth": "列宽"
 }

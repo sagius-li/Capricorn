@@ -60,5 +60,13 @@
   "key_checkboxSelectionOnly": "Ankreutfeld wählen",
   "key_selectionMode": "Auswahlmode",
   "key_resizable": "größeanpassbar",
-  "key_selectBoxWidth": "Ankreuzfeldgröße"
+  "key_selectBoxWidth": "Ankreuzfeldgröße",
+  "key_columns": "Spalten",
+  "key_expendAll": "alle aufklappen",
+  "key_collapseAll": "alle zuklappen",
+  "key_field": "Feld",
+  "key_filterable": "filterbar",
+  "key_filterType": "Filtertyp",
+  "key_locked": "fixiert",
+  "key_columnWidth": "Spaltebreite"
 }

@@ -1,0 +1,7 @@
+:host /deep/ mat-slide-toggle.small-slide {
+  margin-top: 10px;
+}
+
+:host /deep/ mat-slide-toggle.small-slide .mat-slide-toggle-content {
+  font-size: 12px;
+}
