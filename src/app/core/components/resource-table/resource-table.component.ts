@@ -5,7 +5,7 @@ import { skip, take, map, tap } from 'rxjs/operators';
 
 import { MatDialog } from '@angular/material';
 import { State } from '@progress/kendo-data-query';
-import { GridDataResult, DataStateChangeEvent } from '@progress/kendo-angular-grid';
+import { GridDataResult, DataStateChangeEvent, GridComponent } from '@progress/kendo-angular-grid';
 
 import { DcComponent } from '../../models/dccomponent.interface';
 import { ResourceService } from '../../services/resource.service';
@@ -66,6 +66,7 @@ export class ResourceTableComponent implements OnInit, DcComponent {
 
   gridState: State;
   gridResources: Observable<GridDataResult>;
+  excelData: Observable<GridDataResult>;
   gridLoading = false;
   gridSelect: any;
 
@@ -244,19 +245,30 @@ export class ResourceTableComponent implements OnInit, DcComponent {
     this.fetchDataDic();
   }
 
-  allData(): Observable<any> {
+  allData = (): Observable<any> => {
     const attributesToLoad = this.componentConfig.columns.map(c => c.field);
-    return this.resource.getResourceByQuery(
-      this.componentConfig.query,
-      attributesToLoad,
-      false,
-      undefined,
-      undefined,
-      Number[this.translate.instant('key_languageKey')],
-      true,
-      false,
-      undefined,
-      undefined
-    );
+    return this.resource
+      .getResourceByQuery(
+        this.componentConfig.query,
+        attributesToLoad,
+        false,
+        undefined,
+        undefined,
+        Number[this.translate.instant('key_languageKey')],
+        false,
+        false,
+        undefined,
+        undefined
+      )
+      .pipe(
+        map(result => {
+          return { data: result.Resources, total: result.TotalCount };
+        })
+      );
+    // tslint:disable-next-line:semicolon
+  };
+
+  onExcelExport(grid: GridComponent) {
+    grid.saveAsExcel();
   }
 }

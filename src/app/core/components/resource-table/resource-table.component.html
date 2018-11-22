@@ -6,6 +6,7 @@
   -->
   <div fxFlex [ngClass]="componentConfig.title ? 'withTitle' : 'withoutTitle'">
     <kendo-grid
+      #grid="kendoGrid"
       [style.height.%]="100"
       [style.fontSize.px]="componentConfig.fontSize"
       [data]="gridResources | async"
@@ -65,7 +66,7 @@
       ></kendo-grid-checkbox-column>
       <kendo-grid-column
         *ngFor="let col of componentConfig.columns"
-        [field]="col.field"
+        [field]="'Attributes.' + col.field + '.Value'"
         [title]="col.title"
         [sortable]="col.sortable"
         [filterable]="col.filterable"
@@ -77,9 +78,11 @@
           'padding-bottom': componentConfig.cellPadding.toString() + 'px'
         }"
       >
-        <ng-template kendoGridCellTemplate let-dataItem>
-          <span> {{ dataItem.Attributes[col.field].Value }} </span>
-        </ng-template>
+        <!--
+          <ng-template kendoGridCellTemplate let-dataItem>
+            <span> {{ dataItem.Attributes[col.field].Value }} </span>
+          </ng-template>
+        -->
       </kendo-grid-column>
       <kendo-grid-pdf
         *ngIf="componentConfig.exportToPDF"
@@ -93,16 +96,8 @@
           bottom="1cm"
         ></kendo-grid-pdf-margin>
       </kendo-grid-pdf>
-      <kendo-grid-excel
-        *ngIf="componentConfig.exportToExcel"
-        fileName="export.xlsx"
-        [fetchData]="allData"
-      >
-        <kendo-excelexport-column
-          *ngFor="let col of componentConfig.columns"
-          [title]="col.title"
-          [field]="'Attributes.' + col.field + '.Value'"
-        ></kendo-excelexport-column>
+
+      <kendo-grid-excel *ngIf="componentConfig.exportToExcel" fileName="export.xlsx">
       </kendo-grid-excel>
     </kendo-grid>
   </div>
