@@ -23,7 +23,7 @@ import { ConfigService } from '../core/services/config.service';
 import { ResourceService } from '../core/services/resource.service';
 import { WidgetService } from '../core/services/widget.service';
 
-import { DSResourceSet } from '../core/models/resource.model';
+import { DSResourceSet, DSResource } from '../core/models/resource.model';
 
 import { DchostDirective } from '../core/directives/dchost.directive';
 import { DcComponent } from '../core/models/dccomponent.interface';
@@ -55,6 +55,7 @@ export class TestComponent implements OnInit, AfterViewInit {
   // #endregion
   // #region members for async lazy loading
   asyncTabTask: Observable<string[]>;
+  testUser: Observable<DSResource>;
   // #endregion
   // #region members for material table
   displayedColumns = ['DisplayName', 'FirstName', 'LastName', 'AccountName'];
@@ -245,6 +246,13 @@ export class TestComponent implements OnInit, AfterViewInit {
         observer.next(['First', 'Second', 'Third']);
       }, 3000);
     });
+
+    this.testUser = this.resource.getResourceByID(
+      '7fb2b853-24f0-4498-9534-4e10589723c4',
+      ['DisplayName', 'AccountName'],
+      false,
+      true
+    );
 
     // dynamic content
     const configStr = `

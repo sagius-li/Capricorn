@@ -53,6 +53,8 @@ import { ResourceTableComponent } from '../components/resource-table/resource-ta
 import { ResourceTableConfigComponent } from '../components/resource-table/resource-table-config.component';
 import { SigninComponent } from '../components/signin/signin.component';
 
+import { EditorTextComponent } from '../components/editor-text/editor-text.component';
+
 /** @ignore */
 export function startup(startupService: StartupService) {
   return () => startupService.start();
@@ -102,7 +104,9 @@ export function startup(startupService: StartupService) {
     StateCardComponent,
     StateCardConfigComponent,
     ResourceTableComponent,
-    ResourceTableConfigComponent
+    ResourceTableConfigComponent,
+
+    EditorTextComponent
   ],
   entryComponents: [
     MockComponent,
@@ -112,7 +116,9 @@ export function startup(startupService: StartupService) {
     StateCardComponent,
     StateCardConfigComponent,
     ResourceTableComponent,
-    ResourceTableConfigComponent
+    ResourceTableConfigComponent,
+
+    EditorTextComponent
   ],
   providers: [
     AuthService,
@@ -158,7 +164,9 @@ export function startup(startupService: StartupService) {
     MockComponent,
     ChartComponent,
     StateCardComponent,
-    ResourceTableComponent
+    ResourceTableComponent,
+
+    EditorTextComponent
   ]
 })
 export class CoreModule {}

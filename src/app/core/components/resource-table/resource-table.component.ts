@@ -122,43 +122,6 @@ export class ResourceTableComponent implements OnInit, DcComponent {
     }
   }
 
-  private fetchData() {
-    if (this.componentConfig.query) {
-      this.gridLoading = true;
-      let sortString: string[];
-      if (this.gridState) {
-        if (this.gridState.sort) {
-          sortString = this.gridState.sort
-            .filter(element => element.dir !== undefined)
-            .map(
-              item => `${item.field.replace('Attributes.', '').replace('.Value', '')}:${item.dir}`
-            );
-        }
-      }
-
-      const attributesToLoad = this.componentConfig.columns.map(c => c.field);
-      this.resource
-        .getResourceByQuery(
-          this.componentConfig.query,
-          attributesToLoad,
-          false,
-          undefined,
-          undefined,
-          Number[this.translate.instant('key_languageKey')],
-          true,
-          false,
-          undefined,
-          sortString
-        )
-        .subscribe((result: DSResourceSet) => {
-          this.gridLoading = false;
-          return of(result.Resources);
-        });
-    } else if (this.componentConfig.resources) {
-      return of(this.componentConfig.resources);
-    }
-  }
-
   ngOnInit() {
     this.initComponent();
   }

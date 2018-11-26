@@ -1,0 +1,27 @@
+<div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px" style="width: 100%;">
+  <mat-form-field fxFlex="1 1 auto" *ngIf="data.attribute">
+    <input
+      matInput
+      [placeholder]="
+        componentConfig.displayName ? componentConfig.displayName : data.attribute.DisplayName
+      "
+      [value]="data.attribute.Value"
+      [readonly]="!componentConfig.editMode"
+    />
+    <mat-hint
+      [innerHTML]="
+        componentConfig.description ? componentConfig.description : data.attribute.Description
+      "
+    ></mat-hint>
+  </mat-form-field>
+  <div fxFlex="0 0 auto">
+    <button mat-stroked-button color="primary" style="height: 38px;">
+      <mat-icon style="margin-right: 10px;">settings</mat-icon>
+    </button>
+  </div>
+  <div fxFlex="0 0 auto">
+    <button mat-stroked-button color="warn" style="height: 38px;">
+      <mat-icon style="margin-right: 10px;">delete</mat-icon>
+    </button>
+  </div>
+</div>

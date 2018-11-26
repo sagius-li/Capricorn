@@ -1,33 +1,43 @@
 <div fxLayout="column" fxLayoutGap="30px" style="margin: 0 30px">
   <!-- greeting information -->
   <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px">
-    <img width="60" fxFlex="nogrow" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxOS4xLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiDQoJIHZpZXdCb3g9IjAgMCAyNTAgMjUwIiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCAyNTAgMjUwOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+DQo8c3R5bGUgdHlwZT0idGV4dC9jc3MiPg0KCS5zdDB7ZmlsbDojREQwMDMxO30NCgkuc3Qxe2ZpbGw6I0MzMDAyRjt9DQoJLnN0MntmaWxsOiNGRkZGRkY7fQ0KPC9zdHlsZT4NCjxnPg0KCTxwb2x5Z29uIGNsYXNzPSJzdDAiIHBvaW50cz0iMTI1LDMwIDEyNSwzMCAxMjUsMzAgMzEuOSw2My4yIDQ2LjEsMTg2LjMgMTI1LDIzMCAxMjUsMjMwIDEyNSwyMzAgMjAzLjksMTg2LjMgMjE4LjEsNjMuMiAJIi8+DQoJPHBvbHlnb24gY2xhc3M9InN0MSIgcG9pbnRzPSIxMjUsMzAgMTI1LDUyLjIgMTI1LDUyLjEgMTI1LDE1My40IDEyNSwxNTMuNCAxMjUsMjMwIDEyNSwyMzAgMjAzLjksMTg2LjMgMjE4LjEsNjMuMiAxMjUsMzAgCSIvPg0KCTxwYXRoIGNsYXNzPSJzdDIiIGQ9Ik0xMjUsNTIuMUw2Ni44LDE4Mi42aDBoMjEuN2gwbDExLjctMjkuMmg0OS40bDExLjcsMjkuMmgwaDIxLjdoMEwxMjUsNTIuMUwxMjUsNTIuMUwxMjUsNTIuMUwxMjUsNTIuMQ0KCQlMMTI1LDUyLjF6IE0xNDIsMTM1LjRIMTA4bDE3LTQwLjlMMTQyLDEzNS40eiIvPg0KPC9nPg0KPC9zdmc+DQo=">
-    <h1 fxFlex="nogrow">
-      {{'i18n_greeting'|translate}}, {{userName}}!
-    </h1>
+    <img
+      width="60"
+      fxFlex="nogrow"
+      src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxOS4xLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiDQoJIHZpZXdCb3g9IjAgMCAyNTAgMjUwIiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCAyNTAgMjUwOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+DQo8c3R5bGUgdHlwZT0idGV4dC9jc3MiPg0KCS5zdDB7ZmlsbDojREQwMDMxO30NCgkuc3Qxe2ZpbGw6I0MzMDAyRjt9DQoJLnN0MntmaWxsOiNGRkZGRkY7fQ0KPC9zdHlsZT4NCjxnPg0KCTxwb2x5Z29uIGNsYXNzPSJzdDAiIHBvaW50cz0iMTI1LDMwIDEyNSwzMCAxMjUsMzAgMzEuOSw2My4yIDQ2LjEsMTg2LjMgMTI1LDIzMCAxMjUsMjMwIDEyNSwyMzAgMjAzLjksMTg2LjMgMjE4LjEsNjMuMiAJIi8+DQoJPHBvbHlnb24gY2xhc3M9InN0MSIgcG9pbnRzPSIxMjUsMzAgMTI1LDUyLjIgMTI1LDUyLjEgMTI1LDE1My40IDEyNSwxNTMuNCAxMjUsMjMwIDEyNSwyMzAgMjAzLjksMTg2LjMgMjE4LjEsNjMuMiAxMjUsMzAgCSIvPg0KCTxwYXRoIGNsYXNzPSJzdDIiIGQ9Ik0xMjUsNTIuMUw2Ni44LDE4Mi42aDBoMjEuN2gwbDExLjctMjkuMmg0OS40bDExLjcsMjkuMmgwaDIxLjdoMEwxMjUsNTIuMUwxMjUsNTIuMUwxMjUsNTIuMUwxMjUsNTIuMQ0KCQlMMTI1LDUyLjF6IE0xNDIsMTM1LjRIMTA4bDE3LTQwLjlMMTQyLDEzNS40eiIvPg0KPC9nPg0KPC9zdmc+DQo="
+    />
+    <h1 fxFlex="nogrow">{{ 'i18n_greeting' | translate }}, {{ userName }}!</h1>
   </div>
 
   <div fxFlex>
-    <!-- <mat-tab-group dynamicHeight mat-stretch-tabs [disableRipple]="true" [@.disabled]="true"> -->
+    <!--
+      <mat-tab-group dynamicHeight mat-stretch-tabs [disableRipple]="true" [@.disabled]="true">
+    -->
     <mat-tab-group dynamicHeight mat-stretch-tabs [disableRipple]="true">
       <!-- general information -->
       <mat-tab label="{{'i18n_generalInfo'|translate}}">
-        <div fxFlex fxLayout="column" fxLayoutAlign="space-evenly start" fxLayoutGap="20px" class="first-tab-element">
-          <div fxFlex>Data Service Version: {{dsVersion}}</div>
-          <div fxFlex>Current used Language: {{currentLanguage}}</div>
+        <div
+          fxFlex
+          fxLayout="column"
+          fxLayoutAlign="space-evenly start"
+          fxLayoutGap="20px"
+          class="first-tab-element"
+        >
+          <div fxFlex>Data Service Version: {{ dsVersion }}</div>
+          <div fxFlex>Current used Language: {{ currentLanguage }}</div>
           <!-- localization example (ngx) -->
           <div fxFlex class="first-tab-element">
             <ng-template ngFor let-language [ngForOf]="languages">
-              <span *ngIf="language.code.indexOf(currentLanguage)<0" style="margin-right: 10px;">
-                <a [routerLink]="" (click)="onChangeLanguage(language.route)">{{language.label}}</a>
+              <span *ngIf="language.code.indexOf(currentLanguage) < 0" style="margin-right: 10px;">
+                <a [routerLink]="" (click)="onChangeLanguage(language.route)">{{
+                  language.label
+                }}</a>
               </span>
-              <span *ngIf="language.code.indexOf(currentLanguage)>=0">{{language.label}} </span>
+              <span *ngIf="language.code.indexOf(currentLanguage) >= 0">{{ language.label }} </span>
             </ng-template>
           </div>
           <!-- log out -->
-          <div fxFlex>
-            <button (click)="onLogout()">log out</button>
-          </div>
+          <div fxFlex><button (click)="onLogout()">log out</button></div>
           <!-- data service example -->
           <div fxLayout="column" class="first-tab-element">
             <div fxFlex="none" fxLayout="row">
@@ -38,10 +48,13 @@
                 <ul>
                   <li *ngFor="let user of users.Resources" style="list-style: none;">
                     <i class="fa fa-user-circle"></i>
-                    <i class="material-icons" style="color:orange;font-size:18px;vertical-align:sub;">
+                    <i
+                      class="material-icons"
+                      style="color:orange;font-size:18px;vertical-align:sub;"
+                    >
                       face
                     </i>
-                    {{user.DisplayName}} ({{user.Attributes['AccountName'].Value}})
+                    {{ user.DisplayName }} ({{ user.Attributes['AccountName'].Value }})
                   </li>
                 </ul>
               </div>
@@ -60,17 +73,30 @@
               <!-- <kendo-chart-tooltip format="{0}"></kendo-chart-tooltip> -->
               <kendo-chart-series>
                 <kendo-chart-title text="Password Status"></kendo-chart-title>
-                <kendo-chart-series-item name="Password Reset" type="column" [data]="passwordData" field="reset"
-                  categoryField="date">
+                <kendo-chart-series-item
+                  name="Password Reset"
+                  type="column"
+                  [data]="passwordData"
+                  field="reset"
+                  categoryField="date"
+                >
                   <kendo-chart-tooltip format="{0}"></kendo-chart-tooltip>
                 </kendo-chart-series-item>
-                <kendo-chart-series-item name="Password Registation" type="column" [data]="passwordData" field="register"
-                  categoryField="date">
+                <kendo-chart-series-item
+                  name="Password Registation"
+                  type="column"
+                  [data]="passwordData"
+                  field="register"
+                  categoryField="date"
+                >
                   <kendo-chart-tooltip format="{0}"></kendo-chart-tooltip>
                 </kendo-chart-series-item>
               </kendo-chart-series>
               <kendo-chart-category-axis>
-                <kendo-chart-category-axis-item baseUnit="days" [labels]="{ format: 'd', rotation: 'auto' }">
+                <kendo-chart-category-axis-item
+                  baseUnit="days"
+                  [labels]="{ format: 'd', rotation: 'auto' }"
+                >
                 </kendo-chart-category-axis-item>
               </kendo-chart-category-axis>
             </kendo-chart>
@@ -81,10 +107,15 @@
               <kendo-chart-legend position="bottom"></kendo-chart-legend>
               <kendo-chart-series>
                 <kendo-chart-title text="Request Status"></kendo-chart-title>
-                <kendo-chart-series-item type="pie" [data]="requestData" field="value" categoryField="type">
+                <kendo-chart-series-item
+                  type="pie"
+                  [data]="requestData"
+                  field="value"
+                  categoryField="type"
+                >
                   <kendo-chart-series-item-tooltip>
                     <ng-template let-category="category" let-value="value">
-                      {{category}}: {{value}}
+                      {{ category }}: {{ value }}
                     </ng-template>
                   </kendo-chart-series-item-tooltip>
                   <kendo-chart-series-item-labels [content]="labelContent" background="none">
@@ -94,21 +125,61 @@
             </kendo-chart>
           </div>
           <div fxFlex="100">
-            <kendo-grid [data]="gridResources | async" [loading]="gridLoading" [pageSize]="gridState.take" [skip]="gridState.skip"
-              [sort]="gridState.sort" [sortable]="{allowUnsort:true,mode:'multiple'}" [pageable]="true" [filter]="gridState.filter"
-              [scrollable]="'none'" [selectable]="{checkboxOnly:false,mode:'multiple'}" (dataStateChange)="dataStateChange($event)"
-              [resizable]="true" [filterable]="'menu'">
+            <kendo-grid
+              [data]="gridResources | async"
+              [loading]="gridLoading"
+              [pageSize]="gridState.take"
+              [skip]="gridState.skip"
+              [sort]="gridState.sort"
+              [sortable]="{ allowUnsort: true, mode: 'multiple' }"
+              [pageable]="true"
+              [filter]="gridState.filter"
+              [scrollable]="'none'"
+              [selectable]="{ checkboxOnly: false, mode: 'multiple' }"
+              (dataStateChange)="dataStateChange($event)"
+              [resizable]="true"
+              [filterable]="'menu'"
+            >
               <ng-template kendoGridToolbarTemplate>
                 <button kendoGridPDFCommand icon="file-pdf">Export to PDF</button>
               </ng-template>
-              <kendo-grid-checkbox-column showSelectAll="true" width="10"></kendo-grid-checkbox-column>
-              <kendo-grid-column field="DisplayName" title="Display Name" width="120"></kendo-grid-column>
-              <kendo-grid-column field="Attributes.AccountName.Value" title="Account Name" width="120"></kendo-grid-column>
-              <kendo-grid-column field="Attributes.FirstName.Value" title="First Name" width="120"></kendo-grid-column>
-              <kendo-grid-column field="Attributes.LastName.Value" title="Last Name" width="120"></kendo-grid-column>
-              <kendo-grid-column field="ObjectType" title="Object Type" width="100" [sortable]="false"></kendo-grid-column>
+              <kendo-grid-checkbox-column
+                showSelectAll="true"
+                width="10"
+              ></kendo-grid-checkbox-column>
+              <kendo-grid-column
+                field="DisplayName"
+                title="Display Name"
+                width="120"
+              ></kendo-grid-column>
+              <kendo-grid-column
+                field="Attributes.AccountName.Value"
+                title="Account Name"
+                width="120"
+              ></kendo-grid-column>
+              <kendo-grid-column
+                field="Attributes.FirstName.Value"
+                title="First Name"
+                width="120"
+              ></kendo-grid-column>
+              <kendo-grid-column
+                field="Attributes.LastName.Value"
+                title="Last Name"
+                width="120"
+              ></kendo-grid-column>
+              <kendo-grid-column
+                field="ObjectType"
+                title="Object Type"
+                width="100"
+                [sortable]="false"
+              ></kendo-grid-column>
               <kendo-grid-pdf fileName="Products.pdf" [allPages]="true">
-                <kendo-grid-pdf-margin top="1cm" left="1cm" right="1cm" bottom="1cm"></kendo-grid-pdf-margin>
+                <kendo-grid-pdf-margin
+                  top="1cm"
+                  left="1cm"
+                  right="1cm"
+                  bottom="1cm"
+                ></kendo-grid-pdf-margin>
               </kendo-grid-pdf>
             </kendo-grid>
           </div>
@@ -124,19 +195,25 @@
             </div>
           </div>
           <div fxFlex="30">
-            <div style="position: relative; overflow: hidden;">
-              <app-editbar></app-editbar>
-            </div>
+            <div style="position: relative; overflow: hidden;"><app-editbar></app-editbar></div>
           </div>
           <div fxFlex="35">
-            <div style="position: relative; height: 100%">
-              <app-state-card></app-state-card>
-            </div>
+            <div style="position: relative; height: 100%"><app-state-card></app-state-card></div>
           </div>
           <div fxFlex="50">
             <div style="position: relative;">
-              <app-resource-table [data]="{query: '/Person', pageSize: 5}"></app-resource-table>
+              <app-resource-table [data]="{ query: '/Person', pageSize: 5 }"></app-resource-table>
             </div>
+          </div>
+          <div fxFlex="50">
+            <app-editor-text
+              [data]="{
+                attribute: (testUser | async)?.Attributes.AccountName,
+                displayName: 'log in name',
+                description: '<b>user\'s</b> account name'
+              }"
+            ></app-editor-text>
+            <h3>{{ (testUser | async)?.DisplayName }}</h3>
           </div>
         </div>
       </mat-tab>
@@ -149,10 +226,20 @@
           </div>
           <div fxFlex="1 1 auto">
             <mat-grid-list cols="6" gutterSize="10px" rowHeight="1:1">
-              <mat-grid-tile dnd-droppable *ngFor="let config of widgetConfig" [rowspan]="config.rowSpan" [colspan]="config.colSpan"
-                (onDropSuccess)="onMoveWidget($event, config)">
-                <app-drag [dragItem]="config" [editMode]="dragEditMode" (resiz)="onResize($event, config)" (configure)="onConfigure(config)"
-                  (delete)="onDelete(config)">
+              <mat-grid-tile
+                dnd-droppable
+                *ngFor="let config of widgetConfig"
+                [rowspan]="config.rowSpan"
+                [colspan]="config.colSpan"
+                (onDropSuccess)="onMoveWidget($event, config)"
+              >
+                <app-drag
+                  [dragItem]="config"
+                  [editMode]="dragEditMode"
+                  (resiz)="onResize($event, config)"
+                  (configure)="onConfigure(config)"
+                  (delete)="onDelete(config)"
+                >
                   <ng-container [dcHost]="config.position"></ng-container>
                 </app-drag>
               </mat-grid-tile>
@@ -160,41 +247,45 @@
           </div>
         </div>
 
-        <!-- <mat-grid-list cols="4" gutterSize="10px" rowHeight="200px" style="margin-top: 20px; margin-bottom: 20px;">
-          <mat-grid-tile dnd-droppable *ngFor="let config of widgetConfig" [rowspan]="config.rowSpan" [colspan]="config.colSpan" class="drag-cell"
-            (onDropSuccess)="onMoveWidget($event, config)">
-            <div dnd-draggable [dragEnabled]="true" [dragData]="config" class="full-size" fxLayout="row">
-              <ng-container [dcHost]="config.position"></ng-container>
-            </div>
-          </mat-grid-tile>
-        </mat-grid-list> -->
+        <!--
+          <mat-grid-list cols="4" gutterSize="10px" rowHeight="200px" style="margin-top: 20px; margin-bottom: 20px;">
+            <mat-grid-tile dnd-droppable *ngFor="let config of widgetConfig" [rowspan]="config.rowSpan" [colspan]="config.colSpan" class="drag-cell"
+              (onDropSuccess)="onMoveWidget($event, config)">
+              <div dnd-draggable [dragEnabled]="true" [dragData]="config" class="full-size" fxLayout="row">
+                <ng-container [dcHost]="config.position"></ng-container>
+              </div>
+            </mat-grid-tile>
+          </mat-grid-list>
+        -->
 
-        <!-- <mat-grid-list cols="4" gutterSize="10px" rowHeight="200px" style="margin-top: 20px; margin-bottom: 20px;">
-          <mat-grid-tile class="drag-cell" dragula="DRAGULA_CELL">
-            <div class="drag-item">One</div>
-          </mat-grid-tile>
-          <mat-grid-tile class="drag-cell" rowspan="2" dragula="DRAGULA_CELL">
-            <div class="drag-item">Two</div>
-          </mat-grid-tile>
-          <mat-grid-tile class="drag-cell" dragula="DRAGULA_CELL">
-            <div class="drag-item">Three</div>
-          </mat-grid-tile>
-          <mat-grid-tile class="drag-cell" dragula="DRAGULA_CELL">
-            <div class="drag-item">Four</div>
-          </mat-grid-tile>
-          <mat-grid-tile class="drag-cell" dragula="DRAGULA_CELL">
-            <div class="drag-item">Five</div>
-          </mat-grid-tile>
-          <mat-grid-tile class="drag-cell" dragula="DRAGULA_CELL">
-            <div class="drag-item">Six</div>
-          </mat-grid-tile>
-          <mat-grid-tile class="drag-cell" dragula="DRAGULA_CELL">
-            <div class="drag-item">Seven</div>
-          </mat-grid-tile>
-          <mat-grid-tile class="drag-cell" dragula="DRAGULA_CELL">
-            <div class="drag-item">Eight</div>
-          </mat-grid-tile>
-        </mat-grid-list> -->
+        <!--
+          <mat-grid-list cols="4" gutterSize="10px" rowHeight="200px" style="margin-top: 20px; margin-bottom: 20px;">
+            <mat-grid-tile class="drag-cell" dragula="DRAGULA_CELL">
+              <div class="drag-item">One</div>
+            </mat-grid-tile>
+            <mat-grid-tile class="drag-cell" rowspan="2" dragula="DRAGULA_CELL">
+              <div class="drag-item">Two</div>
+            </mat-grid-tile>
+            <mat-grid-tile class="drag-cell" dragula="DRAGULA_CELL">
+              <div class="drag-item">Three</div>
+            </mat-grid-tile>
+            <mat-grid-tile class="drag-cell" dragula="DRAGULA_CELL">
+              <div class="drag-item">Four</div>
+            </mat-grid-tile>
+            <mat-grid-tile class="drag-cell" dragula="DRAGULA_CELL">
+              <div class="drag-item">Five</div>
+            </mat-grid-tile>
+            <mat-grid-tile class="drag-cell" dragula="DRAGULA_CELL">
+              <div class="drag-item">Six</div>
+            </mat-grid-tile>
+            <mat-grid-tile class="drag-cell" dragula="DRAGULA_CELL">
+              <div class="drag-item">Seven</div>
+            </mat-grid-tile>
+            <mat-grid-tile class="drag-cell" dragula="DRAGULA_CELL">
+              <div class="drag-item">Eight</div>
+            </mat-grid-tile>
+          </mat-grid-list>
+        -->
       </mat-tab>
 
       <!-- material table example -->
@@ -206,32 +297,49 @@
           </div>
           <!-- material table -->
           <div style="height: 400px; overflow: auto;">
-            <mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort matSortActive="DisplayName"
-              matSortDisableClear matSortDirection="asc">
+            <mat-table
+              [dataSource]="dataSource"
+              class="mat-elevation-z8"
+              matSort
+              matSortActive="DisplayName"
+              matSortDisableClear
+              matSortDirection="asc"
+            >
               <!-- column definition -->
               <ng-container matColumnDef="DisplayName">
                 <mat-header-cell *matHeaderCellDef mat-sort-header> Display Name </mat-header-cell>
-                <mat-cell *matCellDef="let element"> {{element.DisplayName}} </mat-cell>
+                <mat-cell *matCellDef="let element"> {{ element.DisplayName }} </mat-cell>
               </ng-container>
               <ng-container matColumnDef="FirstName">
                 <mat-header-cell *matHeaderCellDef mat-sort-header> First Name </mat-header-cell>
-                <mat-cell *matCellDef="let element"> {{element.Attributes['FirstName'].Value}} </mat-cell>
+                <mat-cell *matCellDef="let element">
+                  {{ element.Attributes['FirstName'].Value }}
+                </mat-cell>
               </ng-container>
               <ng-container matColumnDef="LastName">
                 <mat-header-cell *matHeaderCellDef mat-sort-header> Last Name </mat-header-cell>
-                <mat-cell *matCellDef="let element"> {{element.Attributes['LastName'].Value}} </mat-cell>
+                <mat-cell *matCellDef="let element">
+                  {{ element.Attributes['LastName'].Value }}
+                </mat-cell>
               </ng-container>
               <ng-container matColumnDef="AccountName">
                 <mat-header-cell *matHeaderCellDef mat-sort-header> Account Name </mat-header-cell>
-                <mat-cell *matCellDef="let element"> {{element.Attributes['AccountName'].Value}} </mat-cell>
+                <mat-cell *matCellDef="let element">
+                  {{ element.Attributes['AccountName'].Value }}
+                </mat-cell>
               </ng-container>
               <!-- row definition -->
               <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
-              <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+              <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
             </mat-table>
           </div>
           <!-- paginator -->
-          <mat-paginator [length]="resultsLength" [pageSizeOptions]="[10, 20]" [pageSize]="10" showFirstLastButtons></mat-paginator>
+          <mat-paginator
+            [length]="resultsLength"
+            [pageSizeOptions]="[10, 20]"
+            [pageSize]="10"
+            showFirstLastButtons
+          ></mat-paginator>
         </div>
       </mat-tab>
 
@@ -240,11 +348,9 @@
         <ng-template matTabContent>
           <!-- lazy loading -->
           <div class="first-tab-element">
-            <ng-container *ngIf="(asyncTabTask | async) === null">
-              Loading...
-            </ng-container>
+            <ng-container *ngIf="(asyncTabTask | async) === null"> Loading... </ng-container>
             <ul>
-              <li *ngFor="let item of asyncTabTask | async">{{item}}</li>
+              <li *ngFor="let item of (asyncTabTask | async)">{{ item }}</li>
             </ul>
           </div>
           <!-- dynamic content -->
@@ -252,8 +358,11 @@
             <div fxFlex="none" fxLayout="row" style="margin-bottom: 10px;">
               <button fxFlex="none" (click)="onLoadWithService()">Using Service</button>
             </div>
-            <div id="spinnerContainer" fxFlex="1 1 200px" style="background-color: lightyellow; width: 200px;">
-            </div>
+            <div
+              id="spinnerContainer"
+              fxFlex="1 1 200px"
+              style="background-color: lightyellow; width: 200px;"
+            ></div>
             <div fxFlex="none" style="margin-top: 20px; margin-bottom: 10px;">
               <button fxFlex="none" (click)="onLoadWithDirective()">Using Directive</button>
             </div>
@@ -264,7 +373,5 @@
         </ng-template>
       </mat-tab>
     </mat-tab-group>
-
   </div>
-
 </div>
