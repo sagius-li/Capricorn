@@ -19,6 +19,8 @@ import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 import { State } from '@progress/kendo-data-query';
 import { GridDataResult, DataStateChangeEvent } from '@progress/kendo-angular-grid';
 
+import { DragulaService } from 'ng2-dragula';
+
 import { ConfigService } from '../core/services/config.service';
 import { ResourceService } from '../core/services/resource.service';
 import { WidgetService } from '../core/services/widget.service';
@@ -56,6 +58,7 @@ export class TestComponent implements OnInit, AfterViewInit {
   // #region members for async lazy loading
   asyncTabTask: Observable<string[]>;
   testUser: Observable<DSResource>;
+  user: DSResource;
   // #endregion
   // #region members for material table
   displayedColumns = ['DisplayName', 'FirstName', 'LastName', 'AccountName'];
@@ -71,6 +74,7 @@ export class TestComponent implements OnInit, AfterViewInit {
   @ViewChildren(DchostDirective)
   dcHosts: QueryList<DchostDirective>;
   widgetConfig = [];
+  attributeConfig = [];
   dragEditMode = false;
   // #endregion
   // #region members for charts
@@ -231,8 +235,20 @@ export class TestComponent implements OnInit, AfterViewInit {
     private cfr: ComponentFactoryResolver,
     private dcontent: DynamicContentService,
     private widget: WidgetService,
-    private auth: AuthService
-  ) {}
+    private auth: AuthService,
+    private dragula: DragulaService
+  ) {
+    try {
+      this.dragula.createGroup('ATTRIBUTEEXAMPLE', {
+        moves: (el, container, handle) => {
+          return (
+            handle.classList.contains('handle') ||
+            (<Element>handle.parentNode).classList.contains('handle')
+          );
+        }
+      });
+    } catch {}
+  }
 
   ngOnInit() {
     this.userName = this.resource.getLoginUser().DisplayName;
@@ -254,8 +270,50 @@ export class TestComponent implements OnInit, AfterViewInit {
       true
     );
 
+    this.resource
+      .getResourceByID(
+        '7fb2b853-24f0-4498-9534-4e10589723c4',
+        ['DisplayName', 'AccountName'],
+        false,
+        true
+      )
+      .subscribe(result => {
+        this.user = result;
+        setTimeout(() => {
+          this.attributeConfig.forEach(widget => {
+            const componentFactory = this.cfr.resolveComponentFactory(widget.type);
+            const host = this.dcHosts.find(h => h.hostName === widget.name);
+            if (host) {
+              const viewContainerRef = host.viewContainerRef;
+              viewContainerRef.clear();
+              const componentRef = viewContainerRef.createComponent(componentFactory);
+              widget.componentRef = componentRef;
+              (<DcComponent>componentRef.instance).data = {};
+              (<DcComponent>componentRef.instance).data.attribute =
+                result.Attributes[widget.attributeName];
+            }
+          });
+        }, 0);
+      });
+
     // dynamic content
-    const configStr = `
+    const attributeConfigStr = `
+    [
+      {
+        "name": "txtDisplayName",
+        "type": "EditorTextComponent",
+        "attributeName": "DisplayName"
+      },
+      {
+        "name": "txtAccountName",
+        "type": "EditorTextComponent",
+        "attributeName": "AccountName"
+      }
+    ]
+    `;
+    this.attributeConfig = this.widget.getWidgetConfig(attributeConfigStr);
+
+    const widgetConfigStr = `
       [
         {
           "name": "Mock 1",
@@ -369,7 +427,7 @@ export class TestComponent implements OnInit, AfterViewInit {
         }
       ]
     `;
-    this.widgetConfig = this.widget.getWidgetConfig(configStr);
+    this.widgetConfig = this.widget.getWidgetConfig(widgetConfigStr);
 
     this.gridResources = this.resource
       .getResourceByQuery(
@@ -525,7 +583,7 @@ export class TestComponent implements OnInit, AfterViewInit {
     return e.category;
   }
 
-  public dataStateChange(state: DataStateChangeEvent): void {
+  dataStateChange(state: DataStateChangeEvent): void {
     this.gridState = state;
 
     this.gridLoading = true;
@@ -588,5 +646,9 @@ export class TestComponent implements OnInit, AfterViewInit {
           this.gridLoading = false;
         }
       );
+  }
+
+  onTestAttributeConfig() {
+    console.log(this.attributeConfig);
   }
 }

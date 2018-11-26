@@ -68,5 +68,6 @@
   "key_filterable": "可筛选",
   "key_filterType": "筛选类型",
   "key_locked": "固定列",
-  "key_columnWidth": "列宽"
+  "key_columnWidth": "列宽",
+  "key_move": "移动"
 }

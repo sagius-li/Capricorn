@@ -5,6 +5,8 @@ import { ChartComponent } from '../components/chart/chart.component';
 import { StateCardComponent } from '../components/state-card/state-card.component';
 import { ResourceTableComponent } from '../components/resource-table/resource-table.component';
 
+import { EditorTextComponent } from '../components/editor-text/editor-text.component';
+
 /**
  * Service for dynamic component creation
  */
@@ -19,7 +21,9 @@ export class WidgetService {
     MockComponent: MockComponent,
     ChartComponent: ChartComponent,
     StateCardComponent: StateCardComponent,
-    ResourceTableComponent: ResourceTableComponent
+    ResourceTableComponent: ResourceTableComponent,
+
+    EditorTextComponent: EditorTextComponent
   };
 
   /** @ignore */

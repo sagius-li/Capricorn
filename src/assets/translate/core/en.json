@@ -68,5 +68,6 @@
   "key_filterable": "filterable",
   "key_filterType": "filter type",
   "key_locked": "locked",
-  "key_columnWidth": "column width"
+  "key_columnWidth": "column width",
+  "key_move": "move"
 }

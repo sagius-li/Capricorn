@@ -205,7 +205,7 @@
               <app-resource-table [data]="{ query: '/Person', pageSize: 5 }"></app-resource-table>
             </div>
           </div>
-          <div fxFlex="50">
+          <div fxFlex="50" style="padding-left: 20px;">
             <app-editor-text
               [data]="{
                 attribute: (testUser | async)?.Attributes.AccountName,
@@ -213,7 +213,21 @@
                 description: '<b>user\'s</b> account name'
               }"
             ></app-editor-text>
-            <h3>{{ (testUser | async)?.DisplayName }}</h3>
+            <div
+              dragula="ATTRIBUTEEXAMPLE"
+              [(dragulaModel)]="attributeConfig"
+              style="margin-top: 50px;"
+            >
+              <div *ngFor="let config of attributeConfig" style="margin-bottom: 20px;">
+                <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+                  <ng-container [dcHost]="config.name"></ng-container>
+                  <div class="handle" matTooltip="{{'key_move'|translate}}">
+                    <mat-icon color="primary" style="cursor: move;">menu</mat-icon>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button mat-button color="primary" (click)="onTestAttributeConfig()">Test Me</button>
           </div>
         </div>
       </mat-tab>

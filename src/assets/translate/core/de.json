@@ -68,5 +68,6 @@
   "key_filterable": "filterbar",
   "key_filterType": "Filtertyp",
   "key_locked": "fixiert",
-  "key_columnWidth": "Spaltebreite"
+  "key_columnWidth": "Spaltebreite",
+  "key_move": "versetzen"
 }
