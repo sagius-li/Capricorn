@@ -69,5 +69,11 @@
   "key_filterType": "Filtertyp",
   "key_locked": "fixiert",
   "key_columnWidth": "Spaltebreite",
-  "key_move": "versetzen"
+  "key_move": "versetzen",
+  "key_editorTextConfig": "Text-Editor Konfig",
+  "key_instanceName": "Instanzname",
+  "key_showSystemName": "Systemname zeigen",
+  "key_dataBinding": "Datenbindung",
+  "key_displayName": "Anzeigename",
+  "key_description": "Beschreibung"
 }

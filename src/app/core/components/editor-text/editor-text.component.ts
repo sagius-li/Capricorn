@@ -1,8 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
 
+import { MatDialog } from '@angular/material';
+
 import { DcComponent } from '../../models/dccomponent.interface';
 import { DSAttributeConfig } from '../../models/attributeConfig.model';
 import { UtilsService } from '../../services/utils.service';
+import { EditorTextConfigComponent } from './editor-text-config.component';
 
 export class EditorTextConfig extends DSAttributeConfig {
   constructor() {
@@ -24,7 +27,7 @@ export class EditorTextComponent implements OnInit, DcComponent {
   displayName: string;
   description: string;
 
-  constructor(private utils: UtilsService) {}
+  constructor(private utils: UtilsService, private dialog: MatDialog) {}
 
   ngOnInit() {
     this.initComponent();
@@ -38,7 +41,21 @@ export class EditorTextComponent implements OnInit, DcComponent {
 
   resize(size: number[]) {}
 
-  configure() {}
+  configure() {
+    const dialogRef = this.dialog.open(EditorTextConfigComponent, {
+      data: {
+        objectRef: this,
+        objectConfig: this.utils.DeepCopy(this.componentConfig)
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result && result !== 'cancel') {
+        this.data = result;
+        this.initComponent();
+      }
+    });
+  }
 
   updateDataSource() {}
 }

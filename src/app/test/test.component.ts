@@ -288,7 +288,7 @@ export class TestComponent implements OnInit, AfterViewInit {
               viewContainerRef.clear();
               const componentRef = viewContainerRef.createComponent(componentFactory);
               widget.componentRef = componentRef;
-              (<DcComponent>componentRef.instance).data = {};
+              (<DcComponent>componentRef.instance).data = widget.data;
               (<DcComponent>componentRef.instance).data.attribute =
                 result.Attributes[widget.attributeName];
             }
@@ -302,12 +302,18 @@ export class TestComponent implements OnInit, AfterViewInit {
       {
         "name": "txtDisplayName",
         "type": "EditorTextComponent",
-        "attributeName": "DisplayName"
+        "attributeName": "DisplayName",
+        "data": {
+          "instanceName": "txtDisplayName"
+        }
       },
       {
         "name": "txtAccountName",
         "type": "EditorTextComponent",
-        "attributeName": "AccountName"
+        "attributeName": "AccountName",
+        "data": {
+          "instanceName": "txtAccountName"
+        }
       }
     ]
     `;
@@ -646,6 +652,11 @@ export class TestComponent implements OnInit, AfterViewInit {
           this.gridLoading = false;
         }
       );
+  }
+
+  onDeleteAttribute(config) {
+    const index = this.attributeConfig.findIndex(a => a.name === config.name);
+    this.attributeConfig.splice(index, 1);
   }
 
   onTestAttributeConfig() {

@@ -169,7 +169,7 @@ export class UtilsService {
   public CopyInto(source: any, target: any) {
     if (source && target) {
       Object.keys(source).forEach(key => {
-        if (source[key]) {
+        if (source[key] != null) {
           target[key] = source[key];
         }
       });

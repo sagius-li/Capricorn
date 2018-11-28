@@ -7,17 +7,16 @@
       "
       [value]="data.attribute.Value"
       [readonly]="!componentConfig.editMode"
+      [matTooltip]="componentConfig.showSystemName ? data.attribute.SystemName : undefined"
     />
     <mat-hint
       [innerHTML]="
-        componentConfig.description ? componentConfig.description : data.attribute.Description
+        (componentConfig.description ? componentConfig.description : data.attribute.Description)
+          | safeHtml
       "
     ></mat-hint>
   </mat-form-field>
-  <div fxFlex="0 0 auto" class="mouse-pointer" matTooltip="{{'key_delete'|translate}}">
-    <mat-icon color="warn">delete</mat-icon>
-  </div>
   <div fxFlex="0 0 auto" class="mouse-pointer" matTooltip="{{'key_configure'|translate}}">
-    <mat-icon color="primary">settings</mat-icon>
+    <mat-icon color="primary" (click)="configure()">settings</mat-icon>
   </div>
 </div>

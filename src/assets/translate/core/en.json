@@ -69,5 +69,11 @@
   "key_filterType": "filter type",
   "key_locked": "locked",
   "key_columnWidth": "column width",
-  "key_move": "move"
+  "key_move": "move",
+  "key_editorTextConfig": "text editor config",
+  "key_instanceName": "instance name",
+  "key_showSystemName": "show system name",
+  "key_dataBinding": "data-binding",
+  "key_displayName": "display name",
+  "key_description": "description"
 }

@@ -220,9 +220,14 @@
             >
               <div *ngFor="let config of attributeConfig" style="margin-bottom: 20px;">
                 <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
-                  <ng-container [dcHost]="config.name"></ng-container>
+                  <div fxFlex="auto"><ng-container [dcHost]="config.name"></ng-container></div>
                   <div class="handle" matTooltip="{{'key_move'|translate}}">
                     <mat-icon color="primary" style="cursor: move;">menu</mat-icon>
+                  </div>
+                  <div matTooltip="{{'key_delete'|translate}}">
+                    <mat-icon class="mouse-pointer" color="warn" (click)="onDeleteAttribute(config)"
+                      >delete</mat-icon
+                    >
                   </div>
                 </div>
               </div>

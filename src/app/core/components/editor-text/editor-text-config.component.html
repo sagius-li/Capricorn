@@ -1,0 +1,62 @@
+<h3 mat-dialog-title>{{ 'key_editorTextConfig' | translate }}</h3>
+<div mat-dialog-content fxLayout="column" style="height: 300px; width: 500px;">
+  <div fxFlex="none" fxLayout="row" fxLayoutGap="20px">
+    <mat-form-field fxFlex="50">
+      <input
+        matInput
+        [placeholder]="'key_instanceName' | translate"
+        [(ngModel)]="data.objectConfig.instanceName"
+        readonly="true"
+      />
+    </mat-form-field>
+    <div fxFlex="50" style="padding-top: 20px;">
+      <mat-slide-toggle [(ngModel)]="data.objectConfig.showSystemName">{{
+        'key_showSystemName' | translate
+      }}</mat-slide-toggle>
+    </div>
+  </div>
+  <div fxFlex="none" fxLayout="row" fxLayoutGap="20px">
+    <div fxFlex="30" style="padding-top: 20px;">
+      <mat-slide-toggle [(ngModel)]="bindToDisplayName" (change)="onAttributeBinding()">{{
+        'key_dataBinding' | translate
+      }}</mat-slide-toggle>
+    </div>
+    <mat-form-field fxFlex="70">
+      <input
+        matInput
+        [placeholder]="'key_displayName' | translate"
+        [(ngModel)]="data.objectConfig.displayName"
+        [disabled]="bindToDisplayName"
+      />
+    </mat-form-field>
+  </div>
+  <div fxFlex="none" fxLayout="row" fxLayoutGap="20px">
+    <div fxFlex="30" style="padding-top: 20px;">
+      <mat-slide-toggle [(ngModel)]="bindToDescription" (change)="onAttributeBinding()">{{
+        'key_dataBinding' | translate
+      }}</mat-slide-toggle>
+    </div>
+    <mat-form-field fxFlex="70">
+      <input
+        matInput
+        [placeholder]="'key_description' | translate"
+        [(ngModel)]="data.objectConfig.description"
+        [disabled]="bindToDescription"
+      />
+    </mat-form-field>
+  </div>
+</div>
+<div
+  mat-dialog-actions
+  fxLayout="row"
+  fxLayoutAlign="start center"
+  fxLayoutGap="20px"
+  style="margin-top: 20px;"
+>
+  <button fxFlex="none" mat-button [mat-dialog-close]="data.objectConfig" style="width: 180px;">
+    {{ 'key_submit' | translate }}
+  </button>
+  <button fxFlex="none" mat-button mat-dialog-close="cancel" style="width: 180px;">
+    {{ 'key_cancel' | translate }}
+  </button>
+</div>

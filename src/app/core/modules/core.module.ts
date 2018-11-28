@@ -39,6 +39,8 @@ import { StartupService } from '../services/startup.service';
 import { WidgetService } from '../services/widget.service';
 import { SwapService } from '../services/swap.service';
 
+import { SafeHtmlPipe } from '../pipes/safe-html.pipe';
+
 import { DchostDirective } from '../directives/dchost.directive';
 
 import { DragComponent } from '../components/drag/drag.component';
@@ -54,6 +56,7 @@ import { ResourceTableConfigComponent } from '../components/resource-table/resou
 import { SigninComponent } from '../components/signin/signin.component';
 
 import { EditorTextComponent } from '../components/editor-text/editor-text.component';
+import { EditorTextConfigComponent } from '../components/editor-text/editor-text-config.component';
 
 /** @ignore */
 export function startup(startupService: StartupService) {
@@ -106,7 +109,10 @@ export function startup(startupService: StartupService) {
     ResourceTableComponent,
     ResourceTableConfigComponent,
 
-    EditorTextComponent
+    SafeHtmlPipe,
+
+    EditorTextComponent,
+    EditorTextConfigComponent
   ],
   entryComponents: [
     MockComponent,
@@ -118,7 +124,8 @@ export function startup(startupService: StartupService) {
     ResourceTableComponent,
     ResourceTableConfigComponent,
 
-    EditorTextComponent
+    EditorTextComponent,
+    EditorTextConfigComponent
   ],
   providers: [
     AuthService,
@@ -157,6 +164,8 @@ export function startup(startupService: StartupService) {
     ExcelModule,
 
     DchostDirective,
+
+    SafeHtmlPipe,
 
     DragComponent,
     EditbarComponent,
