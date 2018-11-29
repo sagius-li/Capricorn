@@ -7,6 +7,7 @@ import { DSAttributeConfig } from '../../models/attributeConfig.model';
 import { UtilsService } from '../../services/utils.service';
 import { EditorTextConfigComponent } from './editor-text-config.component';
 import { SwapService } from '../../services/swap.service';
+import { DSAttribute } from '../../models/resource.model';
 
 export class EditorTextConfig extends DSAttributeConfig {
   constructor() {
@@ -87,12 +88,12 @@ export class EditorTextComponent implements OnInit, DcComponent {
         });
         expression = expression.substring(1, expression.length - 1);
         // tslint:disable-next-line:no-eval
-        this.componentConfig.attribute.Value = eval(expression);
+        this.utils.SetAttributeValue(this.componentConfig.attribute, eval(expression));
       } else {
         Object.keys(dic).forEach(key => {
           expression = expression.replace(new RegExp(key, 'g'), dic[key]);
         });
-        this.componentConfig.attribute.Value = expression;
+        this.utils.SetAttributeValue(this.componentConfig.attribute, expression);
       }
     }
   }

@@ -1,5 +1,5 @@
 <h3 mat-dialog-title>{{ 'key_editorTextConfig' | translate }}</h3>
-<div mat-dialog-content fxLayout="column" style="height: 360px; width: 600px;">
+<div mat-dialog-content fxLayout="column" style="height: 360px; width: 640px;">
   <div fxFlex="none" fxLayout="row" fxLayoutGap="20px">
     <mat-form-field fxFlex="70">
       <input
@@ -17,12 +17,16 @@
   </div>
   <div fxFlex="none" fxLayout="row" fxLayoutGap="20px">
     <mat-form-field fxFlex="70">
-      <input
+      <textarea
         matInput
+        cdkTextareaAutosize
+        #autosize="cdkTextareaAutosize"
+        cdkAutosizeMinRows="1"
+        cdkAutosizeMaxRows="5"
         [placeholder]="'key_expression' | translate"
         [(ngModel)]="data.objectConfig.expression"
         [disabled]="!useExpression"
-      />
+      ></textarea>
     </mat-form-field>
     <div fxFlex="30" style="padding-top: 20px;">
       <mat-slide-toggle [(ngModel)]="useExpression" (change)="onAttributeBinding()">{{

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { ConfigService } from './config.service';
+import { DSAttribute } from '../models/resource.model';
 
 import * as cryptojs from 'crypto-js';
 import * as moment from 'moment';
@@ -174,5 +175,30 @@ export class UtilsService {
         }
       });
     }
+  }
+
+  /**
+   * Set value to an attribute of type DSAttribute
+   * @param attribute the attribute of type DSAttribute
+   * @param value the value to be set, can be multivalued
+   */
+  public SetAttributeValue(attribute: DSAttribute, value: any) {
+    if (Array.isArray(value)) {
+      attribute.Value = value[0];
+      attribute.Values = value;
+    } else {
+      attribute.Value = value;
+      attribute.Values[0] = value;
+    }
+  }
+
+  /**
+   * Copy the value of the source attribute to the target attribute
+   * @param source source attribute to be copied from
+   * @param target target attribute to be copied to
+   */
+  public CopyAttributeValue(source: DSAttribute, target: DSAttribute) {
+    target.Value = source.Value;
+    target.Values = source.Values;
   }
 }

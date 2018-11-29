@@ -77,5 +77,6 @@
   "key_displayName": "Anzeigename",
   "key_description": "Beschreibung",
   "key_expression": "Expression",
-  "key_readonly": "Schreibgeschützt"
+  "key_readonly": "Schreibgeschützt",
+  "key_useExpression": "Expression benutzen"
 }

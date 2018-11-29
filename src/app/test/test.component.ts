@@ -36,6 +36,7 @@ import { LoadingspinnerComponent } from './loadingspinner/loadingspinner.compone
 import { SeriesConfig, ChartConfig, Position } from '../core/models/chart.model';
 import { AuthService } from '../core/services/auth.service';
 import { SwapService } from '../core/services/swap.service';
+import { UtilsService } from '../core/services/utils.service';
 
 @Component({
   selector: 'app-test',
@@ -238,7 +239,8 @@ export class TestComponent implements OnInit, AfterViewInit {
     private widget: WidgetService,
     private auth: AuthService,
     private dragula: DragulaService,
-    private swap: SwapService
+    private swap: SwapService,
+    private utils: UtilsService
   ) {
     try {
       this.dragula.createGroup('ATTRIBUTEEXAMPLE', {
@@ -685,20 +687,26 @@ export class TestComponent implements OnInit, AfterViewInit {
   }
 
   onEditorConfig(config) {
+    const con = config;
     const com = config.componentRef.instance;
     const dialogRef: MatDialogRef<any> = com.configure();
     dialogRef.afterClosed().subscribe(result => {
       if (result && result !== 'cancel') {
         com.data = result;
         com.initComponent();
-
-        const instanceNames = this.attributeConfig.map(a => a.name);
-        if (instanceNames.some(n => result.expression.indexOf(n) >= 0)) {
-          const dic: { [id: string]: string } = {};
-          this.attributeConfig.forEach(element => {
-            dic[element.name] = element.componentRef.instance.getValue();
-          });
-          com.evaluateValue(dic);
+        if (result.expression) {
+          const instanceNames = this.attributeConfig.map(a => a.name);
+          if (instanceNames.some(n => result.expression.indexOf(n) >= 0)) {
+            const dic: { [id: string]: string } = {};
+            this.attributeConfig.forEach(element => {
+              dic[element.name] = element.componentRef.instance.getValue();
+            });
+            com.evaluateValue(dic);
+          }
+        } else {
+          this.utils.CopyAttributeValue(con.data.attribute, result.attribute);
+          com.data = result;
+          com.initComponent();
         }
       }
     });
