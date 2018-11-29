@@ -1,5 +1,5 @@
 <h3 mat-dialog-title>{{ 'key_editorTextConfig' | translate }}</h3>
-<div mat-dialog-content fxLayout="column" style="height: 300px; width: 600px;">
+<div mat-dialog-content fxLayout="column" style="height: 360px; width: 600px;">
   <div fxFlex="none" fxLayout="row" fxLayoutGap="20px">
     <mat-form-field fxFlex="70">
       <input
@@ -20,13 +20,13 @@
       <input
         matInput
         [placeholder]="'key_expression' | translate"
-        [(ngModel)]="data.objectConfig.value"
-        [disabled]="bindToValue"
+        [(ngModel)]="data.objectConfig.expression"
+        [disabled]="!useExpression"
       />
     </mat-form-field>
     <div fxFlex="30" style="padding-top: 20px;">
-      <mat-slide-toggle [(ngModel)]="bindToValue" (change)="onAttributeBinding()">{{
-        'key_dataBinding' | translate
+      <mat-slide-toggle [(ngModel)]="useExpression" (change)="onAttributeBinding()">{{
+        'key_useExpression' | translate
       }}</mat-slide-toggle>
     </div>
   </div>
@@ -57,6 +57,13 @@
     <div fxFlex="30" style="padding-top: 20px;">
       <mat-slide-toggle [(ngModel)]="bindToDescription" (change)="onAttributeBinding()">{{
         'key_dataBinding' | translate
+      }}</mat-slide-toggle>
+    </div>
+  </div>
+  <div fxFlex="none" fxLayout="row" fxLayoutGap="20px">
+    <div fxFlex style="padding-top: 20px;">
+      <mat-slide-toggle [(ngModel)]="data.objectConfig.readonly">{{
+        'key_readonly' | translate
       }}</mat-slide-toggle>
     </div>
   </div>

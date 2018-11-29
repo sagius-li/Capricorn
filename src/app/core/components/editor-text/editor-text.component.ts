@@ -68,17 +68,20 @@ export class EditorTextComponent implements OnInit, DcComponent {
   }
 
   getExpression() {
-    return this.componentConfig.value ? this.componentConfig.value : '';
+    return this.componentConfig.expression ? this.componentConfig.expression : '';
   }
 
   setExpression(expression: string) {
-    this.componentConfig.value = expression;
+    this.componentConfig.expression = expression;
   }
 
   evaluateValue(dic: { [id: string]: string }) {
-    if (this.componentConfig.value) {
-      let expression = this.componentConfig.value;
-      if (this.componentConfig.value.startsWith('<') && this.componentConfig.value.endsWith('>')) {
+    if (this.componentConfig.expression) {
+      let expression = this.componentConfig.expression;
+      if (
+        this.componentConfig.expression.startsWith('<') &&
+        this.componentConfig.expression.endsWith('>')
+      ) {
         Object.keys(dic).forEach(key => {
           expression = expression.replace(new RegExp(key, 'g'), `"${dic[key]}"`);
         });

@@ -6,7 +6,7 @@
         componentConfig.displayName ? componentConfig.displayName : data.attribute.DisplayName
       "
       [(ngModel)]="data.attribute.Value"
-      [readonly]="!componentConfig.editMode"
+      [readonly]="!componentConfig.editMode || componentConfig.readonly"
       [matTooltip]="componentConfig.showSystemName ? data.attribute.SystemName : undefined"
       (change)="onValueChange()"
     />

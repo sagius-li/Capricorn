@@ -693,7 +693,7 @@ export class TestComponent implements OnInit, AfterViewInit {
         com.initComponent();
 
         const instanceNames = this.attributeConfig.map(a => a.name);
-        if (instanceNames.some(n => result.value.indexOf(n) >= 0)) {
+        if (instanceNames.some(n => result.expression.indexOf(n) >= 0)) {
           const dic: { [id: string]: string } = {};
           this.attributeConfig.forEach(element => {
             dic[element.name] = element.componentRef.instance.getValue();

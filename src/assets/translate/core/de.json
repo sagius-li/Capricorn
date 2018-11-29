@@ -76,5 +76,6 @@
   "key_dataBinding": "Datenbindung",
   "key_displayName": "Anzeigename",
   "key_description": "Beschreibung",
-  "key_expression": "Expression"
+  "key_expression": "Expression",
+  "key_readonly": "Schreibgeschützt"
 }
