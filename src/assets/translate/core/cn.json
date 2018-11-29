@@ -75,5 +75,6 @@
   "key_showSystemName": "显示系统名称",
   "key_dataBinding": "数据绑定",
   "key_displayName": "显示名称",
-  "key_description": "描述文字"
+  "key_description": "描述文字",
+  "key_expression": "表达式"
 }

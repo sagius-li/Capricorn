@@ -14,7 +14,7 @@ import { merge, switchMap, startWith, map, catchError, delay, tap } from 'rxjs/o
 import * as moment from 'moment';
 import { TranslateService } from '@ngx-translate/core';
 
-import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
+import { MatTableDataSource, MatPaginator, MatSort, MatDialogRef } from '@angular/material';
 
 import { State } from '@progress/kendo-data-query';
 import { GridDataResult, DataStateChangeEvent } from '@progress/kendo-angular-grid';
@@ -35,6 +35,7 @@ import { LoadingspinnerComponent } from './loadingspinner/loadingspinner.compone
 
 import { SeriesConfig, ChartConfig, Position } from '../core/models/chart.model';
 import { AuthService } from '../core/services/auth.service';
+import { SwapService } from '../core/services/swap.service';
 
 @Component({
   selector: 'app-test',
@@ -236,7 +237,8 @@ export class TestComponent implements OnInit, AfterViewInit {
     private dcontent: DynamicContentService,
     private widget: WidgetService,
     private auth: AuthService,
-    private dragula: DragulaService
+    private dragula: DragulaService,
+    private swap: SwapService
   ) {
     try {
       this.dragula.createGroup('ATTRIBUTEEXAMPLE', {
@@ -273,7 +275,7 @@ export class TestComponent implements OnInit, AfterViewInit {
     this.resource
       .getResourceByID(
         '7fb2b853-24f0-4498-9534-4e10589723c4',
-        ['DisplayName', 'AccountName'],
+        ['DisplayName', 'FirstName', 'LastName'],
         false,
         true
       )
@@ -288,9 +290,9 @@ export class TestComponent implements OnInit, AfterViewInit {
               viewContainerRef.clear();
               const componentRef = viewContainerRef.createComponent(componentFactory);
               widget.componentRef = componentRef;
-              (<DcComponent>componentRef.instance).data = widget.data;
-              (<DcComponent>componentRef.instance).data.attribute =
-                result.Attributes[widget.attributeName];
+              const com: any = componentRef.instance;
+              com.data = widget.data;
+              com.data.attribute = result.Attributes[widget.attributeName];
             }
           });
         }, 0);
@@ -308,11 +310,19 @@ export class TestComponent implements OnInit, AfterViewInit {
         }
       },
       {
-        "name": "txtAccountName",
+        "name": "txtFirstName",
         "type": "EditorTextComponent",
-        "attributeName": "AccountName",
+        "attributeName": "FirstName",
         "data": {
-          "instanceName": "txtAccountName"
+          "instanceName": "txtFirstName"
+        }
+      },
+      {
+        "name": "txtLastName",
+        "type": "EditorTextComponent",
+        "attributeName": "LastName",
+        "data": {
+          "instanceName": "txtLastName"
         }
       }
     ]
@@ -444,6 +454,21 @@ export class TestComponent implements OnInit, AfterViewInit {
         this.gridState.skip
       )
       .pipe(map(ro => <GridDataResult>{ data: ro.Resources, total: ro.TotalCount }));
+
+    this.swap.editorValueChanged.subscribe((config: any) => {
+      const dic: { [id: string]: string } = {};
+      this.attributeConfig.forEach(element => {
+        dic[element.name] = element.componentRef.instance.getValue();
+      });
+      this.attributeConfig.forEach(element => {
+        if (element.componentRef.instance.getExpression().includes(config.instanceName)) {
+          element.componentRef.instance.evaluateValue(dic);
+        }
+      });
+
+      // const comp = this.attributeConfig.find(a => a.name === 'txtDisplayName');
+      // comp.componentRef.instance.setValue('success!!');
+    });
   }
 
   ngAfterViewInit() {
@@ -657,6 +682,26 @@ export class TestComponent implements OnInit, AfterViewInit {
   onDeleteAttribute(config) {
     const index = this.attributeConfig.findIndex(a => a.name === config.name);
     this.attributeConfig.splice(index, 1);
+  }
+
+  onEditorConfig(config) {
+    const com = config.componentRef.instance;
+    const dialogRef: MatDialogRef<any> = com.configure();
+    dialogRef.afterClosed().subscribe(result => {
+      if (result && result !== 'cancel') {
+        com.data = result;
+        com.initComponent();
+
+        const instanceNames = this.attributeConfig.map(a => a.name);
+        if (instanceNames.some(n => result.value.indexOf(n) >= 0)) {
+          const dic: { [id: string]: string } = {};
+          this.attributeConfig.forEach(element => {
+            dic[element.name] = element.componentRef.instance.getValue();
+          });
+          com.evaluateValue(dic);
+        }
+      }
+    });
   }
 
   onTestAttributeConfig() {

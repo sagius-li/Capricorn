@@ -11,6 +11,10 @@ export class SwapService {
   @Output()
   windowResize: EventEmitter<string> = new EventEmitter();
 
+  /** Event emitter for editor value changed */
+  @Output()
+  editorValueChanged: EventEmitter<any> = new EventEmitter();
+
   /** @ignore */
   constructor() {}
 
@@ -20,6 +24,11 @@ export class SwapService {
    */
   resizeWindow(size: string) {
     this.windowResize.emit(size);
+  }
+
+  /** Emit the event for editor value changed */
+  changeEditorValue(config: any) {
+    this.editorValueChanged.emit(config);
   }
 
   /**

@@ -5,9 +5,10 @@
       [placeholder]="
         componentConfig.displayName ? componentConfig.displayName : data.attribute.DisplayName
       "
-      [value]="data.attribute.Value"
+      [(ngModel)]="data.attribute.Value"
       [readonly]="!componentConfig.editMode"
       [matTooltip]="componentConfig.showSystemName ? data.attribute.SystemName : undefined"
+      (change)="onValueChange()"
     />
     <mat-hint
       [innerHTML]="
@@ -16,7 +17,4 @@
       "
     ></mat-hint>
   </mat-form-field>
-  <div fxFlex="0 0 auto" class="mouse-pointer" matTooltip="{{'key_configure'|translate}}">
-    <mat-icon color="primary" (click)="configure()">settings</mat-icon>
-  </div>
 </div>

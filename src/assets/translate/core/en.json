@@ -75,5 +75,6 @@
   "key_showSystemName": "show system name",
   "key_dataBinding": "data-binding",
   "key_displayName": "display name",
-  "key_description": "description"
+  "key_description": "description",
+  "key_expression": "expression"
 }

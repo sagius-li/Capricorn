@@ -6,7 +6,8 @@ export class DSAttributeConfig {
   attribute: DSAttribute;
   displayName: string;
   description: string;
+  value: string;
   showSystemName = true;
-  editMode = false;
+  editMode = true;
   readonly = false;
 }

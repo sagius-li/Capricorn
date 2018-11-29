@@ -221,6 +221,11 @@
               <div *ngFor="let config of attributeConfig" style="margin-bottom: 20px;">
                 <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
                   <div fxFlex="auto"><ng-container [dcHost]="config.name"></ng-container></div>
+                  <div matTooltip="{{'key_configure'|translate}}">
+                    <mat-icon class="mouse-pointer" color="primary" (click)="onEditorConfig(config)"
+                      >settings</mat-icon
+                    >
+                  </div>
                   <div class="handle" matTooltip="{{'key_move'|translate}}">
                     <mat-icon color="primary" style="cursor: move;">menu</mat-icon>
                   </div>

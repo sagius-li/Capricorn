@@ -12,6 +12,7 @@ import { EditorTextConfig } from './editor-text.component';
 export class EditorTextConfigComponent implements OnInit {
   bindToDisplayName: boolean;
   bindToDescription: boolean;
+  bindToValue: boolean;
 
   constructor(
     public dialogRef: MatDialogRef<EditorTextConfigComponent>,
@@ -25,6 +26,7 @@ export class EditorTextConfigComponent implements OnInit {
   ngOnInit() {
     this.bindToDisplayName = this.data.objectConfig.displayName ? false : true;
     this.bindToDescription = this.data.objectConfig.description ? false : true;
+    this.bindToValue = this.data.objectConfig.value ? false : true;
   }
 
   onAttributeBinding() {
@@ -33,6 +35,9 @@ export class EditorTextConfigComponent implements OnInit {
     }
     if (this.bindToDescription) {
       this.data.objectConfig.description = '';
+    }
+    if (this.bindToValue) {
+      this.data.objectConfig.value = '';
     }
   }
 }
