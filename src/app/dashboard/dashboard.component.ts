@@ -34,120 +34,96 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     // #region mock data
-    const configStr = `
+    const widgetConfigStr = `
       [
         {
           "name": "Mock 1",
-          "type": "MockComponent",
+          "type": "ChartComponent",
           "description": "Mock 1",
           "position": "cell1",
-          "rowSpan": 1,
           "colSpan": 1,
+          "rowSpan": 1,
           "data": {
-            "content": "Mock 1",
-            "bgColor": "lightyellow"
+            "seriesConfig": [
+              {
+                "name": "request",
+                "categoryField": "category",
+                "valueField": "value",
+                "queryConfig": [
+                  {
+                    "name": "completed",
+                    "method": "resource/win/get/count",
+                    "query": "/Request[RequestStatus='completed']"
+                  },
+                  {
+                    "name": "pending",
+                    "method": "resource/win/get/count",
+                    "query": "/Request[RequestStatus='pending']"
+                  },
+                  {
+                    "name": "failed",
+                    "method": "resource/win/get/count",
+                    "query": "/Request[RequestStatus!='completed' and RequestStatus!='pending']"
+                  }
+                ]
+              }
+            ]
           }
         },
         {
           "name": "Mock 2",
-          "type": "MockComponent",
+          "type": "StateCardComponent",
           "description": "Mock 2",
           "position": "cell2",
-          "rowSpan": 2,
-          "colSpan": 1,
+          "colSpan": 2,
+          "rowSpan": 1,
           "data": {
-            "content": "Mock 2",
-            "bgColor": "lightblue"
+            "iconText": "person",
+            "title": "managed users",
+            "mainText": "{0}",
+            "query": "/Person[Manager=/Person[DisplayName='mimadmin']]"
           }
         },
         {
           "name": "Mock 3",
-          "type": "MockComponent",
+          "type": "ResourceTableComponent",
           "description": "Mock 3",
           "position": "cell3",
-          "rowSpan": 1,
-          "colSpan": 1,
+          "colSpan": 3,
+          "rowSpan": 2,
           "data": {
-            "content": "Mock 3",
-            "bgColor": "lightyellow"
-          }
-        },
-        {
-          "name": "Mock 4",
-          "type": "MockComponent",
-          "description": "Mock 4",
-          "position": "cell4",
-          "rowSpan": 1,
-          "colSpan": 1,
-          "data": {
-            "content": "Mock 4",
-            "bgColor": "lightyellow"
-          }
-        },
-        {
-          "name": "Mock 5",
-          "type": "MockComponent",
-          "description": "Mock 5",
-          "position": "cell5",
-          "rowSpan": 1,
-          "colSpan": 1,
-          "data": {
-            "content": "Mock 5",
-            "bgColor": "lightyellow"
-          }
-        },
-        {
-          "name": "Mock 6",
-          "type": "MockComponent",
-          "description": "Mock 6",
-          "position": "cell6",
-          "rowSpan": 1,
-          "colSpan": 1,
-          "data": {
-            "content": "Mock 6",
-            "bgColor": "lightgreen"
-          }
-        },
-        {
-          "name": "Mock 7",
-          "type": "MockComponent",
-          "description": "Mock 7",
-          "position": "cell7",
-          "rowSpan": 1,
-          "colSpan": 1,
-          "data": {
-            "content": "Mock 7",
-            "bgColor": "lightyellow"
-          }
-        },
-        {
-          "name": "Mock 8",
-          "type": "MockComponent",
-          "description": "Mock 8",
-          "position": "cell8",
-          "rowSpan": 1,
-          "colSpan": 1,
-          "data": {
-            "content": "Mock 8",
-            "bgColor": "lightyellow"
-          }
-        },
-        {
-          "name": "Mock 9",
-          "type": "MockComponent",
-          "description": "Mock 9",
-          "position": "cell9",
-          "rowSpan": 1,
-          "colSpan": 1,
-          "data": {
-            "content": "Mock 9",
-            "bgColor": "lightyellow"
+            "title": "All Users",
+            "query": "/Person",
+            "pageSize": 5,
+            "exportToPDF": true,
+            "exportToExcel": true,
+            "exportAllPages": true,
+            "columns": [
+              {
+                "field": "DisplayName",
+                "title": "Display Name",
+                "width": 100,
+                "filterable": false,
+                "filter": "text",
+                "sortable": true,
+                "locked": false
+              },
+              {
+                "field": "AccountName",
+                "title": "Account Name",
+                "width": 100,
+                "filterable": false,
+                "filter": "text",
+                "sortable": true,
+                "locked": false
+              }
+            ]
           }
         }
       ]
     `;
     // #endregion
-    this.widgetConfig = this.widgetService.getWidgetConfig(configStr);
+    this.widgetConfig = this.widgetService.getWidgetConfig(widgetConfigStr);
 
     this.swap.windowResize.subscribe((size: string) => {
       switch (size) {
@@ -179,9 +155,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
         if (host) {
           const viewContainerRef = host.viewContainerRef;
           viewContainerRef.clear();
-          const componentRef = viewContainerRef.createComponent(
-            componentFactory
-          );
+          const componentRef = viewContainerRef.createComponent(componentFactory);
+          widget.componentRef = componentRef;
           (<DcComponent>componentRef.instance).data = widget.data;
         }
       });
@@ -192,36 +167,36 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     const sourceConfig = $event.dragData;
     const targetConfig = target;
 
-    const sourceIndex = this.widgetConfig.findIndex(
-      w => w.position === sourceConfig.position
-    );
-    const targetIndex = this.widgetConfig.findIndex(
-      w => w.position === targetConfig.position
-    );
+    const sourceIndex = this.widgetConfig.findIndex(w => w.position === sourceConfig.position);
+    const targetIndex = this.widgetConfig.findIndex(w => w.position === targetConfig.position);
 
     this.widgetConfig[sourceIndex] = targetConfig;
     this.widgetConfig[targetIndex] = sourceConfig;
   }
 
-  onResized($event, config) {
+  onResize($event, config) {
     config.colSpan = $event[0];
     config.rowSpan = $event[1];
+
+    (<DcComponent>config.componentRef.instance).resize($event);
   }
 
-  onDelete(config) {
-    const index = this.widgetConfig.findIndex(
-      w => w.position === config.position
-    );
+  onDragbarConfigure(config) {
+    (<DcComponent>config.componentRef.instance).configure();
+  }
+
+  onDragbarDelete(config) {
+    const index = this.widgetConfig.findIndex(w => w.position === config.position);
     if (index > -1) {
       this.widgetConfig.splice(index, 1);
     }
   }
 
-  onEdit() {
+  onEditbarEdit() {
     this.editMode = true;
   }
 
-  onCancel() {
+  onEditbarCancel() {
     this.editMode = false;
   }
 }
