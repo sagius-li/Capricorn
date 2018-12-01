@@ -1,0 +1,14 @@
+:host {
+  width: 100%;
+  height: 100%;
+}
+
+:host /deep/ .search-input kendo-autocomplete.k-autocomplete {
+  border: lightgray solid 1px;
+  font-size: 20px;
+  background-color: white;
+}
+
+:host /deep/ .search-input kendo-autocomplete.k-autocomplete input {
+  text-indent: 40px;
+}

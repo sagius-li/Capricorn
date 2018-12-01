@@ -32,6 +32,7 @@ import { ChartsModule } from '@progress/kendo-angular-charts';
 import { DialogsModule } from '@progress/kendo-angular-dialog';
 import { GridModule, PDFModule, ExcelModule } from '@progress/kendo-angular-grid';
 import { PopupModule } from '@progress/kendo-angular-popup';
+import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
 
 import { AuthService } from '../services/auth.service';
 import { ConfigService } from '../services/config.service';
@@ -55,6 +56,7 @@ import { StateCardConfigComponent } from '../components/state-card/state-card-co
 import { ResourceTableComponent } from '../components/resource-table/resource-table.component';
 import { ResourceTableConfigComponent } from '../components/resource-table/resource-table-config.component';
 import { SigninComponent } from '../components/signin/signin.component';
+import { SearchComponent } from '../components/search/search.component';
 
 import { EditorTextComponent } from '../components/editor-text/editor-text.component';
 import { EditorTextConfigComponent } from '../components/editor-text/editor-text-config.component';
@@ -95,7 +97,8 @@ export function startup(startupService: StartupService) {
     GridModule,
     PDFModule,
     ExcelModule,
-    PopupModule
+    PopupModule,
+    DropDownsModule
   ],
   declarations: [
     DchostDirective,
@@ -110,6 +113,7 @@ export function startup(startupService: StartupService) {
     StateCardConfigComponent,
     ResourceTableComponent,
     ResourceTableConfigComponent,
+    SearchComponent,
 
     SafeHtmlPipe,
 
@@ -176,6 +180,7 @@ export function startup(startupService: StartupService) {
     ChartComponent,
     StateCardComponent,
     ResourceTableComponent,
+    SearchComponent,
 
     EditorTextComponent
   ]
