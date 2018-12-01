@@ -31,6 +31,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { ChartsModule } from '@progress/kendo-angular-charts';
 import { DialogsModule } from '@progress/kendo-angular-dialog';
 import { GridModule, PDFModule, ExcelModule } from '@progress/kendo-angular-grid';
+import { PopupModule } from '@progress/kendo-angular-popup';
 
 import { AuthService } from '../services/auth.service';
 import { ConfigService } from '../services/config.service';
@@ -93,7 +94,8 @@ export function startup(startupService: StartupService) {
     DialogsModule,
     GridModule,
     PDFModule,
-    ExcelModule
+    ExcelModule,
+    PopupModule
   ],
   declarations: [
     DchostDirective,

@@ -18,7 +18,7 @@ export class DragComponent implements OnInit {
 
   /** Event emitter for window resized */
   @Output()
-  resiz = new EventEmitter<number[]>();
+  resize = new EventEmitter<number[]>();
   /** Event emitter for configure */
   @Output()
   configure = new EventEmitter();
@@ -37,7 +37,7 @@ export class DragComponent implements OnInit {
    * @param size Size[colSpan, rowSpan]
    */
   onResize(size: number[]) {
-    this.resiz.emit(size);
+    this.resize.emit(size);
   }
 
   /**

@@ -1,50 +1,157 @@
-<div *ngIf="editMode" class="drag-layer" fxLayout="row" dnd-draggable [dragEnabled]="true" [dragData]="dragItem">
+<div
+  *ngIf="editMode"
+  class="drag-layer"
+  fxLayout="row"
+  dnd-draggable
+  [dragEnabled]="true"
+  [dragData]="dragItem"
+>
   <div fxFlex="1 1 auto" fxLayout="row" fxLayoutAlign="end start" style="margin: 10px;">
     <div style="margin-right: 5px;" (click)="onDelete()" matTooltip="{{'key_delete'|translate}}">
       <mat-icon class="drag-icon">delete</mat-icon>
     </div>
-    <div style="margin-right: 5px;" (click)="onConfigure()" matTooltip="{{'key_configure'|translate}}">
+    <div
+      style="margin-right: 5px;"
+      (click)="onConfigure()"
+      matTooltip="{{'key_configure'|translate}}"
+    >
       <mat-icon class="drag-icon">settings</mat-icon>
     </div>
-    <div [matMenuTriggerFor]="menu" matTooltip="{{'key_resize'|translate}}">
+    <div [matMenuTriggerFor]="menuWidth" matTooltip="{{'key_resize'|translate}}">
       <mat-icon class="drag-icon">more_vert</mat-icon>
     </div>
-    <mat-menu #menu="matMenu" class="size-menu">
+    <mat-menu #menuWidth="matMenu" class="size-menu">
+      <button mat-menu-item [matMenuTriggerFor]="menuHeight1">
+        <mat-icon>swap_horiz</mat-icon>
+        <span>1</span>
+      </button>
+      <button mat-menu-item [matMenuTriggerFor]="menuHeight2">
+        <mat-icon>swap_horiz</mat-icon>
+        <span>2</span>
+      </button>
+      <button mat-menu-item [matMenuTriggerFor]="menuHeight3">
+        <mat-icon>swap_horiz</mat-icon>
+        <span>3</span>
+      </button>
+      <button mat-menu-item [matMenuTriggerFor]="menuHeight4">
+        <mat-icon>swap_horiz</mat-icon>
+        <span>4</span>
+      </button>
+      <button mat-menu-item [matMenuTriggerFor]="menuHeight5">
+        <mat-icon>swap_horiz</mat-icon>
+        <span>5</span>
+      </button>
+      <button mat-menu-item [matMenuTriggerFor]="menuHeight6">
+        <mat-icon>swap_horiz</mat-icon>
+        <span>6</span>
+      </button>
+    </mat-menu>
+    <mat-menu #menuHeight1="matMenu" class="size-menu">
       <button mat-menu-item (click)="onResize([1, 1])">
-        <mat-icon>dialpad</mat-icon>
-        <span>1 x 1</span>
+        <mat-icon>swap_vert</mat-icon>
+        <span>1</span>
       </button>
       <button mat-menu-item (click)="onResize([1, 2])">
-        <mat-icon>dialpad</mat-icon>
-        <span>1 x 2</span>
+        <mat-icon>swap_vert</mat-icon>
+        <span>2</span>
       </button>
       <button mat-menu-item (click)="onResize([1, 3])">
-        <mat-icon>dialpad</mat-icon>
-        <span>1 x 3</span>
+        <mat-icon>swap_vert</mat-icon>
+        <span>3</span>
       </button>
+      <button mat-menu-item (click)="onResize([1, 4])">
+        <mat-icon>swap_vert</mat-icon>
+        <span>4</span>
+      </button>
+    </mat-menu>
+    <mat-menu #menuHeight2="matMenu" class="size-menu">
       <button mat-menu-item (click)="onResize([2, 1])">
-        <mat-icon>dialpad</mat-icon>
-        <span>2 x 1</span>
+        <mat-icon>swap_vert</mat-icon>
+        <span>1</span>
       </button>
       <button mat-menu-item (click)="onResize([2, 2])">
-        <mat-icon>dialpad</mat-icon>
-        <span>2 x 2</span>
+        <mat-icon>swap_vert</mat-icon>
+        <span>2</span>
       </button>
       <button mat-menu-item (click)="onResize([2, 3])">
-        <mat-icon>dialpad</mat-icon>
-        <span>2 x 3</span>
+        <mat-icon>swap_vert</mat-icon>
+        <span>3</span>
       </button>
+      <button mat-menu-item (click)="onResize([2, 4])">
+        <mat-icon>swap_vert</mat-icon>
+        <span>4</span>
+      </button>
+    </mat-menu>
+    <mat-menu #menuHeight3="matMenu" class="size-menu">
       <button mat-menu-item (click)="onResize([3, 1])">
-        <mat-icon>dialpad</mat-icon>
-        <span>3 x 1</span>
+        <mat-icon>swap_vert</mat-icon>
+        <span>1</span>
       </button>
       <button mat-menu-item (click)="onResize([3, 2])">
-        <mat-icon>dialpad</mat-icon>
-        <span>3 x 2</span>
+        <mat-icon>swap_vert</mat-icon>
+        <span>2</span>
       </button>
       <button mat-menu-item (click)="onResize([3, 3])">
-        <mat-icon>dialpad</mat-icon>
-        <span>3 x 3</span>
+        <mat-icon>swap_vert</mat-icon>
+        <span>3</span>
+      </button>
+      <button mat-menu-item (click)="onResize([3, 4])">
+        <mat-icon>swap_vert</mat-icon>
+        <span>4</span>
+      </button>
+    </mat-menu>
+    <mat-menu #menuHeight4="matMenu" class="size-menu">
+      <button mat-menu-item (click)="onResize([4, 1])">
+        <mat-icon>swap_vert</mat-icon>
+        <span>1</span>
+      </button>
+      <button mat-menu-item (click)="onResize([4, 2])">
+        <mat-icon>swap_vert</mat-icon>
+        <span>2</span>
+      </button>
+      <button mat-menu-item (click)="onResize([4, 3])">
+        <mat-icon>swap_vert</mat-icon>
+        <span>3</span>
+      </button>
+      <button mat-menu-item (click)="onResize([4, 4])">
+        <mat-icon>swap_vert</mat-icon>
+        <span>4</span>
+      </button>
+    </mat-menu>
+    <mat-menu #menuHeight5="matMenu" class="size-menu">
+      <button mat-menu-item (click)="onResize([5, 1])">
+        <mat-icon>swap_vert</mat-icon>
+        <span>1</span>
+      </button>
+      <button mat-menu-item (click)="onResize([5, 2])">
+        <mat-icon>swap_vert</mat-icon>
+        <span>2</span>
+      </button>
+      <button mat-menu-item (click)="onResize([5, 3])">
+        <mat-icon>swap_vert</mat-icon>
+        <span>3</span>
+      </button>
+      <button mat-menu-item (click)="onResize([5, 4])">
+        <mat-icon>swap_vert</mat-icon>
+        <span>4</span>
+      </button>
+    </mat-menu>
+    <mat-menu #menuHeight6="matMenu" class="size-menu">
+      <button mat-menu-item (click)="onResize([6, 1])">
+        <mat-icon>swap_vert</mat-icon>
+        <span>1</span>
+      </button>
+      <button mat-menu-item (click)="onResize([6, 2])">
+        <mat-icon>swap_vert</mat-icon>
+        <span>2</span>
+      </button>
+      <button mat-menu-item (click)="onResize([6, 3])">
+        <mat-icon>swap_vert</mat-icon>
+        <span>3</span>
+      </button>
+      <button mat-menu-item (click)="onResize([6, 4])">
+        <mat-icon>swap_vert</mat-icon>
+        <span>4</span>
       </button>
     </mat-menu>
   </div>
