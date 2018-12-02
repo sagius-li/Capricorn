@@ -78,5 +78,6 @@
   "key_description": "描述文字",
   "key_expression": "表达式",
   "key_readonly": "写保护",
-  "key_useExpression": "使用表达式"
+  "key_useExpression": "使用表达式",
+  "key_searchAllResources": "搜索所有资源"
 }

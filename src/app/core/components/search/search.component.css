@@ -12,3 +12,17 @@
 :host /deep/ .search-input kendo-autocomplete.k-autocomplete input {
   text-indent: 40px;
 }
+
+:host /deep/ .search-input kendo-autocomplete.k-autocomplete .k-i-loading,
+:host /deep/ .search-input kendo-autocomplete.k-autocomplete .k-i-close {
+  margin-right: 10px;
+}
+
+.search-icon {
+  position: absolute;
+  float: left;
+  z-index: 100;
+  margin-top: 2px;
+  margin-left: 10px;
+  color: gray;
+}

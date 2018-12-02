@@ -78,5 +78,6 @@
   "key_description": "Beschreibung",
   "key_expression": "Expression",
   "key_readonly": "Schreibgeschützt",
-  "key_useExpression": "Expression benutzen"
+  "key_useExpression": "Expression benutzen",
+  "key_searchAllResources": "Alle Ressourcen suchen"
 }

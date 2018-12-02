@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+
+import { ResourceService } from '../../services/resource.service';
 
 @Component({
   selector: 'app-search',
@@ -6,60 +8,33 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./search.component.css']
 })
 export class SearchComponent implements OnInit {
-  listItems: Array<string> = [
-    'Albania',
-    'Andorra',
-    'Armenia',
-    'Austria',
-    'Azerbaijan',
-    'Belarus',
-    'Belgium',
-    'Bosnia & Herzegovina',
-    'Bulgaria',
-    'Croatia',
-    'Cyprus',
-    'Czech Republic',
-    'Denmark',
-    'Estonia',
-    'Finland',
-    'France',
-    'Georgia',
-    'Germany',
-    'Greece',
-    'Hungary',
-    'Iceland',
-    'Ireland',
-    'Italy',
-    'Kosovo',
-    'Latvia',
-    'Liechtenstein',
-    'Lithuania',
-    'Luxembourg',
-    'Macedonia',
-    'Malta',
-    'Moldova',
-    'Monaco',
-    'Montenegro',
-    'Netherlands',
-    'Norway',
-    'Poland',
-    'Portugal',
-    'Romania',
-    'Russia',
-    'San Marino',
-    'Serbia',
-    'Slovakia',
-    'Slovenia',
-    'Spain',
-    'Sweden',
-    'Switzerland',
-    'Turkey',
-    'Ukraine',
-    'United Kingdom',
-    'Vatican City'
-  ];
+  @ViewChild('resourceList') resourceList;
 
-  constructor() {}
+  resourceData: Array<{ displayName: string; objectType: string; objectId: string }> = [];
+
+  selectedObject: any;
+
+  constructor(private resource: ResourceService) {}
 
   ngOnInit() {}
+
+  handleSearchFilter(value) {
+    if (value.length >= 3) {
+      this.resourceList.loading = true;
+      this.resource
+        .getResourceByQuery(`/Person[starts-with(DisplayName,'${value}')]`, ['DisplayName'])
+        .subscribe(result => {
+          this.resourceList.loading = false;
+          this.resourceData = result.Resources.map(r => {
+            return { displayName: r.DisplayName, objectType: r.ObjectType, objectId: r.ObjectID };
+          });
+        });
+    } else {
+      this.resourceList.toggle(false);
+    }
+  }
+
+  searchValueChange(value) {
+    console.log(this.selectedObject);
+  }
 }

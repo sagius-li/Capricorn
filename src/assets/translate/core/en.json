@@ -78,5 +78,6 @@
   "key_description": "description",
   "key_expression": "expression",
   "key_readonly": "read-only",
-  "key_useExpression": "use expression"
+  "key_useExpression": "use expression",
+  "key_searchAllResources": "serch all resources"
 }
