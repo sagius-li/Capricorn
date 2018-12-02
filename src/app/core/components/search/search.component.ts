@@ -35,6 +35,6 @@ export class SearchComponent implements OnInit {
   }
 
   searchValueChange(value) {
-    console.log(this.selectedObject);
+    console.log(value);
   }
 }

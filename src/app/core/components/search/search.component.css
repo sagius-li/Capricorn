@@ -3,19 +3,31 @@
   height: 100%;
 }
 
-:host /deep/ .search-input kendo-autocomplete.k-autocomplete {
+:host /deep/ .search-input kendo-combobox.k-combobox {
   border: lightgray solid 1px;
   font-size: 20px;
   background-color: white;
 }
 
-:host /deep/ .search-input kendo-autocomplete.k-autocomplete input {
+:host /deep/ .search-input kendo-combobox.k-combobox .k-dropdown-wrap {
+  border: 0;
+  font-size: 20px;
+}
+
+:host /deep/ .search-input kendo-combobox.k-combobox input {
   text-indent: 40px;
 }
 
-:host /deep/ .search-input kendo-autocomplete.k-autocomplete .k-i-loading,
-:host /deep/ .search-input kendo-autocomplete.k-autocomplete .k-i-close {
+:host /deep/ .search-input kendo-combobox.k-combobox .k-i-loading {
   margin-right: 10px;
+}
+
+:host /deep/ .search-input kendo-combobox.k-combobox .k-i-close {
+  margin-right: -10px;
+}
+
+:host /deep/ .search-input kendo-combobox.k-combobox .k-i-arrow-s {
+  display: none;
 }
 
 .search-icon {

@@ -1,17 +1,18 @@
 <div fxLayout="row" fxLayoutAlign="start center" class="search-input">
   <mat-icon class="search-icon">search</mat-icon>
-  <kendo-autocomplete
+  <kendo-combobox
     #resourceList
     fxFlex
+    [allowCustom]="true"
     [data]="resourceData"
+    [textField]="'displayName'"
+    [valueField]="'objectId'"
     [filterable]="true"
     (filterChange)="handleSearchFilter($event)"
-    [valueField]="'displayName'"
-    [(ngModel)]="selectedObject"
     (valueChange)="searchValueChange($event)"
     [placeholder]="'key_searchAllResources' | translate"
   >
-    <ng-template kendoAutoCompleteItemTemplate let-dataItem>
+    <ng-template kendoComboBoxItemTemplate let-dataItem>
       <div
         fxLayout="row"
         fxLayoutAlign="start center"
@@ -21,6 +22,6 @@
         <div fxFlex="none"><mat-icon style="margin-top: 6px;">person</mat-icon></div>
         <div fxFlex>{{ dataItem.displayName }}</div>
       </div>
-    </ng-template></kendo-autocomplete
+    </ng-template></kendo-combobox
   >
 </div>
