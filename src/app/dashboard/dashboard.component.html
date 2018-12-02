@@ -23,7 +23,7 @@
           [editMode]="editMode"
           (resize)="onResize($event, config)"
           (configure)="onDragbarConfigure(config)"
-          (deleted)="onDragbarDelete(config)"
+          (delete)="onDragbarDelete(config)"
         >
           <ng-container [dcHost]="config.position"></ng-container>
         </app-drag>

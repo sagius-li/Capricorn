@@ -37,13 +37,27 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     const widgetConfigStr = `
       [
         {
-          "name": "Mock 1",
+          "name": "Request Overview",
           "type": "ChartComponent",
-          "description": "Mock 1",
+          "description": "Request Overview",
           "position": "cell1",
-          "colSpan": 1,
-          "rowSpan": 1,
+          "colSpan": 2,
+          "rowSpan": 2,
           "data": {
+            "chartTitle": "Request Overview",
+            "labelConfig": {
+              "color": "black",
+              "format": "{1}",
+              "visible": "true"
+            },
+            "legend": {
+              "position": "right",
+              "visible": "true"
+            },
+            "tooltipConfig": {
+              "format": "{0}: {1}",
+              "visible": "true"
+            },
             "seriesConfig": [
               {
                 "name": "request",
@@ -71,9 +85,9 @@ export class DashboardComponent implements OnInit, AfterViewInit {
           }
         },
         {
-          "name": "Mock 2",
+          "name": "Managed Users",
           "type": "StateCardComponent",
-          "description": "Mock 2",
+          "description": "Managed Users",
           "position": "cell2",
           "colSpan": 2,
           "rowSpan": 1,
@@ -85,18 +99,63 @@ export class DashboardComponent implements OnInit, AfterViewInit {
           }
         },
         {
-          "name": "Mock 3",
-          "type": "ResourceTableComponent",
-          "description": "Mock 3",
+          "name": "Managed Groups",
+          "type": "StateCardComponent",
+          "description": "Managed Groups",
           "position": "cell3",
-          "colSpan": 3,
+          "colSpan": 2,
+          "rowSpan": 1,
+          "data": {
+            "iconText": "group",
+            "iconColor": "rgb(240,172,63)",
+            "title": "managed groups",
+            "mainText": "{0}",
+            "query": "/Group[Owner=/Group[DisplayName='mimadmin']]"
+          }
+        },
+        {
+          "name": "Managed Roles",
+          "type": "StateCardComponent",
+          "description": "Managed Roles",
+          "position": "cell4",
+          "colSpan": 2,
+          "rowSpan": 1,
+          "data": {
+            "iconText": "apps",
+            "iconColor": "rgb(63,142,240)",
+            "title": "managed groups",
+            "mainText": "{0}",
+            "query": "/ocgRole[Manager=/ocgRole[DisplayName='mimadmin']]"
+          }
+        },
+        {
+          "name": "Managed Permissions",
+          "type": "StateCardComponent",
+          "description": "Managed Permissions",
+          "position": "cell5",
+          "colSpan": 2,
+          "rowSpan": 1,
+          "data": {
+            "iconText": "extension",
+            "iconColor": "rgb(236,162,235)",
+            "title": "managed permissions",
+            "mainText": "{0}",
+            "query": "/ocgPermission[Manager=/ocgPermission[DisplayName='mimadmin']]"
+          }
+        },
+        {
+          "name": "All Users",
+          "type": "ResourceTableComponent",
+          "description": "All Users",
+          "position": "cell6",
+          "colSpan": 4,
           "rowSpan": 2,
           "data": {
             "title": "All Users",
             "query": "/Person",
             "pageSize": 5,
             "exportToPDF": true,
-            "exportToExcel": true,
+            "exportToExcel": false,
             "exportAllPages": true,
             "columns": [
               {
