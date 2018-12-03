@@ -6,6 +6,7 @@ import { TestComponent } from './test/test.component';
 import { HomeComponent } from './home/home.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './login/login.component';
+import { UserComponent } from './user/user.component';
 import { AdalGuard } from 'adal-angular4';
 
 const routes: Routes = [
@@ -41,6 +42,10 @@ const routes: Routes = [
       {
         path: 'home',
         component: DashboardComponent
+      },
+      {
+        path: 'user/:id',
+        component: UserComponent
       }
     ]
   }

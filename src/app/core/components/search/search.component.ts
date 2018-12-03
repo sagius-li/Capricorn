@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { ResourceService } from '../../services/resource.service';
 
@@ -14,7 +15,7 @@ export class SearchComponent implements OnInit {
 
   selectedObject: any;
 
-  constructor(private resource: ResourceService) {}
+  constructor(private resource: ResourceService, private router: Router) {}
 
   ngOnInit() {}
 
@@ -35,6 +36,6 @@ export class SearchComponent implements OnInit {
   }
 
   searchValueChange(value) {
-    console.log(value);
+    this.router.navigate([`/app/user/${value.objectId}`]);
   }
 }

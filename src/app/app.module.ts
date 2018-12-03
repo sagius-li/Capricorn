@@ -14,6 +14,7 @@ import { HomeComponent } from './home/home.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './login/login.component';
+import { UserComponent } from './user/user.component';
 
 import { TestComponent } from './test/test.component';
 import { LoadingspinnerComponent } from './test/loadingspinner/loadingspinner.component';
@@ -36,7 +37,8 @@ import 'hammerjs';
     TestComponent,
     SidebarComponent,
     LoadingspinnerComponent,
-    LoginComponent
+    LoginComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,
