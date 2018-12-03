@@ -144,7 +144,7 @@ export class ChartComponent implements OnInit, DcComponent {
               names.push(config.name);
               observableBatch.push(
                 this.svcResource.callMethod('', config.method, 'get', {
-                  query: config.query
+                  query: this.svcResource.lookup(config.query)
                 })
               );
             }

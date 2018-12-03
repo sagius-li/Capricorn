@@ -95,7 +95,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
             "iconText": "person",
             "title": "managed users",
             "mainText": "{0}",
-            "query": "/Person[Manager=/Person[DisplayName='mimadmin']]"
+            "query": "/Person[Manager='[//loginUser]']"
           }
         },
         {
@@ -110,7 +110,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
             "iconColor": "rgb(240,172,63)",
             "title": "managed groups",
             "mainText": "{0}",
-            "query": "/Group[Owner=/Group[DisplayName='mimadmin']]"
+            "query": "/Group[Owner='[//loginUser]']"
           }
         },
         {
@@ -123,9 +123,9 @@ export class DashboardComponent implements OnInit, AfterViewInit {
           "data": {
             "iconText": "apps",
             "iconColor": "rgb(63,142,240)",
-            "title": "managed groups",
+            "title": "managed roles",
             "mainText": "{0}",
-            "query": "/ocgRole[Manager=/ocgRole[DisplayName='mimadmin']]"
+            "query": "/ocgRole[Manager='[//loginUser]']"
           }
         },
         {
@@ -140,7 +140,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
             "iconColor": "rgb(236,162,235)",
             "title": "managed permissions",
             "mainText": "{0}",
-            "query": "/ocgPermission[Manager=/ocgPermission[DisplayName='mimadmin']]"
+            "query": "/ocgPermission[Manager='[//loginUser]']"
           }
         },
         {

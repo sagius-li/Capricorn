@@ -7,11 +7,7 @@ import * as moment from 'moment';
 
 import { ConfigService } from './config.service';
 import { UtilsService } from './utils.service';
-import {
-  DSAttribute,
-  DSResource,
-  DSResourceSet
-} from '../models/resource.model';
+import { DSAttribute, DSResource, DSResourceSet } from '../models/resource.model';
 
 /**
  * Data layer to communicate with data storage
@@ -112,13 +108,8 @@ export class ResourceService {
    */
   public load(conn?: string) {
     // get configuration
-    this.baseUrl = this.config.getConfig(
-      'dataServiceUrl',
-      '//localhost:6867/api/'
-    );
-    this.loginUserAttributes = this.config.getConfig('loginUserAttributes', [
-      'DisplayName'
-    ]);
+    this.baseUrl = this.config.getConfig('dataServiceUrl', '//localhost:6867/api/');
+    this.loginUserAttributes = this.config.getConfig('loginUserAttributes', ['DisplayName']);
 
     // set authentication mode
     if (conn) {
@@ -192,22 +183,17 @@ export class ResourceService {
           );
         } else {
           // using windows authentication
-          const urlGetPortalUser = this.buildUrl(
-            'resource/win',
-            'get/currentuser'
-          );
+          const urlGetPortalUser = this.buildUrl('resource/win', 'get/currentuser');
           let param: HttpParams = new HttpParams();
           this.loginUserAttributes.forEach(attribute => {
             param = param.append('attributesToGet', attribute);
           });
-          return this.http
-            .get(urlGetPortalUser, { params: param, withCredentials: true })
-            .pipe(
-              tap((user: DSResource) => {
-                this.loginUser = user;
-                this.loaded = true;
-              })
-            );
+          return this.http.get(urlGetPortalUser, { params: param, withCredentials: true }).pipe(
+            tap((user: DSResource) => {
+              this.loginUser = user;
+              this.loaded = true;
+            })
+          );
         }
       })
     );
@@ -355,10 +341,7 @@ export class ResourceService {
       request = this.http.get<DSResource>(url, { params: params });
     } else if (this.connection) {
       url = this.buildUrl('resource/basic', 'get/id');
-      params = params.append(
-        'connectionInfo',
-        encodeURIComponent(this.connection)
-      );
+      params = params.append('connectionInfo', encodeURIComponent(this.connection));
       request = this.http.get<DSResource>(this.nomoralizeUrl(url, params));
     } else {
       url = this.buildUrl('resource/win', 'get/id');
@@ -437,10 +420,7 @@ export class ResourceService {
       request = this.http.get<DSResourceSet>(url, { params: params });
     } else if (this.connection) {
       url = this.buildUrl('resource/basic', 'get/query');
-      params = params.append(
-        'connectionInfo',
-        encodeURIComponent(this.connection)
-      );
+      params = params.append('connectionInfo', encodeURIComponent(this.connection));
       request = this.http.get<DSResourceSet>(this.nomoralizeUrl(url, params));
     } else {
       url = this.buildUrl('resource/win', 'get/query');
@@ -458,10 +438,7 @@ export class ResourceService {
    * @param query Query to fetch resource
    * @param adminMode Whether admin mode should be used. In admin mode all resources are accessible
    */
-  public getResourceCount(
-    query: string,
-    adminMode = false
-  ): Observable<number> {
+  public getResourceCount(query: string, adminMode = false): Observable<number> {
     if (!query) {
       return throwError('query is missing');
     }
@@ -480,10 +457,7 @@ export class ResourceService {
       request = this.http.get<number>(url, { params: params });
     } else if (this.connection) {
       url = this.buildUrl('resource/basic', 'get/count');
-      params = params.append(
-        'connectionInfo',
-        encodeURIComponent(this.connection)
-      );
+      params = params.append('connectionInfo', encodeURIComponent(this.connection));
       request = this.http.get<number>(this.nomoralizeUrl(url, params));
     } else {
       url = this.buildUrl('resource/win', 'get/count');
@@ -520,10 +494,7 @@ export class ResourceService {
       request = this.http.delete(url, { params: params });
     } else if (this.connection) {
       url = this.buildUrl('resource/basic', 'delete');
-      params = params.append(
-        'connectionInfo',
-        encodeURIComponent(this.connection)
-      );
+      params = params.append('connectionInfo', encodeURIComponent(this.connection));
       request = this.http.delete(this.nomoralizeUrl(url, params));
     } else {
       url = this.buildUrl('resource/win', 'delete');
@@ -541,10 +512,7 @@ export class ResourceService {
    * @param resource Resource to create
    * @param adminMode Whether admin mode should be used. In admin mode all resources are accessible
    */
-  public createResource(
-    resource: DSResource,
-    adminMode = false
-  ): Observable<string> {
+  public createResource(resource: DSResource, adminMode = false): Observable<string> {
     if (!resource) {
       return throwError('resource is missing');
     }
@@ -559,14 +527,8 @@ export class ResourceService {
       request = this.http.post<string>(url, resource, { params: params });
     } else if (this.connection) {
       url = this.buildUrl('resource/basic', 'create');
-      params = params.append(
-        'connectionInfo',
-        encodeURIComponent(this.connection)
-      );
-      request = this.http.post<string>(
-        this.nomoralizeUrl(url, params),
-        resource
-      );
+      params = params.append('connectionInfo', encodeURIComponent(this.connection));
+      request = this.http.post<string>(this.nomoralizeUrl(url, params), resource);
     } else {
       url = this.buildUrl('resource/win', 'create');
       request = this.http.post<string>(url, resource, {
@@ -607,14 +569,8 @@ export class ResourceService {
       request = this.http.post<string>(url, resource, { params: params });
     } else if (this.connection) {
       url = this.buildUrl('resource/basic', 'update');
-      params = params.append(
-        'connectionInfo',
-        encodeURIComponent(this.connection)
-      );
-      request = this.http.post<string>(
-        this.nomoralizeUrl(url, params),
-        resource
-      );
+      params = params.append('connectionInfo', encodeURIComponent(this.connection));
+      request = this.http.post<string>(this.nomoralizeUrl(url, params), resource);
     } else {
       url = this.buildUrl('resource/win', 'update');
       request = this.http.post<string>(url, resource, {
@@ -667,10 +623,7 @@ export class ResourceService {
       request = this.http.post<string>(url, id, { params: params });
     } else if (this.connection) {
       url = this.buildUrl('resource/basic', 'values/add');
-      params = params.append(
-        'connectionInfo',
-        encodeURIComponent(this.connection)
-      );
+      params = params.append('connectionInfo', encodeURIComponent(this.connection));
       request = this.http.post<string>(this.nomoralizeUrl(url, params), id);
     } else {
       url = this.buildUrl('resource/win', 'values/add');
@@ -724,10 +677,7 @@ export class ResourceService {
       request = this.http.post<string>(url, id, { params: params });
     } else if (this.connection) {
       url = this.buildUrl('resource/basic', 'values/remove');
-      params = params.append(
-        'connectionInfo',
-        encodeURIComponent(this.connection)
-      );
+      params = params.append('connectionInfo', encodeURIComponent(this.connection));
       request = this.http.post<string>(this.nomoralizeUrl(url, params), id);
     } else {
       url = this.buildUrl('resource/win', 'values/remove');
@@ -738,5 +688,12 @@ export class ResourceService {
     }
 
     return request;
+  }
+
+  public lookup(text: string) {
+    let result = text;
+    result = result.replace(new RegExp(`\\[\\/\\/loginUser\\]`, 'g'), this.loginUser.ObjectID);
+
+    return result;
   }
 }

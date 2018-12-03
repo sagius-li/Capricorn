@@ -129,19 +129,24 @@ export class StateCardComponent implements OnInit, DcComponent {
       }, 0);
 
       setTimeout(() => {
-        this.svcResource.getResourceCount(this.componentConfig.query).subscribe(
-          result => {
-            this.mainTextValue = this.componentConfig.mainText.replace(/\{0\}/g, result.toString());
-            setTimeout(() => {
-              this.spinner.hide();
-            }, 0);
-          },
-          err => {
-            setTimeout(() => {
-              this.spinner.hide();
-            }, 0);
-          }
-        );
+        this.svcResource
+          .getResourceCount(this.svcResource.lookup(this.componentConfig.query))
+          .subscribe(
+            result => {
+              this.mainTextValue = this.componentConfig.mainText.replace(
+                /\{0\}/g,
+                result.toString()
+              );
+              setTimeout(() => {
+                this.spinner.hide();
+              }, 0);
+            },
+            err => {
+              setTimeout(() => {
+                this.spinner.hide();
+              }, 0);
+            }
+          );
       }, 500);
     } else {
       this.mainTextValue = this.componentConfig.mainText;

@@ -71,7 +71,7 @@ export class ResourceTableComponent implements OnInit, DcComponent {
   gridSelect: any;
 
   constructor(
-    private resource: ResourceService,
+    private svcResource: ResourceService,
     private utils: UtilsService,
     private translate: TranslateService,
     private dialog: MatDialog,
@@ -93,9 +93,9 @@ export class ResourceTableComponent implements OnInit, DcComponent {
       }
 
       const attributesToLoad = this.componentConfig.columns.map(c => c.field);
-      this.resource
+      this.svcResource
         .getResourceByQuery(
-          this.componentConfig.query,
+          this.svcResource.lookup(this.componentConfig.query),
           attributesToLoad,
           false,
           this.gridState ? this.gridState.take : undefined,
@@ -210,7 +210,7 @@ export class ResourceTableComponent implements OnInit, DcComponent {
 
   allData = (): Observable<any> => {
     const attributesToLoad = this.componentConfig.columns.map(c => c.field);
-    return this.resource
+    return this.svcResource
       .getResourceByQuery(
         this.componentConfig.query,
         attributesToLoad,
