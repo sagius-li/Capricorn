@@ -1,0 +1,47 @@
+<div class="info-body" [class.mat-elevation-z1]="true">
+  <div class="info-avatar-layer">
+    <div class="info-avatar">
+      <img
+        *ngIf="data && data.photo"
+        [src]="'data:image/png;base64,' + data.photo"
+        class="info-avatar-image"
+      />
+      <div *ngIf="data && !data.photo && data.initial" class="info-avatar-initial">
+        {{ data.initial }}
+      </div>
+    </div>
+  </div>
+  <div fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="10px">
+    <div *ngIf="data && data.title" fxFlex="none" class="info-title">
+      {{ data.title | uppercase }}
+    </div>
+    <div *ngIf="data && data.displayName" fxFlex="none" class="info-name">
+      {{ data.displayName }}
+    </div>
+  </div>
+  <div *ngIf="data && data.address" fxLayout="row" class="info-text">
+    <div fxFlex="none"><mat-icon style="margin-right: 10px;">location_on</mat-icon></div>
+    <div>{{ data.address }}</div>
+  </div>
+  <div *ngIf="data && data.employeeType" fxLayout="row" class="info-text">
+    <div fxFlex="none"><mat-icon style="margin-right: 10px;">assignment_ind</mat-icon></div>
+    <div>{{ data.employeeType }}</div>
+  </div>
+  <div fxLayout="column" class="info-footer">
+    <hr style="border: 0; border-top: 1px solid #eee; width: 80%;" />
+    <div fxFlex fxLayout="row" fxLayoutAlign="space-around center">
+      <a
+        class="info-button"
+        [class.disabled-link]="!data || !data.telephone"
+        [attr.href]="data && data.telephone ? 'tel:' + data.telephone : null"
+        ><mat-icon style="margin-left: 3px; margin-top: 3px;">call</mat-icon></a
+      >
+      <a
+        class="info-button"
+        [class.disabled-link]="!data || !data.email"
+        [attr.href]="data && data.email ? 'mailto:' + data.email : null"
+        ><mat-icon style="margin-left: 3px; margin-top: 3px;">mail</mat-icon></a
+      >
+    </div>
+  </div>
+</div>

@@ -138,6 +138,11 @@ h6,
   cursor: pointer;
 }
 
+.disabled-link {
+  pointer-events: none;
+  background-color: lightgray !important;
+}
+
 .splash {
   position: relative;
   top: 0;
