@@ -58,6 +58,7 @@ import { ResourceTableConfigComponent } from '../components/resource-table/resou
 import { SigninComponent } from '../components/signin/signin.component';
 import { SearchComponent } from '../components/search/search.component';
 import { InfoBrandComponent } from '../components/info-brand/info-brand.component';
+import { InfoDetailComponent } from '../components/info-detail/info-detail.component';
 
 import { EditorTextComponent } from '../components/editor-text/editor-text.component';
 import { EditorTextConfigComponent } from '../components/editor-text/editor-text-config.component';
@@ -116,6 +117,7 @@ export function startup(startupService: StartupService) {
     ResourceTableConfigComponent,
     SearchComponent,
     InfoBrandComponent,
+    InfoDetailComponent,
 
     SafeHtmlPipe,
 
@@ -184,6 +186,7 @@ export function startup(startupService: StartupService) {
     ResourceTableComponent,
     SearchComponent,
     InfoBrandComponent,
+    InfoDetailComponent,
 
     EditorTextComponent
   ]

@@ -1,5 +1,10 @@
-<div fxLayout="row">
-  <div fxFlex="30" style="margin-top: 50px;">
-    <app-info-brand [data]="infoBrandData"></app-info-brand>
+<div style="margin-top: 50px;">
+  <div fxLayout="row wrap" fxLayoutGap="10px grid">
+    <div fxFlex="30" fxFlexOrder="2" fxFlex.lt-md="100" fxFlexOrder.lt-md="1">
+      <app-info-brand [data]="infoBrandData"></app-info-brand>
+    </div>
+    <div fxFlex="70" fxFlexOrder="1" fxFlex.lt-md="100" fxFlexOrder.lt-md="2">
+      <app-info-detail></app-info-detail>
+    </div>
   </div>
 </div>
