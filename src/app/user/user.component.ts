@@ -1,8 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { ResourceService } from '../core/services/resource.service';
 import { InfoBrandConfig } from '../core/components/info-brand/info-brand.component';
+import {
+  InfoDetailConfig,
+  InfoDetailComponent
+} from '../core/components/info-detail/info-detail.component';
 
 @Component({
   selector: 'app-user',
@@ -10,10 +14,14 @@ import { InfoBrandConfig } from '../core/components/info-brand/info-brand.compon
   styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit {
+  @ViewChild(InfoDetailComponent)
+  infoDetail: InfoDetailComponent;
+
   currentObjectId: string;
   loading = false;
 
   infoBrandData: InfoBrandConfig;
+  infoDetailConfig: InfoDetailConfig;
 
   private getInitialName(data: InfoBrandConfig) {
     let initial: string;
@@ -68,6 +76,13 @@ export class UserComponent implements OnInit {
               title: result.Attributes['JobTitle'].Value
             };
             this.infoBrandData.initial = this.getInitialName(this.infoBrandData);
+
+            this.infoDetailConfig = {
+              objectId: result.ObjectID
+            };
+            if (this.infoDetail) {
+              this.infoDetail.updateDetail(this.currentObjectId);
+            }
 
             this.loading = false;
           }
