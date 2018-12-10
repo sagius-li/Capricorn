@@ -4,6 +4,11 @@
     <a class="info-button" matTooltip="{{'key_refresh'|translate}}">
       <mat-icon style="margin-left: 3px; margin-top: 3px;">refresh</mat-icon>
     </a>
+    <a class="info-button" [class.disabled-link]="!editMode" matTooltip="{{arrangeTip|translate}}">
+      <mat-icon style="margin-left: 3px; margin-top: 3px;" (click)="onArrange()">{{
+        arrangeIcon
+      }}</mat-icon>
+    </a>
     <a class="info-button" [class.disabled-link]="!editMode" matTooltip="{{'key_add'|translate}}">
       <mat-icon style="margin-left: 3px; margin-top: 3px;">playlist_add</mat-icon>
     </a>
@@ -15,22 +20,33 @@
   </div>
   <mat-tab-group [disableRipple]="true" class="info-tab">
     <mat-tab *ngFor="let tab of detailConfig" label="{{tab.tabName | translate}}">
-      <div dragula="ATTRIBUTES" [(dragulaModel)]="tab.tabData" style="margin-top: 50px;">
-        <div *ngFor="let config of tab.tabData" style="margin-bottom: 20px;">
-          <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
-            <div fxFlex="auto"><ng-container [dcHost]="config.name"></ng-container></div>
-            <div *ngIf="editMode" matTooltip="{{'key_configure'|translate}}">
-              <mat-icon class="mouse-pointer" color="primary" (click)="onEditorConfig(config)"
-                >settings</mat-icon
-              >
-            </div>
-            <div *ngIf="editMode" class="handle" matTooltip="{{'key_move'|translate}}">
-              <mat-icon color="primary" style="cursor: move;">menu</mat-icon>
-            </div>
-            <div *ngIf="editMode" matTooltip="{{'key_delete'|translate}}">
-              <mat-icon class="mouse-pointer" color="warn" (click)="onEditorDelete(config)"
-                >delete</mat-icon
-              >
+      <div style="margin-top: 50px; width: calc(100% - 20px);">
+        <div
+          dragula="ATTRIBUTES"
+          [(dragulaModel)]="tab.tabData"
+          fxLayout="row wrap"
+          fxLayoutGap="20px grid"
+        >
+          <div
+            *ngFor="let config of tab.tabData"
+            [fxFlex]="arrangeMode"
+            style="margin-bottom: 20px;"
+          >
+            <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+              <div fxFlex="auto"><ng-container [dcHost]="config.name"></ng-container></div>
+              <div *ngIf="editMode" matTooltip="{{'key_configure'|translate}}">
+                <mat-icon class="mouse-pointer" color="primary" (click)="onEditorConfig(config)"
+                  >settings</mat-icon
+                >
+              </div>
+              <div *ngIf="editMode" class="handle" matTooltip="{{'key_move'|translate}}">
+                <mat-icon color="primary" style="cursor: move;">menu</mat-icon>
+              </div>
+              <div *ngIf="editMode" matTooltip="{{'key_delete'|translate}}">
+                <mat-icon class="mouse-pointer" color="warn" (click)="onEditorDelete(config)"
+                  >delete</mat-icon
+                >
+              </div>
             </div>
           </div>
         </div>

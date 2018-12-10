@@ -79,5 +79,8 @@
   "key_expression": "Expression",
   "key_readonly": "Schreibgeschützt",
   "key_useExpression": "Expression benutzen",
-  "key_searchAllResources": "Alle Ressourcen suchen"
+  "key_searchAllResources": "Alle Ressourcen suchen",
+  "key_toSingleColumn": "zu Einzelspalte wechseln",
+  "key_toDualColumn": "zu 2er-Spalten wechseln",
+  "key_attributeName": "Attributname"
 }

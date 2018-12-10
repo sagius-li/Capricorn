@@ -14,6 +14,7 @@ import { WidgetService } from '../../services/widget.service';
 import { ResourceService } from '../../services/resource.service';
 import { DchostDirective } from '../../directives/dchost.directive';
 import { UtilsService } from '../../services/utils.service';
+import { SwapService } from '../../services/swap.service';
 
 export class InfoDetailConfig {
   objectId?: string;
@@ -37,6 +38,10 @@ export class InfoDetailComponent implements OnInit {
   editIcon = 'settings';
   editTip = 'key_configure';
 
+  arrangeMode = 100;
+  arrangeIcon = 'view_column';
+  arrangeTip = 'key_toDualColumn';
+
   detailConfig = [];
 
   detailConfigStr = `
@@ -54,6 +59,14 @@ export class InfoDetailComponent implements OnInit {
             }
           },
           {
+            "name": "txtAccountName",
+            "type": "EditorTextComponent",
+            "attributeName": "AccountName",
+            "data": {
+              "instanceName": "txtAccountName"
+            }
+          },
+          {
             "name": "txtFirstName",
             "type": "EditorTextComponent",
             "attributeName": "FirstName",
@@ -68,6 +81,22 @@ export class InfoDetailComponent implements OnInit {
             "data": {
               "instanceName": "txtLastName"
             }
+          },
+          {
+            "name": "txtMiddleName",
+            "type": "EditorTextComponent",
+            "attributeName": "MiddleName",
+            "data": {
+              "instanceName": "txtMiddleName"
+            }
+          },
+          {
+            "name": "txtDepartment",
+            "type": "EditorTextComponent",
+            "attributeName": "Department",
+            "data": {
+              "instanceName": "txtDepartment"
+            }
           }
         ]
       }
@@ -79,7 +108,8 @@ export class InfoDetailComponent implements OnInit {
     private svcResource: ResourceService,
     private cfr: ComponentFactoryResolver,
     private utils: UtilsService,
-    private dragula: DragulaService
+    private dragula: DragulaService,
+    private swap: SwapService
   ) {
     try {
       this.dragula.createGroup('ATTRIBUTES', {
@@ -102,6 +132,18 @@ export class InfoDetailComponent implements OnInit {
     if (this.detailConfig.length > 0) {
       this.currentTab = this.detailConfig[0];
     }
+
+    this.swap.editorValueChanged.subscribe((config: any) => {
+      const dic: { [id: string]: string } = {};
+      this.currentTab.tabData.forEach(element => {
+        dic[element.name] = element.componentRef.instance.getValue();
+      });
+      this.currentTab.tabData.forEach(element => {
+        if (element.componentRef.instance.getExpression().includes(config.instanceName)) {
+          element.componentRef.instance.evaluateValue(dic);
+        }
+      });
+    });
   }
 
   onConfig() {
@@ -112,6 +154,18 @@ export class InfoDetailComponent implements OnInit {
     } else {
       this.editIcon = 'settings';
       this.editTip = 'key_configure';
+    }
+  }
+
+  onArrange() {
+    if (this.arrangeMode === 100) {
+      this.arrangeMode = 50;
+      this.arrangeIcon = 'reorder';
+      this.arrangeTip = 'key_toSingleColumn';
+    } else if (this.arrangeMode === 50) {
+      this.arrangeMode = 100;
+      this.arrangeIcon = 'view_column';
+      this.arrangeTip = 'key_toDualColumn';
     }
   }
 

@@ -1,5 +1,13 @@
 <h3 mat-dialog-title>{{ 'key_editorTextConfig' | translate }}</h3>
-<div mat-dialog-content fxLayout="column" style="height: 360px; width: 640px;">
+<div mat-dialog-content fxLayout="column" style="height: 380px; width: 640px;">
+  <mat-form-field fxFlex="none">
+    <input
+      matInput
+      [placeholder]="'key_attributeName' | translate"
+      [(ngModel)]="data.objectConfig.attribute.SystemName"
+      readonly="true"
+    />
+  </mat-form-field>
   <div fxFlex="none" fxLayout="row" fxLayoutGap="20px">
     <mat-form-field fxFlex="70">
       <input
