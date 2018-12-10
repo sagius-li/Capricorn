@@ -29,7 +29,14 @@
   </div>
   <div fxLayout="column" class="info-footer">
     <hr style="border: 0; border-top: 1px solid #eee; width: 80%;" />
-    <div fxFlex fxLayout="row" fxLayoutAlign="space-around center">
+    <div
+      fxFlex
+      fxLayout="row"
+      fxLayoutAlign="space-evenly center"
+      fxLayoutGap="10px"
+      fxLayoutAlign.lt-md="center center"
+      fxLayoutGap.lt-md="30px"
+    >
       <a
         class="info-button"
         [class.disabled-link]="!data || !data.telephone"

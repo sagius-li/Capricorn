@@ -1,0 +1,44 @@
+<h3 mat-dialog-title>{{ 'key_addEditorComponent' | translate }}</h3>
+<div mat-dialog-content fxLayout="column" fxLayoutGap="10px;">
+  <mat-form-field fxFlex="auto" cdkFocusInitial>
+    <mat-select
+      [placeholder]="'key_type' | translate"
+      [(ngModel)]="editorType"
+      (selectionChange)="onChangeType($event)"
+    >
+      <mat-option *ngFor="let com of editorComponents" [value]="com.name">{{
+        com.displayName
+      }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field fxFlex="auto">
+    <input matInput [placeholder]="'key_instanceName' | translate" [(ngModel)]="config.name" />
+  </mat-form-field>
+  <mat-form-field fxFlex="auto">
+    <input
+      matInput
+      [placeholder]="'key_attributeName' | translate"
+      [(ngModel)]="config.attributeName"
+    />
+  </mat-form-field>
+</div>
+<div
+  mat-dialog-actions
+  fxLayout="row"
+  fxLayoutAlign="start center"
+  fxLayoutGap="20px"
+  style="margin-top: 20px;"
+>
+  <button
+    fxFlex="none"
+    mat-button
+    [mat-dialog-close]="config"
+    [disabled]="!editorType || !config || !config.name || !config.attributeName"
+    style="width: 180px;"
+  >
+    {{ 'key_submit' | translate }}
+  </button>
+  <button fxFlex="none" mat-button mat-dialog-close="cancel" style="width: 180px;">
+    {{ 'key_cancel' | translate }}
+  </button>
+</div>

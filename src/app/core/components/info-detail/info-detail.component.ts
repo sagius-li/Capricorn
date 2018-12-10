@@ -7,7 +7,7 @@ import {
   QueryList
 } from '@angular/core';
 
-import { MatDialogRef } from '@angular/material';
+import { MatDialogRef, MatDialog } from '@angular/material';
 import { DragulaService } from 'ng2-dragula';
 
 import { WidgetService } from '../../services/widget.service';
@@ -15,6 +15,7 @@ import { ResourceService } from '../../services/resource.service';
 import { DchostDirective } from '../../directives/dchost.directive';
 import { UtilsService } from '../../services/utils.service';
 import { SwapService } from '../../services/swap.service';
+import { EditorCreatorComponent } from '../editor-creator/editor-creator.component';
 
 export class InfoDetailConfig {
   objectId?: string;
@@ -83,14 +84,6 @@ export class InfoDetailComponent implements OnInit {
             }
           },
           {
-            "name": "txtMiddleName",
-            "type": "EditorTextComponent",
-            "attributeName": "MiddleName",
-            "data": {
-              "instanceName": "txtMiddleName"
-            }
-          },
-          {
             "name": "txtDepartment",
             "type": "EditorTextComponent",
             "attributeName": "Department",
@@ -109,7 +102,8 @@ export class InfoDetailComponent implements OnInit {
     private cfr: ComponentFactoryResolver,
     private utils: UtilsService,
     private dragula: DragulaService,
-    private swap: SwapService
+    private swap: SwapService,
+    private dialog: MatDialog
   ) {
     try {
       this.dragula.createGroup('ATTRIBUTES', {
@@ -219,6 +213,19 @@ export class InfoDetailComponent implements OnInit {
           com.data = result;
           com.initComponent();
         }
+      }
+    });
+  }
+
+  onEditorAdd() {
+    const dialogRef: MatDialogRef<any> = this.dialog.open(EditorCreatorComponent, {
+      data: this.currentTab.tabData
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result && result !== 'cancel') {
+        result.data.instanceName = result.name;
+        this.currentTab.tabData.push(result);
+        this.updateDetail(this.config.objectId);
       }
     });
   }

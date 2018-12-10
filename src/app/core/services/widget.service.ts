@@ -26,6 +26,24 @@ export class WidgetService {
     EditorTextComponent: EditorTextComponent
   };
 
+  /** Used to configure components with their default settings */
+  widgetDefaultConfig: Array<any> = [
+    {
+      name: 'EditorTextComponent',
+      displayName: 'Text Editor',
+      type: 'AttributeEditor',
+      description: '',
+      defaultConfig: {
+        name: '',
+        type: EditorTextComponent,
+        attributeName: '',
+        data: {
+          instanceName: ''
+        }
+      }
+    }
+  ];
+
   /** @ignore */
   constructor() {}
 

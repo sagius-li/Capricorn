@@ -10,7 +10,9 @@
       }}</mat-icon>
     </a>
     <a class="info-button" [class.disabled-link]="!editMode" matTooltip="{{'key_add'|translate}}">
-      <mat-icon style="margin-left: 3px; margin-top: 3px;">playlist_add</mat-icon>
+      <mat-icon style="margin-left: 3px; margin-top: 3px;" (click)="onEditorAdd()"
+        >playlist_add</mat-icon
+      >
     </a>
     <a class="info-button" matTooltip="{{editTip|translate}}">
       <mat-icon style="margin-left: 3px; margin-top: 3px;" (click)="onConfig()">{{

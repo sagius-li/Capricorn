@@ -60,6 +60,7 @@ import { SearchComponent } from '../components/search/search.component';
 import { InfoBrandComponent } from '../components/info-brand/info-brand.component';
 import { InfoDetailComponent } from '../components/info-detail/info-detail.component';
 
+import { EditorCreatorComponent } from '../components/editor-creator/editor-creator.component';
 import { EditorTextComponent } from '../components/editor-text/editor-text.component';
 import { EditorTextConfigComponent } from '../components/editor-text/editor-text-config.component';
 
@@ -121,6 +122,7 @@ export function startup(startupService: StartupService) {
 
     SafeHtmlPipe,
 
+    EditorCreatorComponent,
     EditorTextComponent,
     EditorTextConfigComponent
   ],
@@ -134,6 +136,7 @@ export function startup(startupService: StartupService) {
     ResourceTableComponent,
     ResourceTableConfigComponent,
 
+    EditorCreatorComponent,
     EditorTextComponent,
     EditorTextConfigComponent
   ],
