@@ -694,6 +694,18 @@ export class ResourceService {
     let result = text;
     result = result.replace(new RegExp(`\\[\\/\\/loginUser\\]`, 'g'), this.loginUser.ObjectID);
 
+    // resolve <today()>
+    const re = new RegExp(`\\<today\\(\\)[+-]?\\d*\\>`, 'g');
+    let m: any;
+    do {
+      m = re.exec(result);
+      if (m && m.length > 0) {
+        const param = m[0].substring(8, m[0].length - 1);
+        const dt = param ? moment().add(+param, 'd') : moment();
+        result = result.replace(m[0], dt.format('YYYY-MM-DDT00:00:00'));
+      }
+    } while (m);
+
     return result;
   }
 }

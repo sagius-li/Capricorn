@@ -74,11 +74,6 @@ export class DashboardComponent implements OnInit, AfterViewInit {
                     "query": "/Request[RequestStatus='completed']"
                   },
                   {
-                    "name": "pending",
-                    "method": "resource/win/get/count",
-                    "query": "/Request[RequestStatus='pending']"
-                  },
-                  {
                     "name": "failed",
                     "method": "resource/win/get/count",
                     "query": "/Request[RequestStatus!='completed' and RequestStatus!='pending']"

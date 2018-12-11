@@ -143,7 +143,7 @@ export class UtilsService {
       const script = text.substring(1, text.length - 1).replace(/ /g, '');
       const scripts = script.split('()');
       switch (scripts[0].toLowerCase()) {
-        case 'now':
+        case 'today':
           const now = moment();
           if (scripts.length === 1) {
             return now.format(this.config.getConfig('datetimeDisplayFormat', this.datetimeFormat));
