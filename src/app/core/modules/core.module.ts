@@ -25,6 +25,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatCardModule } from '@angular/material/card';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatRadioModule } from '@angular/material/radio';
 
 import { NgxSpinnerModule } from 'ngx-spinner';
 
@@ -60,6 +61,7 @@ import { SearchComponent } from '../components/search/search.component';
 import { InfoBrandComponent } from '../components/info-brand/info-brand.component';
 import { InfoDetailComponent } from '../components/info-detail/info-detail.component';
 
+import { WidgetCreatorComponent } from '../components/widget-creator/widget-creator.component';
 import { EditorCreatorComponent } from '../components/editor-creator/editor-creator.component';
 import { EditorTextComponent } from '../components/editor-text/editor-text.component';
 import { EditorTextConfigComponent } from '../components/editor-text/editor-text-config.component';
@@ -94,6 +96,7 @@ export function startup(startupService: StartupService) {
     MatCardModule,
     MatTabsModule,
     MatDividerModule,
+    MatRadioModule,
     NgxSpinnerModule,
     ChartsModule,
     DialogsModule,
@@ -122,6 +125,7 @@ export function startup(startupService: StartupService) {
 
     SafeHtmlPipe,
 
+    WidgetCreatorComponent,
     EditorCreatorComponent,
     EditorTextComponent,
     EditorTextConfigComponent
@@ -136,6 +140,7 @@ export function startup(startupService: StartupService) {
     ResourceTableComponent,
     ResourceTableConfigComponent,
 
+    WidgetCreatorComponent,
     EditorCreatorComponent,
     EditorTextComponent,
     EditorTextConfigComponent

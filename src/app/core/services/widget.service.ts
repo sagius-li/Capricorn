@@ -29,6 +29,68 @@ export class WidgetService {
   /** Used to configure components with their default settings */
   widgetDefaultConfig: Array<any> = [
     {
+      name: 'ChartComponent',
+      displayName: 'Chart Widget',
+      type: 'Widget',
+      icon: 'pie_chart',
+      description: '',
+      defaultConfig: {
+        name: '',
+        type: ChartComponent,
+        description: '',
+        data: {
+          chartTitle: '',
+          labelConfig: {
+            color: 'black',
+            format: '{1}',
+            visible: false
+          },
+          legend: {
+            position: 'bottom',
+            visible: false
+          },
+          tooltipConfig: {
+            format: '{0}: {1}',
+            visible: false
+          }
+        }
+      }
+    },
+    {
+      name: 'StateCardComponent',
+      displayName: 'Card Widget',
+      type: 'Widget',
+      icon: 'assignment',
+      description: '',
+      defaultConfig: {
+        name: '',
+        type: StateCardComponent,
+        description: '',
+        data: {
+          iconText: 'settings',
+          title: 'dummy',
+          mainText: '{0}',
+          query: `/Person[DisplayName='dummy']`
+        }
+      }
+    },
+    {
+      name: 'ResourceTableComponent',
+      displayName: 'Resource Table',
+      type: 'Widget',
+      icon: 'today',
+      description: '',
+      defaultConfig: {
+        name: '',
+        type: ResourceTableComponent,
+        description: '',
+        data: {
+          title: '',
+          query: `/Person[DisplayName='dummy']`
+        }
+      }
+    },
+    {
       name: 'EditorTextComponent',
       displayName: 'Text Editor',
       type: 'AttributeEditor',

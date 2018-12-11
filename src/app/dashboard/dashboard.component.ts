@@ -10,8 +10,11 @@ import {
 import { WidgetService } from '../core/services/widget.service';
 import { SwapService } from '../core/services/swap.service';
 
+import { MatDialog, MatDialogRef } from '@angular/material';
+
 import { DchostDirective } from '../core/directives/dchost.directive';
 import { DcComponent } from '../core/models/dccomponent.interface';
+import { WidgetCreatorComponent } from '../core/components/widget-creator/widget-creator.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -29,7 +32,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   constructor(
     private widgetService: WidgetService,
     private cfr: ComponentFactoryResolver,
-    private swap: SwapService
+    private swap: SwapService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -257,5 +261,31 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   onEditbarCancel() {
     this.editMode = false;
+  }
+
+  onEditbarAdd() {
+    const dialogRef: MatDialogRef<any> = this.dialog.open(WidgetCreatorComponent, {
+      data: {}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result && result !== 'cancel') {
+        result.position = 'cell' + this.widgetConfig.length + 1;
+        result.colSpan = 2;
+        result.rowSpan = 2;
+        this.widgetConfig.push(result);
+
+        setTimeout(() => {
+          const componentFactory = this.cfr.resolveComponentFactory(result.type);
+          const host = this.dcHosts.find(h => h.hostName === result.position);
+          if (host) {
+            const viewContainerRef = host.viewContainerRef;
+            viewContainerRef.clear();
+            const componentRef = viewContainerRef.createComponent(componentFactory);
+            result.componentRef = componentRef;
+            (<DcComponent>componentRef.instance).data = result.data;
+          }
+        }, 0);
+      }
+    });
   }
 }

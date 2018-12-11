@@ -82,5 +82,7 @@
   "key_searchAllResources": "搜索所有资源",
   "key_toSingleColumn": "切换成单列",
   "key_toDualColumn": "切换成双列",
-  "key_attributeName": "属性名"
+  "key_attributeName": "属性名",
+  "key_addComponent": "添加控件",
+  "key_addWidget": "添加组件"
 }

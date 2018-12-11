@@ -82,5 +82,7 @@
   "key_searchAllResources": "Alle Ressourcen suchen",
   "key_toSingleColumn": "zu Einzelspalte wechseln",
   "key_toDualColumn": "zu 2er-Spalten wechseln",
-  "key_attributeName": "Attributname"
+  "key_attributeName": "Attributname",
+  "key_addComponent": "Komponent hinzufügen",
+  "key_addWidget": "Widget hinzufügen"
 }

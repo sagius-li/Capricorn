@@ -1,0 +1,11 @@
+.widget-icon-layer {
+  height: 50px;
+  color: darkgray;
+  margin-bottom: 10px;
+}
+
+.widget-icon {
+  font-size: 50xp;
+  height: 50px;
+  width: 50px;
+}

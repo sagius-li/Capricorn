@@ -82,5 +82,7 @@
   "key_searchAllResources": "serch all resources",
   "key_toSingleColumn": "change to single column",
   "key_toDualColumn": "change to dual column",
-  "key_attributeName": "attribute name"
+  "key_attributeName": "attribute name",
+  "key_addComponent": "add component",
+  "key_addWidget": "add widget"
 }

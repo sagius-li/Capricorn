@@ -1,0 +1,33 @@
+<h3 mat-dialog-title>{{ 'key_addWidget' | translate }}</h3>
+<div mat-dialog-content fxLayout="column" fxLayoutGap="10px;">
+  <mat-radio-group [(ngModel)]="selectedValue" (change)="onChange()" style="margin-left: 20px;">
+    <mat-radio-button *ngFor="let com of widgetComponents" [value]="com.name">
+      <div fxLayout="column" fxLayoutAlign="center center" style="margin: 20px 30px 20px 10px;">
+        <div fxFlex="none" class="widget-icon-layer">
+          <mat-icon class="widget-icon" style="font-size: 50px;">{{ com.icon }}</mat-icon>
+        </div>
+        <div fxFlex="none">{{ com.displayName }}</div>
+      </div>
+    </mat-radio-button>
+  </mat-radio-group>
+</div>
+<div
+  mat-dialog-actions
+  fxLayout="row"
+  fxLayoutAlign="start center"
+  fxLayoutGap="20px"
+  style="margin-top: 20px;"
+>
+  <button
+    fxFlex="none"
+    mat-button
+    [mat-dialog-close]="selectedItem"
+    [disabled]="!selectedItem"
+    style="width: 180px;"
+  >
+    {{ 'key_submit' | translate }}
+  </button>
+  <button fxFlex="none" mat-button mat-dialog-close="cancel" style="width: 180px;">
+    {{ 'key_cancel' | translate }}
+  </button>
+</div>
