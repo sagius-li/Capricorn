@@ -15,6 +15,7 @@
   "key_apply": "apply",
   "key_settings": "settings",
   "key_login": "Login",
+  "key_logout": "Logout",
   "key_userName": "User Name",
   "key_password": "Password",
   "key_windowsLogin": "Login with On-Prem AD account",

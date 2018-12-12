@@ -60,6 +60,7 @@ import { SigninComponent } from '../components/signin/signin.component';
 import { SearchComponent } from '../components/search/search.component';
 import { InfoBrandComponent } from '../components/info-brand/info-brand.component';
 import { InfoDetailComponent } from '../components/info-detail/info-detail.component';
+import { ProfileComponent } from '../components/profile/profile.component';
 
 import { WidgetCreatorComponent } from '../components/widget-creator/widget-creator.component';
 import { EditorCreatorComponent } from '../components/editor-creator/editor-creator.component';
@@ -122,6 +123,7 @@ export function startup(startupService: StartupService) {
     SearchComponent,
     InfoBrandComponent,
     InfoDetailComponent,
+    ProfileComponent,
 
     SafeHtmlPipe,
 
@@ -195,6 +197,7 @@ export function startup(startupService: StartupService) {
     SearchComponent,
     InfoBrandComponent,
     InfoDetailComponent,
+    ProfileComponent,
 
     EditorTextComponent
   ]

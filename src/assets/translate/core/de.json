@@ -15,6 +15,7 @@
   "key_apply": "umsetzen",
   "key_settings": "Einstellungen",
   "key_login": "Anmelden",
+  "key_logout": "Abmelden",
   "key_userName": "Benutzername",
   "key_password": "Kennwort",
   "key_windowsLogin": "Anmelden mit On-Prem AD Konto",
